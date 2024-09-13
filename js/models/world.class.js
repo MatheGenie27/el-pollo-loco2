@@ -4,25 +4,12 @@ class World{
     keyboard;
 
     character = new Character();
-    enemies = [
-    new Chicken(),
-    new Chicken(),
-    new Chicken()
-    ];
-    clouds = [
-        new Cloud(),
-        new Cloud(),
-        new Cloud(),
-        new Cloud(),
-    ];
 
-    backgroundObjects = [
-        new BackgroundObject('../img/5_background/layers/air.png',0,0),
-        new BackgroundObject('../img/5_background/layers/3_third_layer/1.png',0,0),
-        new BackgroundObject('../img/5_background/layers/2_second_layer/1.png',0,0),
-        new BackgroundObject('../img/5_background/layers/1_first_layer/1.png',0,0)
+    camera_x = 0;
 
-    ]
+    level = level1;
+
+    
 
 
 
@@ -45,17 +32,19 @@ setWorld(){
         this.ctx.clearRect(0,0, this.canvas.width, this.canvas.height);
 
 
+        this.ctx.translate(this.camera_x,0); //forward
 
-        this.addObjectsToMap(this.backgroundObjects);
+        this.addObjectsToMap(this.level.backgroundObjects);
 
 
         this.addToMap(this.character);
 
-        this.addObjectsToMap(this.enemies);
+        this.addObjectsToMap(this.level.enemies);
 
-        this.addObjectsToMap(this.clouds);
+        this.addObjectsToMap(this.level.clouds);
 
 
+        this.ctx.translate(-this.camera_x,0); //backward
 
 
         //function draw executes again and again
