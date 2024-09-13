@@ -4,6 +4,8 @@ x=100;
 y= 175;
 width=100;
 height=250;
+speed = 2;
+
 
 
 IMAGES_WALKING = [
@@ -16,7 +18,7 @@ IMAGES_WALKING = [
 
 ];
 
-currentImage = 0;
+
 
 
 constructor(){
@@ -35,12 +37,46 @@ jump(){
 
 
 animate(){
+
+    //movement
+    setInterval(()=> {
+        if (this.world.keyboard.RIGHT){
+            this.x += this.speed;
+            this.otherDirection=false;
+        }
+
+        if(this.world.keyboard.LEFT){
+            this.x-= this.speed;
+            this.otherDirection=true;
+        }
+
+    },1000/60)
+
+
+
+
+    //animation
     setInterval(() => {
+
+        if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT){
+                     
         let i = this.currentImage % this.IMAGES_WALKING.length;
         let path = this.IMAGES_WALKING[i];
         this.img = this.imageCache[path];
         this.currentImage++;
+        }
+
+
+
+
+
+
     }, 1000/10);
+
+
+
+
+
 }
 
 

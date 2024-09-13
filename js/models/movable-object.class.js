@@ -4,7 +4,8 @@ class MovableObject{
     img;
     imageCache={};
     speed;
-
+    world;
+    otherDirection = false;
     currentImage = 0;
 
     loadImage(path){
