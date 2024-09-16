@@ -20,12 +20,26 @@ constructor(canvas, keyboard){
     this.character = new Character();
     this.setWorld();
     this.draw();
+    this.checkCollisions();
 }
 
 
 setWorld(){
     this.character.world = this;
 }
+
+
+checkCollisions(){
+    setInterval(()=> {
+        this.level.enemies.forEach( (element)=>{
+            if(this.character.isColliding(element)){
+                console.log('Collision with Character: ', element);
+            }
+        })
+    }, 1000/1)
+}
+
+
 
 
     draw(){
