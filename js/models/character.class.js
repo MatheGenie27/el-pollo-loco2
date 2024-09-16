@@ -5,6 +5,9 @@ y= 175;
 width=100;
 height=250;
 speed = 2;
+ground_y = 180;
+speedY = 0;
+accelerationY = 1;
 
 IMAGES_IDLE = [
     'img/2_character_pepe/1_idle/idle/I-1.png',
@@ -80,18 +83,25 @@ IMAGES_HURT = [
 
 
 constructor(){
+    
     super();
+    
     super.loadImage('../img/2_character_pepe/2_walk/W-21.png');
     super.loadImages(this.IMAGES_WALKING);
+    super.loadImages(this.IMAGES_IDLE);
+    super.loadImages(this.IMAGES_LONGIDLE);
+    super.loadImages(this.IMAGES_DEAD);
+    super.loadImages(this.IMAGES_HURT);
+    super.loadImages(this.IMAGES_JUMPING);
+    this.y = 480 - this.height - this.ground_y;
 
     this.animate();
+    this.applyGravity();
 }
 
 
 
-jump(){
 
-}
 
 
 animate(){
@@ -99,14 +109,22 @@ animate(){
     //movement
     setInterval(()=> {
         if (this.world.keyboard.RIGHT && this.x <= this.world.level.level_end_x){
-            this.x += this.speed;
+            this.moveRight();   
             this.otherDirection=false;
         }
 
-        if(this.world.keyboard.LEFT && this.x>=-200){
-            this.x-= this.speed;
+        if(this.world.keyboard.LEFT && this.x >= -200){
+            
+            this.moveLeft();
             this.otherDirection=true;
+           
         }
+
+
+        if(this.world.keyboard.UP && !this.isAboveGround()){
+            this.jump();
+        }
+
 
         this.world.camera_x = - this.x +100;
 
@@ -118,10 +136,18 @@ animate(){
     //animation
     setInterval(() => {
 
-        if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT){
+       
+       
+        if (this.isAboveGround()){
+            this.playAnimation(this.IMAGES_JUMPING); 
+        } else 
+               
+            if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT){
                      
-        this.playAnimation(this.IMAGES_WALKING);
-        }
+            this.playAnimation(this.IMAGES_WALKING);
+            } 
+
+       
 
 
 

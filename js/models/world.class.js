@@ -2,8 +2,8 @@ class World{
     canvas;
     ctx;
     keyboard;
-
-    character = new Character();
+    character;
+    
 
     camera_x = 0;
 
@@ -17,6 +17,7 @@ constructor(canvas, keyboard){
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d');
     this.keyboard = keyboard;
+    this.character = new Character();
     this.setWorld();
     this.draw();
 }
@@ -66,7 +67,15 @@ setWorld(){
             this.flipImage(mo);
         }
 
-        this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
+        mo.draw(this.ctx);
+        mo.drawBorder(this.ctx);
+        
+
+
+        
+
+
+
 
         if (mo.otherDirection){
             this.flipImageBack(mo);
