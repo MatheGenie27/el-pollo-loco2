@@ -11,6 +11,7 @@ class World{
     statusBarHealth; 
     statusBarCoin;
     statusBarBottle;
+    throwableObjects = [];
 
 
     
@@ -25,9 +26,10 @@ constructor(canvas, keyboard){
     this.statusBarHealth = new StatusBarHealth();
     this.statusBarBottle = new StatusBarBottle();
     this.statusBarCoin = new StatusBarCoin();
+    this.throwableObjects.push(new ThrowableObject);
     this.setWorld();
     this.draw();
-    this.checkCollisions();
+    this.run();
 }
 
 
@@ -36,8 +38,14 @@ setWorld(){
 }
 
 
-checkCollisions(){
+run(){
     setInterval(()=> {
+        this.checkCollisions();
+        this.checkThrowables();
+    }, 1000/200)
+}
+
+    checkCollisions(){
         this.level.enemies.forEach( (element)=>{
             if(this.character.isColliding(element)){
                 
@@ -47,9 +55,14 @@ checkCollisions(){
                 //console.log('Collision with Character: ', element, this.character.energy);
             }
         })
-    }, 1000/1)
-}
+    }
 
+    checkThrowables(){
+        if (this.keyboard.SPACE){
+            let bottle = new ThrowableObject(this.character.x+40, this.character.y+120);
+            this.throwableObjects.push(bottle);
+        }
+}
 
 
 
@@ -83,6 +96,7 @@ checkCollisions(){
 
 
         this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.throwableObjects);
 
        
 
