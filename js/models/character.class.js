@@ -78,6 +78,10 @@ IMAGES_HURT = [
 
 ];
 
+WALKING_SOUND = new Audio('audio/sfx/footsteps_of_someone0.mp3');
+
+
+
 
 
 
@@ -108,15 +112,20 @@ animate(){
 
     //movement
     setInterval(()=> {
+
+        this.WALKING_SOUND.pause();
+
         if (this.world.keyboard.RIGHT && this.x <= this.world.level.level_end_x){
             this.moveRight();   
             this.otherDirection=false;
+            this.WALKING_SOUND.play();
         }
 
         if(this.world.keyboard.LEFT && this.x >= -200){
             
             this.moveLeft();
             this.otherDirection=true;
+            this.WALKING_SOUND.play();
            
         }
 
