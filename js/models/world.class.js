@@ -52,7 +52,7 @@ run(){
                 this.character.hit();
                 this.statusBarHealth.setPercentage(this.character.energy);
                 
-                //console.log('Collision with Character: ', element, this.character.energy);
+                console.log('Collision with Character: ', element, this.character.energy);
             }
         })
     }

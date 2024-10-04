@@ -81,7 +81,13 @@ IMAGES_HURT = [
 WALKING_SOUND = new Audio('audio/sfx/footsteps_of_someone0.mp3');
 
 
-
+dead = false;
+run = false;
+idle = false;
+longIdle =false;
+hurt = false;
+jumping = false;
+lastInput;
 
 
 
@@ -104,7 +110,14 @@ constructor(){
 }
 
 
-
+resetFlag(){
+    this.dead = false;
+    this.run = false;
+    this.idle = false;
+    this.longIdle =false;
+    this.hurt = false;
+    this.jumping = false; 
+}
 
 
 
@@ -132,6 +145,7 @@ animate(){
 
         if(this.world.keyboard.UP && !this.isAboveGround()){
             this.jump();
+            this.jumping=true;
         }
 
 
@@ -145,22 +159,26 @@ animate(){
     //animation
     setInterval(() => {
 
-       if (this.isDead()){
-             this.playAnimation (this.IMAGES_DEAD);
-               
-        } else
-        if(this.isHurt()){
-            this.playAnimation(this.IMAGES_HURT);
-        }else
-
-        if (this.isAboveGround()){
-            this.playAnimation(this.IMAGES_JUMPING); 
-        } else 
-               
-            if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT){
-                     
-            this.playAnimation(this.IMAGES_WALKING);
-            } 
+        switch (true) {
+            case this.dead:
+                this.playAnimation(this.IMAGES_DEAD);
+                break;
+            case this.hurt:
+                this.playAnimation(this.IMAGES_HURT);
+                break;
+            case this.jumping:
+                this.playAnimation(this.IMAGES_JUMPING);
+                break;
+            case this.falling:
+                this.playAnimation(this.IMAGES_JUMPING);
+                break;    
+            case this.run:
+                this.playAnimation(this.IMAGES_WALKING);
+                break;
+            default:
+                this.playAnimation(this.IMAGES_IDLE); // Standardanimation für Inaktivität
+                break;
+        }
 
        
 
@@ -171,6 +189,44 @@ animate(){
 
     }, 1000/10);
 
+    //updateFlag
+    setInterval( () => {
+
+        this.resetFlag();
+
+        if(this.isDead()){
+            this.dead = true;
+        }
+
+        if( (this.world.keyboard.LEFT || this.world.keyboard.RIGHT) && !this.isAboveGround() ){
+            this.run = true;
+        }
+
+        if (this.isAboveGround()){
+            this.falling = true;
+        } else {
+            this.falling = false;
+        }
+
+        if (this.isHurt()){
+            this.hurt=true;
+        }
+
+        if (this.isDead()){
+            this.dead = true;
+        }
+
+        //idle
+
+        //longIdle
+
+
+    }, 1000/10);
+
+}    
+
+
+
 
 
 
@@ -178,5 +234,3 @@ animate(){
 }
 
 
-
-}

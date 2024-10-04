@@ -34,7 +34,9 @@ class MovableObject extends DrawableObject{
     isHurt(){
         let timepassed = new Date().getTime() - this.lastHit;
         timepassed = timepassed / 1000;
-        return timepassed < 1;
+        console.log("is hurt: " +timepassed < 1.5);
+        return timepassed < 1.5;
+        
     }
 
 
