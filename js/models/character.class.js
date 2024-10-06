@@ -4,10 +4,21 @@ x=100;
 y= 175;
 width=100;
 height=250;
+
+coll_x;
+coll_y;
+coll_width;
+coll_height;
+
+
+
+
 speed = 2;
 ground_y = 180;
 speedY = 0;
 accelerationY = 1;
+
+
 
 IMAGES_IDLE = [
     'img/2_character_pepe/1_idle/idle/I-1.png',
@@ -124,6 +135,13 @@ resetLongIdleTime(){
     this.longIdleTime = new Date().getTime();
 }
 
+updateCollisionBox(){
+    this.coll_x = this.x +15;
+    this.coll_y = this.y +100;
+    this.coll_width= this.width -40;
+    this.coll_height= this.height -110;
+}
+
 
 animate(){
 
@@ -154,6 +172,8 @@ animate(){
 
 
         this.world.camera_x = - this.x +100;
+
+        this.updateCollisionBox();
 
     },1000/60)
 

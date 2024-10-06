@@ -40,6 +40,16 @@ class DrawableObject{
 
     }
 
+    drawCollisionBox(ctx){
+        if(this instanceof Character){
+            ctx.beginPath();
+            ctx.linewidth= "5";
+            ctx.strokeStyle = "red";
+            ctx.rect(this.coll_x,this.coll_y,this.coll_width,this.coll_height);
+            ctx.stroke();
+            }
+    }
+
 
     playAnimation(images){
         let i = this.currentImage % images.length;

@@ -81,6 +81,10 @@ run(){
         this.addObjectsToMap(this.level.backgroundObjects);
 
         this.addObjectsToMap(this.level.clouds);
+
+
+        this.addObjectsToMap(this.throwableObjects);
+
         this.addToMap(this.character);
 
 
@@ -101,8 +105,7 @@ run(){
 
 
         this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap(this.throwableObjects);
-
+        
        
 
 
@@ -130,6 +133,7 @@ run(){
 
         mo.draw(this.ctx);
         mo.drawBorder(this.ctx);
+        mo.drawCollisionBox(this.ctx);
         
 
 
@@ -148,10 +152,18 @@ run(){
             this.ctx.translate(mo.width,0);
             this.ctx.scale(-1, 1);
             mo.x = mo.x *-1;
+            if (mo instanceof Character){
+                mo.coll_x = mo.coll_x *-1;
+            }
     }
 
     flipImageBack(mo){
         mo.x = mo.x * -1;
+        if (mo instanceof Character){
+            mo.coll_x = mo.coll_x *-1;
+        }
+
+
             this.ctx.restore();
     }
 
