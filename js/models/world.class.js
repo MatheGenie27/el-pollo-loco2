@@ -150,10 +150,12 @@ run(){
     flipImage(mo){
         this.ctx.save();
             this.ctx.translate(mo.width,0);
+            
             this.ctx.scale(-1, 1);
             mo.x = mo.x *-1;
             if (mo instanceof Character){
-                mo.coll_x = mo.coll_x *-1;
+                mo.coll_x = (mo.coll_x -30 )*-1;
+                
             }
     }
 
