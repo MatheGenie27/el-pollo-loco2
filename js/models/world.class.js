@@ -105,6 +105,7 @@ run(){
 
 
         this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.level.collectables);
         
        
 
