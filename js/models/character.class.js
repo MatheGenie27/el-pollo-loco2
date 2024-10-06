@@ -88,6 +88,7 @@ longIdle =false;
 hurt = false;
 jumping = false;
 lastInput;
+longIdleTime = 0;
 
 
 
@@ -119,6 +120,9 @@ resetFlag(){
     this.jumping = false; 
 }
 
+resetLongIdleTime(){
+    this.longIdleTime = new Date().getTime();
+}
 
 
 animate(){
@@ -162,22 +166,43 @@ animate(){
         switch (true) {
             case this.dead:
                 this.playAnimation(this.IMAGES_DEAD);
+                this.resetLongIdleTime();
                 break;
             case this.hurt:
                 this.playAnimation(this.IMAGES_HURT);
+                this.resetLongIdleTime();
                 break;
             case this.jumping:
                 this.playAnimation(this.IMAGES_JUMPING);
+                this.resetLongIdleTime();
                 break;
             case this.falling:
                 this.playAnimation(this.IMAGES_JUMPING);
+                this.resetLongIdleTime();
                 break;    
             case this.run:
                 this.playAnimation(this.IMAGES_WALKING);
+                this.resetLongIdleTime();
                 break;
             default:
-                this.playAnimation(this.IMAGES_IDLE); // Standardanimation für Inaktivität
-                break;
+                    // Standardanimation für Inaktivität (Idle)
+                    if (!this.longIdleTime){
+                        this.resetLongIdleTime();
+                    }
+                    let currentTime = new Date().getTime();
+                    
+                    if ((currentTime - this.longIdleTime) > 3000){
+                        this.playAnimation(this.IMAGES_LONGIDLE);
+                    } else {
+                        this.playAnimation(this.IMAGES_IDLE);
+
+                    }
+                    
+                    
+                    
+                    
+            
+                    break;
         }
 
        

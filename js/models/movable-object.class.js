@@ -19,6 +19,21 @@ class MovableObject extends DrawableObject{
 
 
     hit(){
+
+        if (this instanceof Character){
+            
+            if(!this.isHurt()){
+                
+                this.loseEnergy();
+            }
+
+        } else {
+
+            this.loseEnergy();
+        }
+    }
+
+    loseEnergy(){
         this.energy -= 5;
         if (this.energy < 0){
             this.energy = 0;
@@ -34,7 +49,7 @@ class MovableObject extends DrawableObject{
     isHurt(){
         let timepassed = new Date().getTime() - this.lastHit;
         timepassed = timepassed / 1000;
-        console.log("is hurt: " +timepassed < 1.5);
+        
         return timepassed < 1.5;
         
     }

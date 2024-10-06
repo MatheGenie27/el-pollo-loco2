@@ -12,6 +12,7 @@ class World{
     statusBarCoin;
     statusBarBottle;
     throwableObjects = [];
+    lastThrow = 0;
 
 
     
@@ -42,7 +43,8 @@ run(){
     setInterval(()=> {
         this.checkCollisions();
         this.checkThrowables();
-    }, 1000/200)
+        //console.log("welt läuft und checked Kollsionen");
+    }, 1000/60)
 }
 
     checkCollisions(){
@@ -58,9 +60,12 @@ run(){
     }
 
     checkThrowables(){
-        if (this.keyboard.SPACE){
+        let currentTime = new Date().getTime();
+        if (this.keyboard.SPACE && (currentTime - this.lastThrow) > 300){
             let bottle = new ThrowableObject(this.character.x+40, this.character.y+120);
             this.throwableObjects.push(bottle);
+            this.lastThrow = currentTime;
+            this.character.resetLongIdleTime();
         }
 }
 
