@@ -1,0 +1,3 @@
+class bottle extends collectableObject {
+    
+}
