@@ -45,5 +45,28 @@ const level1 = new Level(
 
     [
         //collectables
+        
+        new coin(),
+        new coin(),
+        new coin(),
+        new coin(),
+        new coin(),
+        new coin(),
+        new coin(),
+        new coin(),
+        new coin(),
+        new coin(),
+
+        new bottle(),
+        new bottle(),
+        new bottle(),
+        new bottle(),
+        new bottle(),
+        new bottle(),
+        new bottle(),
+        new bottle(),
+        new bottle(),
+        new bottle(),
+        new bottle()
     ]
 );

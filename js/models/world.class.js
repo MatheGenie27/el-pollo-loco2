@@ -62,7 +62,19 @@ run(){
     checkThrowables(){
         let currentTime = new Date().getTime();
         if (this.keyboard.SPACE && (currentTime - this.lastThrow) > 300){
-            let bottle = new ThrowableObject(this.character.x+40, this.character.y+120);
+            let bottle;
+            if(this.character.otherDirection){
+                
+                bottle = new ThrowableObject(this.character.x+10, this.character.y+120, -10);
+            } else {
+                
+                bottle = new ThrowableObject(this.character.x+40, this.character.y+120, 10);
+            
+            }
+
+
+            
+            
             this.throwableObjects.push(bottle);
             this.lastThrow = currentTime;
             this.character.resetLongIdleTime();
