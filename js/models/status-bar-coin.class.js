@@ -9,7 +9,7 @@ class StatusBarCoin extends StatusBar{
         "img/7_statusbars/1_statusbar/1_statusbar_coin/green/100.png",
     ]
 
-    percentage = 100;
+    percentage = 0;
 
     constructor(){
         super();

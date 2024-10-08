@@ -24,6 +24,7 @@ setPercentage(percentage){
     let imagePath = this.IMAGES[this.calculateImgIndex()]
     this.img = this.imageCache[imagePath];
     
+    
    
 }
 

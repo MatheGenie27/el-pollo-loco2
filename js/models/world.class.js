@@ -13,6 +13,8 @@ class World{
     statusBarBottle;
     throwableObjects = [];
     lastThrow = 0;
+    totalCoins;
+    totalBottles;
 
 
     
@@ -48,6 +50,20 @@ run(){
 }
 
     checkCollisions(){
+        
+
+
+        this.checkCollisionsEnemies();
+
+        this.checkCollisionsCollectables();
+
+
+        
+
+
+    }
+
+    checkCollisionsEnemies(){
         this.level.enemies.forEach( (element)=>{
             if(this.character.isColliding(element)){
                 
@@ -57,23 +73,70 @@ run(){
                 console.log('Collision with Character: ', element, this.character.energy);
             }
         })
+    }
 
+    checkCollisionsCollectables(){
+        for (let i = this.level.collectables.length - 1; i >= 0; i--) {
+            let element = this.level.collectables[i];
+            if (this.character.isColliding(element)) {
+                //console.log("Collision with Character with Collectable: " + element);
+                if (element instanceof Coin){
 
-        this.level.collectables.forEach( (element) => {
-            if(this.character.isColliding(element)){
-                console.log('Collision with Character: ', element);
+                    this.level.collectables.splice(i, 1);
+                    this.addCoin();
+                    console.log("COIN");
+                } else if (element instanceof Bottle){
+                    this.level.collectables.splice(i, 1);
+                    this.addBottle();
+                    console.log("BOTTLE");
+                }
+                //this.level.collectables.splice(i, 1);  // Entfernt das Element
+                console.log(this.level.collectables);
             }
         }
- 
-        )
+    }
 
+    addCoin(){
+        if(!this.totalCoins){
+        
+        this.totalCoins = this.countCollectable(Coin);  
+        }
 
+        this.character.coins++;
+        console.log("coin added. total: "+this.character.coins);
+        this.statusBarCoin.setPercentage(Math.round(this.character.coins / this.totalCoins * 100));
+        console.log(this.statusBarCoin.percentage +"Prozent");
+
+    }
+
+    addBottle(){
+        if(!this.totalBottles){
+        
+            this.totalBottles = this.countCollectable(Bottle);  
+            }
+    
+            this.character.bottles++;
+            console.log("bottle added. total: "+this.character.bottles);
+            this.statusBarBottle.setPercentage(this.character.bottles / this.totalBottles * 100);
+    
+    }
+
+    countCollectable(type){
+        let count = 1;
+        for (let element of this.level.collectables){
+            if (element instanceof type){
+                count++;
+            }
+        }
+        console.log("total " +count +type);
+        return count;
     }
 
     checkThrowables(){
         let currentTime = new Date().getTime();
         if (this.keyboard.SPACE && (currentTime - this.lastThrow) > 300){
             let bottle;
+
             if(this.character.otherDirection){
                 
                 bottle = new ThrowableObject(this.character.x+10, this.character.y+120, -10);
@@ -84,10 +147,13 @@ run(){
             }
 
 
-            
+            if (this.character.bottles>0){
             
             this.throwableObjects.push(bottle);
             this.lastThrow = currentTime;
+            this.character.bottles--;
+            this.statusBarBottle.setPercentage(this.character.bottles / this.totalBottles * 100);
+            }
             this.character.resetLongIdleTime();
         }
 }

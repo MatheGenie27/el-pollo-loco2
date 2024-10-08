@@ -1,9 +1,10 @@
-const level1 = new Level(
+let level1 = new Level(
+
 
 
 
     [
-        new Chick,
+     //   new Chick,
     //new Chicken(),
    // new Chicken(),
     //new Chicken(),
@@ -47,27 +48,27 @@ const level1 = new Level(
     [
         //collectables
         
-        //new Coin(),
-        //new coin(),
-        //new coin(),
-        //new coin(),
-        //new coin(),
-        //new coin(),
-        //new coin(),
-        //new coin(),
-        //new coin(),
-        //new coin(),
+        new Coin(),
+        new Coin(),
+        new Coin(),
+        new Coin(),
+        new Coin(),
+        new Coin(),
+        new Coin(),
+        new Coin(),
+        new Coin(),
+        new Coin(),
 
-        //new Bottle(),
-        //new bottle(),
-        //new bottle(),
-        //new bottle(),
-        //new bottle(),
-        //new bottle(),
-        //new bottle(),
-        //new bottle(),
-        //new bottle(),
-        //new bottle(),
-        //new bottle()
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle()
     ]
 );

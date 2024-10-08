@@ -31,7 +31,7 @@ class Coin extends CollectableObject {
         super.loadImage('./img/8_coin/coin_1.png');
         super.loadImages(this.IMAGES);
 
-        this.x = 200 + Math.random()*1500;
+        this.x = 200 + Math.random()*1800;
 
         this.initCollisionBox();
         
