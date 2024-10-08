@@ -104,7 +104,7 @@ run(){
 
         this.character.coins++;
         console.log("coin added. total: "+this.character.coins);
-        this.statusBarCoin.setPercentage(Math.round(this.character.coins / this.totalCoins * 100));
+        this.updateStatusBarCoins();
         console.log(this.statusBarCoin.percentage +"Prozent");
 
     }
@@ -117,7 +117,8 @@ run(){
     
             this.character.bottles++;
             console.log("bottle added. total: "+this.character.bottles);
-            this.statusBarBottle.setPercentage(this.character.bottles / this.totalBottles * 100);
+            this.updateStatusBarBottle();
+            
     
     }
 
@@ -148,17 +149,27 @@ run(){
 
 
             if (this.character.bottles>0){
-            
-            this.throwableObjects.push(bottle);
-            this.lastThrow = currentTime;
-            this.character.bottles--;
-            this.statusBarBottle.setPercentage(this.character.bottles / this.totalBottles * 100);
+                this.throwBottle(bottle);
+                this.lastThrow = currentTime;
             }
             this.character.resetLongIdleTime();
         }
-}
+    }
 
+    throwBottle(bottle){
+        this.throwableObjects.push(bottle);
+        this.character.bottles--;
+        this.updateStatusBarBottle();
+        
+    }
 
+    updateStatusBarBottle(){
+        this.statusBarBottle.setPercentage(this.character.bottles / this.totalBottles * 100);
+    }
+
+    updateStatusBarCoins(){
+        this.statusBarCoin.setPercentage(Math.round(this.character.coins / this.totalCoins * 100));
+    }
 
     draw(){
 
