@@ -57,6 +57,17 @@ run(){
                 console.log('Collision with Character: ', element, this.character.energy);
             }
         })
+
+
+        this.level.collectables.forEach( (element) => {
+            if(this.character.isColliding(element)){
+                console.log('Collision with Character: ', element);
+            }
+        }
+ 
+        )
+
+
     }
 
     checkThrowables(){

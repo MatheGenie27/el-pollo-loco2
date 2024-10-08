@@ -143,6 +143,8 @@ updateCollisionBox(){
 }
 
 
+
+
 animate(){
 
     //movement

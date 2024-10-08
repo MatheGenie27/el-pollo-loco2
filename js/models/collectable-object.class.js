@@ -1,3 +1,3 @@
-class collectableObject extends DrawableObject {
+class CollectableObject extends DrawableObject {
     
 }

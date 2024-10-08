@@ -5,6 +5,11 @@ class Chicken extends MovableObject{
     width= 50;
     height= 80;
     speed = 0.3;
+
+    coll_height = 67;
+    coll_width = 50;;
+    coll_x;
+    coll_y = 354;
     
 
     IMAGES_WALKING=[
@@ -19,11 +24,15 @@ class Chicken extends MovableObject{
         super.loadImage('../img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
         super.loadImages(this.IMAGES_WALKING);
 
-        this.x = 500 + Math.random()*1500;
+        //this.x = 500 + Math.random()*1500;
         this.speed = 0.15 + Math.random()*0.25;
         this.animate();
     }
 
+    updateCollisionBox(){
+        this.coll_x = this.x;
+        
+    }
 
     animate(){
         setInterval(() => {
@@ -33,6 +42,7 @@ class Chicken extends MovableObject{
 
         setInterval(()=> {
             this.moveLeft();
+            this.updateCollisionBox();
         }, 1000/60);
        
 

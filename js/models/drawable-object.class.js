@@ -30,7 +30,7 @@ class DrawableObject{
     }
 
     drawBorder(ctx){
-        if(this instanceof Chicken || this instanceof Character){
+        if(this instanceof Chicken || this instanceof Character || this instanceof Bottle || this instanceof Coin || this instanceof ThrowableObject || this instanceof Endboss || this instanceof Chick){
         ctx.beginPath();
         ctx.linewidth= "5";
         ctx.strokeStyle = "blue";
@@ -41,7 +41,7 @@ class DrawableObject{
     }
 
     drawCollisionBox(ctx){
-        if(this instanceof Character){
+        if(this instanceof Character || this instanceof Coin || this instanceof Bottle || this instanceof Chicken || this instanceof Endboss || this instanceof ThrowableObject || this instanceof Chick){
             ctx.beginPath();
             ctx.linewidth= "5";
             ctx.strokeStyle = "red";

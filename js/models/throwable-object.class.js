@@ -5,6 +5,11 @@ class ThrowableObject extends MovableObject{
     accelerationY = 1;
     ground_y = 370;
 
+    coll_height = 30;
+    coll_width = 28;
+    coll_x = 100;
+    coll_y = 100;
+
     IMAGES_THROW = [
         'img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
         'img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png',
@@ -48,6 +53,12 @@ class ThrowableObject extends MovableObject{
         this.throw(x,y);
 
     }
+
+    updateCollisionBox(){
+        this.coll_x = this.x+16 ;
+        this.coll_y = this.y +14 ;
+       //console.log("collisionbox update von throwable");
+    }
     
     throw(){
         this.speedY = -20;
@@ -63,6 +74,7 @@ class ThrowableObject extends MovableObject{
                 this.landed = true;
                 }
             }
+            this.updateCollisionBox();
         }, 1000/60) 
 
     } 

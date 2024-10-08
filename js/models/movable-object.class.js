@@ -9,6 +9,11 @@ class MovableObject extends DrawableObject{
     energy = 100;
     lastHit = 0;
 
+    coll_x;
+    coll_y;
+    coll_width;
+    coll_height;
+
     
 
     constructor(){
@@ -56,11 +61,13 @@ class MovableObject extends DrawableObject{
 
 
 
-    isColliding(mo){
-        return  this.x + this.width > mo.x &&
-                this.y + this.height > mo.y &&
-                this.x < mo.x && 
-                this.y < mo.y + mo.height;
+    isColliding(mo) {
+        // Check if this object is colliding with mo (the other object)
+       // console.log("isColliding Aufruf in MovableObejct)
+        return this.coll_x < mo.coll_x + mo.coll_width &&       // this object's left is to the left of mo's right
+               this.coll_x + this.coll_width > mo.coll_x && // this object's right is to the right of mo's left
+               this.coll_y < mo.coll_y + mo.coll_height &&       // this object's top is above mo's bottom
+               this.coll_y + this.coll_height > mo.coll_y;   // this object's bottom is below mo's top
     }
 
 
@@ -104,6 +111,7 @@ class MovableObject extends DrawableObject{
         
     }
 
+    
     
 
 
