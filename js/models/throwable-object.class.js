@@ -10,6 +10,8 @@ class ThrowableObject extends MovableObject{
     coll_x = 100;
     coll_y = 100;
 
+    
+
     IMAGES_THROW = [
         'img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
         'img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png',
@@ -34,6 +36,7 @@ class ThrowableObject extends MovableObject{
     ]
 
     landed = false;
+    splashed = false;
 
 
     constructor(x,y,speedX){
@@ -59,6 +62,16 @@ class ThrowableObject extends MovableObject{
         this.coll_y = this.y +14 ;
        //console.log("collisionbox update von throwable");
     }
+
+    splash(){
+        this.speedY = 0;
+        this.speedX = 0;
+        this.splashed = true;
+    }
+
+    respond(){
+        console.log("Ich bin eine Flasche");
+    }
     
     throw(){
         this.speedY = -20;
@@ -67,7 +80,8 @@ class ThrowableObject extends MovableObject{
         setInterval( () => {
             if (this.isAboveGround()){
             this.x += this.speedX;
-            this.playAnimation(this.IMAGES_THROW);
+                       
+
             } else {
                 if(!this.landed){
                 this.loadImage(this.IMAGES_ONGROUND[Math.round(Math.random())]);
@@ -76,6 +90,16 @@ class ThrowableObject extends MovableObject{
             }
             this.updateCollisionBox();
         }, 1000/60) 
+
+
+        setInterval( ()=> {
+            if (this.isAboveGround() && this.splashed === false){
+                this.playAnimation(this.IMAGES_THROW);
+            } else {
+                this.playAnimation(this.IMAGES_SPLASH);
+            }
+
+        },1000/10)
 
     } 
     

@@ -1,12 +1,12 @@
 class Coin extends CollectableObject {
-
+    static allCoins = [];
 
     x = 200;
     y = 250;
     width = 150;
     height = 150;
 
-    coll_x=200;
+    coll_x;
     coll_y=250;
     coll_width=150;
     coll_height=150;
@@ -31,14 +31,39 @@ class Coin extends CollectableObject {
         super.loadImage('./img/8_coin/coin_1.png');
         super.loadImages(this.IMAGES);
 
-        this.x = 200 + Math.random()*1800;
+        this.x = this.generateNonOverlappingX();
 
         this.initCollisionBox();
         
         
         this.animate();
+        Coin.allCoins.push(this.coll_x);
 
     }
+
+
+    generateNonOverlappingX() {
+        let newX;
+        let isOverlapping;
+        
+        do {
+            isOverlapping = false;
+            newX = 150 + Math.random() * (1950 / 1); 
+
+            
+            for (let i = 0; i < Coin.allCoins.length; i++) {
+                
+                if (Math.abs((newX+50) - Coin.allCoins[i]) < 50) { 
+                    
+                    isOverlapping = true;
+                    break;
+                }
+            }
+        } while (isOverlapping);
+        
+        return newX;
+    }
+
 
     initCollisionBox(){
         this.coll_x = this.x+50;
