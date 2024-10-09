@@ -31,17 +31,16 @@ class Chicken extends MovableObject{
         super.loadImages(this.IMAGES_WALKING);
         super.loadImages(this.IMAGES_DEAD);
 
-        //this.x = 500 + Math.random()*1500;
-        //this.speed = 0.15 + Math.random()*0.25;
+        this.x = 500 + Math.random()*1500;
+        this.speed = 0.15 + Math.random()*0.25;
         
-        this.x = 700;
-        this.speed = 0;
-
+        
         this.animate();
     }
 
     kill(){
         this.dead = true;
+        this.moveCollisionBoxAway();
     }
 
     updateCollisionBox(){
@@ -69,7 +68,7 @@ class Chicken extends MovableObject{
             this.moveLeft();
             this.updateCollisionBox();
             } else {
-                this.moveCollisionBoxAway();
+                
             }
 
         }, 1000/60);

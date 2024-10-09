@@ -42,10 +42,21 @@ setWorld(){
 
 
 run(){
+
     setInterval(()=> {
+        
         this.checkCollisions();
         this.checkThrowables();
+        
         //console.log("welt läuft und checked Kollsionen");
+    }, 1000/30)
+
+
+    setInterval(()=> {
+        this.character.checkInvulnerability();
+        
+        
+        
     }, 1000/60)
 }
 
@@ -75,21 +86,24 @@ run(){
                 let enemy = this.level.enemies[j]; // Define 'enemy' for clarity
                 if (enemy.isColliding(throwable)) {
                     if (throwable.landed === false) {
-                        throwable.landed = true; // Set the landed flag to true
+                        // Set the landed flag to true
                         throwable.splash(); // Call the splash method on collision
+                         // Remove the throwable object after a delay of 500ms
+                        setTimeout(() => {
+                        this.throwableObjects.splice(i, 1); // Remove the throwable after 500ms
+                        }, 500);
                     }
     
                     // Remove enemy if it is a Chicken or Chick
                     if (enemy instanceof Chicken || enemy instanceof Chick) {
+                        if(throwable.landed === false){
                         enemy.kill();
+                        }
                         //this.level.enemies.splice(j, 1); // Remove the enemy from the array
                         //j--; // Adjust index after removal to avoid skipping the next enemy
                     }
     
-                    // Remove the throwable object after a delay of 500ms
-                    setTimeout(() => {
-                        this.throwableObjects.splice(i, 1); // Remove the throwable after 500ms
-                    }, 500);
+                   
                     
                     // Break after handling the first collision
                     break;
@@ -100,17 +114,24 @@ run(){
     
     
 
-    checkCollisionsEnemies(){
-        this.level.enemies.forEach( (element)=>{
-            if(this.character.isColliding(element)){
-                
+    checkCollisionsEnemies() {
+        for (let element of this.level.enemies) {
+
+            console.log("Charakter speedY "+this.character.speedY);
+
+            if (this.character.isColliding(element) && this.character.speedY > 0 && !(element instanceof Endboss)) {
+                this.character.activateInvulnerability();
+                console.log("Character hit enemy from above without taking damage");
+                element.kill();
+                return;
+            } else if (this.character.isColliding(element)) {
+                if (!this.character.isInvulnerable){
                 this.character.hit();
                 this.statusBarHealth.setPercentage(this.character.energy);
-                
                 console.log('Collision with Character: ', element, this.character.energy);
+                }
             }
-            
-        })
+        }
     }
 
     checkCollisionsCollectables(){

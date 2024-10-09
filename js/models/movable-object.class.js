@@ -70,6 +70,11 @@ class MovableObject extends DrawableObject{
                this.coll_y + this.coll_height > mo.coll_y;   // this object's bottom is below mo's top
     }
 
+    
+    
+    
+    
+
 
     applyGravity(){
         setInterval( () => {

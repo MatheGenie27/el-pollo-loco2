@@ -72,11 +72,10 @@ class Endboss extends MovableObject {
         
 
 
-        //this.x = 2000 + Math.random()*100;
-        //this.speed = 0.05 + Math.random()*0.25;
+        this.x = 2000 + Math.random()*100;
+        this.speed = 0.05 + Math.random()*0.25;
         
-        this.x=600;
-        this.speed=0;
+        
 
 
         this.animate();
@@ -84,6 +83,10 @@ class Endboss extends MovableObject {
 
     updateCollisionBox(){
         this.coll_x = this.x +10;
+    }
+
+    kill(){
+        this.dead = true;
     }
 
     animate(){

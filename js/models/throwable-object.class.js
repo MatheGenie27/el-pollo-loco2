@@ -95,8 +95,10 @@ class ThrowableObject extends MovableObject{
         setInterval( ()=> {
             if (this.isAboveGround() && this.splashed === false){
                 this.playAnimation(this.IMAGES_THROW);
-            } else {
+            } else if (this.splashed === true){
                 this.playAnimation(this.IMAGES_SPLASH);
+            } else if (this.landed === true){
+                
             }
 
         },1000/10)

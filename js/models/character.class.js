@@ -11,7 +11,7 @@ coll_width;
 coll_height;
 
 coins =0;
-bottles = 0;
+bottles = 5;
 
 
 speed = 2;
@@ -92,6 +92,8 @@ IMAGES_HURT = [
 
 WALKING_SOUND = new Audio('audio/sfx/footsteps_of_someone0.mp3');
 
+isInvulnerable = false;
+invulnerableStartTime = 0;
 
 dead = false;
 run = false;
@@ -122,6 +124,19 @@ constructor(){
     this.applyGravity();
 }
 
+activateInvulnerability() {
+    this.isInvulnerable = true;
+    this.invulnerableStartTime = Date.now(); // Setzt den Startzeitpunkt
+}
+
+// Methode zur Überprüfung, ob die Unverwundbarkeit noch aktiv ist
+checkInvulnerability() {
+    if (this.isInvulnerable && Date.now() - this.invulnerableStartTime > 300) {
+        this.isInvulnerable = false; // Deaktiviert die Unverwundbarkeit nach 300ms
+    }
+    //console.log(this.isInvulnerable);
+
+}
 
 resetFlag(){
     this.dead = false;
