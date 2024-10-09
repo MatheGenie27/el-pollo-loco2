@@ -11,7 +11,7 @@ coll_width;
 coll_height;
 
 coins =0;
-bottles = 5;
+bottles = 0;
 
 
 speed = 2;

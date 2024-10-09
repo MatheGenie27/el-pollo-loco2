@@ -90,7 +90,10 @@ run(){
                         throwable.splash(); // Call the splash method on collision
                          // Remove the throwable object after a delay of 500ms
                         setTimeout(() => {
-                        this.throwableObjects.splice(i, 1); // Remove the throwable after 500ms
+                        let id = throwable.id;
+                        let index = this.searchBottleWithID(id);
+
+                        this.throwableObjects.splice(index, 1); // Remove the throwable after 500ms
                         }, 500);
                     }
     
@@ -111,24 +114,34 @@ run(){
             }
         }
     }
+
+    searchBottleWithID(id){
+        for (let index = 0; index < this.throwableObjects.length -1; index ++){
+            if(this.throwableObjects[index].id === id){
+                return index;
+            }
+        }
+        return -1;
+    }
+
     
     
 
     checkCollisionsEnemies() {
         for (let element of this.level.enemies) {
 
-            console.log("Charakter speedY "+this.character.speedY);
+            //console.log("Charakter speedY "+this.character.speedY);
 
             if (this.character.isColliding(element) && this.character.speedY > 0 && !(element instanceof Endboss)) {
                 this.character.activateInvulnerability();
-                console.log("Character hit enemy from above without taking damage");
+                //console.log("Character hit enemy from above without taking damage");
                 element.kill();
                 return;
             } else if (this.character.isColliding(element)) {
                 if (!this.character.isInvulnerable){
                 this.character.hit();
                 this.statusBarHealth.setPercentage(this.character.energy);
-                console.log('Collision with Character: ', element, this.character.energy);
+                //console.log('Collision with Character: ', element, this.character.energy);
                 }
             }
         }
@@ -196,17 +209,20 @@ run(){
         if (this.keyboard.SPACE && (currentTime - this.lastThrow) > 300){
             let bottle;
 
-            if(this.character.otherDirection){
+            if (this.character.bottles > 0){
+
+                if(this.character.otherDirection){
                 
-                bottle = new ThrowableObject(this.character.x+10, this.character.y+120, -10);
-            } else {
+                    bottle = new ThrowableObject(this.character.x+10, this.character.y+120, -10);
+              } else {
                 
-                bottle = new ThrowableObject(this.character.x+40, this.character.y+120, 10);
+                   bottle = new ThrowableObject(this.character.x+40, this.character.y+120, 10);
             
-            }
+              }
 
 
-            if (this.character.bottles>0){
+            
+                //console.log("wirft flasche");
                 this.throwBottle(bottle);
                 this.lastThrow = currentTime;
             }

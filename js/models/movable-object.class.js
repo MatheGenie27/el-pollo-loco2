@@ -39,7 +39,7 @@ class MovableObject extends DrawableObject{
     }
 
     loseEnergy(){
-        this.energy -= 5;
+        this.energy -= 10;
         if (this.energy < 0){
             this.energy = 0;
         } else {
@@ -81,7 +81,9 @@ class MovableObject extends DrawableObject{
             if(this.isAboveGround() || this.speedY < 0){
                 this.y += this.speedY;
                 this.speedY += this.accelerationY;
-            } 
+            } else {
+                this.speedY = 0;
+            }
 
         },1000/60)
 

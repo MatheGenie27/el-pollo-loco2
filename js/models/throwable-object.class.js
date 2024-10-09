@@ -10,6 +10,10 @@ class ThrowableObject extends MovableObject{
     coll_x = 100;
     coll_y = 100;
 
+    id;
+
+    static serialNumber= 1;
+
     
 
     IMAGES_THROW = [
@@ -53,7 +57,17 @@ class ThrowableObject extends MovableObject{
         this.loadImages(this.IMAGES_THROW);
         this.loadImages(this.IMAGES_ONGROUND);
         
+        this.generateID();
+        console.log("FlaschenID: " +this.id);
+
         this.throw(x,y);
+        
+
+    }
+
+    generateID(){
+        this.id = ThrowableObject.serialNumber;
+        ThrowableObject.serialNumber++;
 
     }
 
