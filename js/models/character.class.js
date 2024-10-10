@@ -19,6 +19,8 @@ ground_y = 180;
 speedY = 0;
 accelerationY = 1;
 
+controlInterval;
+
 
 
 IMAGES_IDLE = [
@@ -95,6 +97,8 @@ WALKING_SOUND = new Audio('audio/sfx/footsteps_of_someone0.mp3');
 isInvulnerable = false;
 invulnerableStartTime = 0;
 
+playedDeadAnimation = false;
+
 dead = false;
 run = false;
 idle = false;
@@ -122,6 +126,10 @@ constructor(){
 
     this.animate();
     this.applyGravity();
+}
+
+stopControl(){
+    clearInterval(this.controlInterval);
 }
 
 activateInvulnerability() {
@@ -158,13 +166,17 @@ updateCollisionBox(){
     this.coll_height= this.height -110;
 }
 
-
+checkDead(){
+    if (this.dead){
+        this.stopControl();
+    }
+}
 
 
 animate(){
 
     //movement
-    setInterval(()=> {
+    this.controlInterval = setInterval(()=> {
 
         this.WALKING_SOUND.pause();
 
@@ -192,6 +204,7 @@ animate(){
         this.world.camera_x = - this.x +100;
 
         this.updateCollisionBox();
+        this.checkDead();
 
     },1000/60)
 
@@ -203,8 +216,17 @@ animate(){
 
         switch (true) {
             case this.dead:
+                if (!this.playedDeadAnimation){
                 this.playAnimation(this.IMAGES_DEAD);
-                this.resetLongIdleTime();
+                setTimeout( () => {
+                    this.playedDeadAnimation=true;
+                },500)
+                
+
+                } else {
+                    this.loadImage(this.IMAGES_DEAD[5]);
+                }
+
                 break;
             case this.hurt:
                 this.playAnimation(this.IMAGES_HURT);
@@ -232,6 +254,7 @@ animate(){
                     if ((currentTime - this.longIdleTime) > 3000){
                         this.playAnimation(this.IMAGES_LONGIDLE);
                     } else {
+
                         this.playAnimation(this.IMAGES_IDLE);
 
                     }

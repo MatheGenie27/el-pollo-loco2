@@ -28,6 +28,16 @@ body{
     background-repeat: no-repeat;
 }
 
+#titleBox{
+    min-width: 100%;
+
+    position: absolute;
+    top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 h1{
     font-family: 'Rye';
     font-style: normal;

@@ -7,7 +7,7 @@ class World{
 
     camera_x = 0;
 
-    level = level1;
+    level;
     statusBarHealth; 
     statusBarCoin;
     statusBarBottle;
@@ -16,8 +16,8 @@ class World{
     totalCoins;
     maxBottles = 5;
 
-
-    
+    gameOver;
+    notStartet = true;
 
 
 
@@ -26,13 +26,31 @@ constructor(canvas, keyboard){
     this.ctx = canvas.getContext('2d');
     this.keyboard = keyboard;
     this.character = new Character();
+    this.gameOver = new GameOver();
+    this.startScreen = new StartScreen();
     this.statusBarHealth = new StatusBarHealth();
     this.statusBarBottle = new StatusBarBottle();
     this.statusBarCoin = new StatusBarCoin();
     //this.throwableObjects.push(new ThrowableObject);
     this.setWorld();
     this.draw();
+    
+    
+}
+
+
+async start(){
+
+    
+    await initLevel();
+    this.level = level1;
     this.run();
+    setTimeout ( ()=>{
+        this.notStartet = false;
+    },200)
+    
+    
+    
 }
 
 
@@ -249,6 +267,12 @@ run(){
 
         this.ctx.clearRect(0,0, this.canvas.width, this.canvas.height);
 
+        if (this.notStartet){
+            this.addToMap(this.startScreen);
+            
+        } else {
+
+        
 
         this.ctx.translate(this.camera_x,0); //forward
 
@@ -259,12 +283,13 @@ run(){
 
         this.addObjectsToMap(this.throwableObjects);
 
+        
         this.addToMap(this.character);
 
+        this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.level.collectables);
 
-
-
-
+        
 
         this.ctx.translate(-this.camera_x,0); //back
 
@@ -273,19 +298,27 @@ run(){
         this.addToMap(this.statusBarCoin);
         this.addToMap(this.statusBarBottle);
 
+        if(this.character.playedDeadAnimation){
+                   
+                    this.addToMap(this.gameOver);
+
+                }
+
+        
+
+
         this.ctx.translate(this.camera_x,0); //forward
 
 
-
-
-        this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap(this.level.collectables);
         
-       
+
+        
+        
+        
 
 
         this.ctx.translate(-this.camera_x,0); //backward
-
+        }
 
         //function draw executes again and again
         self = this;
@@ -344,6 +377,8 @@ run(){
             this.ctx.restore();
     }
 
+
+    
 
 
 

@@ -58,7 +58,7 @@ class ThrowableObject extends MovableObject{
         this.loadImages(this.IMAGES_ONGROUND);
         
         this.generateID();
-        console.log("FlaschenID: " +this.id);
+        //console.log("FlaschenID: " +this.id);
 
         this.throw(x,y);
         

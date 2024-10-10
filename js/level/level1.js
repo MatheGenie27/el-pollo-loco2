@@ -1,4 +1,11 @@
-let level1 = new Level(
+let level1;
+
+
+
+async function initLevel() {
+    
+    return new Promise ((resolve) => {
+    level1 = new Level(
 
 
 
@@ -76,3 +83,10 @@ let level1 = new Level(
         new Bottle()
     ]
 );
+
+resolve();
+
+    })
+
+
+}
