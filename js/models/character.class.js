@@ -249,7 +249,7 @@ animate(){
                 
 
                 } else {
-                    this.loadImage(this.IMAGES_DEAD[5]);
+                    super.loadImage(this.IMAGES_DEAD[5]);
                 }
 
                 break;
@@ -294,7 +294,7 @@ animate(){
         }
         } else {    
                     if(!this.lastImage){
-                    this.loadImage(this.lastImage);
+                    super.loadImage(this.lastImage);
                     this.lastImage = true;    
                     }
 
