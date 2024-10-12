@@ -9,6 +9,7 @@
     <link href="style.css" rel="stylesheet">
 
     <script src="./js/fullscreen.js" defer></script>
+    <script src="./js/buttons.js"> </script>
 
 
     <script src="./js/models/keyboard.class.js"></script>
@@ -19,6 +20,7 @@
     <script src="./js/models/status-bar-health.class.js"></script>
     <script src="./js/models/status-bar-bottle.class.js"></script>
     <script src="./js/models/status-bar-coin.class.js"></script>
+    <script src="./js/models/status-bar-endboss.class.js"></script>
 
     <script src="./js/models/movable-object.class.js"></script>
     <script src="./js/models/collectable-object.class.js"></script>
@@ -45,14 +47,31 @@
     <script src="./js/game.js"></script>
 
 
+
 </head>
 <body onload="init()">
     <div id="titleBox">
          <h1>El pollo loco</h1>
     </div>
    
-    <div id="fullscreen">
+    <div id="canvasContainer">
     <canvas id="myCanvas" width="720" height="480"></canvas>
+    </div>
+
+    <div id="overlay">
+        <div id="overlay-container">
+            <div id="top-row">
+
+            </div>
+            <div id="middle-row">
+                <button id="startbutton" onclick="startButtonClick()">Start</button>
+            </div>
+            
+            <div id="button-row">
+
+            </div>
+        </div>
+
     </div>
 </body>
 </html>

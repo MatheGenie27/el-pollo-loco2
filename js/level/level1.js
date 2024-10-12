@@ -11,11 +11,11 @@ async function initLevel() {
 
 
     [
-    new Chick(),
-    new Chick(),
-    new Chicken(),
-    new Chicken(),
-    new Chicken(),
+    //new Chick(),
+    //new Chick(),
+    //new Chicken(),
+    //new Chicken(),
+    //new Chicken(),
      new Endboss()
     ],
     [
@@ -51,10 +51,21 @@ async function initLevel() {
         new BackgroundObject("img/5_background/layers/air.png",2157),
         new BackgroundObject("img/5_background/layers/3_third_layer/2.png" ,2157),
         new BackgroundObject("img/5_background/layers/2_second_layer/2.png",2157),
-        new BackgroundObject("img/5_background/layers/1_first_layer/2.png", 2157 )
+        new BackgroundObject("img/5_background/layers/1_first_layer/2.png", 2157 ),
+
+        new BackgroundObject("img/5_background/layers/air.png",4*719),
+        new BackgroundObject("img/5_background/layers/3_third_layer/1.png" ,4*719),
+        new BackgroundObject("img/5_background/layers/2_second_layer/1.png",4*719),
+        new BackgroundObject("img/5_background/layers/1_first_layer/1.png", 4*719 ),
+
+
+        new BackgroundObject("img/5_background/layers/air.png",5*719),
+        new BackgroundObject("img/5_background/layers/3_third_layer/2.png" ,5*719),
+        new BackgroundObject("img/5_background/layers/2_second_layer/2.png",5*719),
+        new BackgroundObject("img/5_background/layers/1_first_layer/2.png", 5*719 )
     ],
 
-    3*719,
+    5*719,
 
     [
         //collectables

@@ -41,6 +41,7 @@ class ThrowableObject extends MovableObject{
 
     landed = false;
     splashed = false;
+    hasHit = false;
 
     SPLASH_SOUND = new Audio('audio/sfx/fluid_splashin_onto_.mp3');
     BREAK_SOUND= new Audio('audio/sfx/bottle_breaking.mp3');
@@ -48,7 +49,9 @@ class ThrowableObject extends MovableObject{
     LANDING_SOUND = new Audio('audio/sfx/something_landing_in.mp3');
 
     constructor(x,y,speedX){
+        
         super();
+        this.generateID();
         this.x = x;
         this.y = y;
         this.height = 50;
@@ -61,7 +64,7 @@ class ThrowableObject extends MovableObject{
         this.loadImages(this.IMAGES_THROW);
         this.loadImages(this.IMAGES_ONGROUND);
         
-        this.generateID();
+        
         //console.log("FlaschenID: " +this.id);
 
         this.throw(x,y);
@@ -82,9 +85,11 @@ class ThrowableObject extends MovableObject{
     }
 
     splash(){
+        this.moveCollisionBoxAway();
         this.speedY = 0;
         this.speedX = 0;
         this.splashed = true;
+        
         this.THROW_SOUND.pause();
         this.BREAK_SOUND.play();
         setTimeout( () => {
@@ -95,6 +100,11 @@ class ThrowableObject extends MovableObject{
 
     respond(){
         console.log("Ich bin eine Flasche");
+    }
+
+    moveCollisionBoxAway(){
+        this.coll_x = -5000;
+        this.coll_y = -5000;
     }
     
     throw(){

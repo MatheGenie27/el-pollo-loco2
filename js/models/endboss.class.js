@@ -12,6 +12,9 @@ class Endboss extends MovableObject {
     coll_x = 500; 
     coll_y = 285;
 
+    energy = 100;
+    lastHit = 0;
+
     dead = false;
     hurt = false;
     alert = false;
@@ -72,22 +75,58 @@ class Endboss extends MovableObject {
         
 
 
-        this.x = 2000 + Math.random()*100;
+        this.x = 2500 + Math.random()*100;
         this.speed = 0.05 + Math.random()*0.25;
         
-        
+        //this.x=500;
+        //this.speed =0;
 
 
         this.animate();
     }
 
+    hit(){
+        let currentTime = Date.now();
+        if(currentTime - this.lastHit >= 290){
+            console.log("Endboss Energie abziehen");
+            if (this.energy >= 20){
+              this.energy = this.energy - 20;
+            } else if (this.enery <= 0){
+                this.energy = 0;
+                
+            }
+            this.lastHit = currentTime;
+            console.log("Enboss getroffen");
+            this.checkEnergy();
+        } else {
+            console.log("hit abgewiesen, dazu wenig Zeit vergangen");
+        }
+
+    }
+
+
     updateCollisionBox(){
         this.coll_x = this.x +10;
     }
 
+    checkEnergy(){
+        if (this.energy == 0){{
+            this.kill();
+        }}
+    }
+
     kill(){
         this.dead = true;
+        this.moveCollisionBoxAway();
+        console.log("Enboss ist tot");
     }
+
+    moveCollisionBoxAway(){
+        this.coll_x = 5000;
+        this.coll_y = 5000;
+    }
+
+    
 
     animate(){
         setInterval(() => {

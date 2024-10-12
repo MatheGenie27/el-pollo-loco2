@@ -11,10 +11,14 @@ class World{
     statusBarHealth; 
     statusBarCoin;
     statusBarBottle;
+    statusBarEndboss;
     throwableObjects = [];
     lastThrow = 0;
     totalCoins;
     maxBottles = 5;
+
+
+    inEndgame;
 
     gameOver;
     won;
@@ -36,6 +40,7 @@ constructor(canvas, keyboard){
     this.statusBarHealth = new StatusBarHealth();
     this.statusBarBottle = new StatusBarBottle();
     this.statusBarCoin = new StatusBarCoin();
+    this.statusBarEndboss = new StatusBarEndboss();
     //this.throwableObjects.push(new ThrowableObject);
     this.setWorld();
     this.draw();
@@ -72,7 +77,7 @@ run(){
         this.checkThrowables();
         
         //console.log("welt läuft und checked Kollsionen");
-    }, 1000/30)
+    }, 1000/60)
 
 
     setInterval(()=> {
@@ -108,16 +113,23 @@ run(){
             for (let j = 0; j < this.level.enemies.length; j++) {
                 let enemy = this.level.enemies[j]; // Define 'enemy' for clarity
                 if (enemy.isColliding(throwable)) {
-                    if (throwable.landed === false) {
-                        // Set the landed flag to true
-                        throwable.splash(); // Call the splash method on collision
-                         // Remove the throwable object after a delay of 500ms
-                        setTimeout(() => {
+                    if (throwable.landed === false && throwable.splashed === false) {
+                        
+                         
+                         
                         let id = throwable.id;
+                        console.log("FlaschenID " +id);
                         let index = this.searchBottleWithID(id);
+                        
+                        
+                        throwable.splash();
+                        setTimeout(() => {
+                        
+                        
 
                         this.throwableObjects.splice(index, 1); // Remove the throwable after 500ms
                         }, 500);
+                        
                     }
     
                     // Remove enemy if it is a Chicken or Chick
@@ -127,6 +139,12 @@ run(){
                         }
                         //this.level.enemies.splice(j, 1); // Remove the enemy from the array
                         //j--; // Adjust index after removal to avoid skipping the next enemy
+                    } else if (enemy instanceof Endboss && throwable.hasHit === false){
+                        
+                        throwable.hasHit = true;
+                        enemy.hit();
+                        this.statusBarEndboss.setPercentage(enemy.energy);
+
                     }
     
                    
@@ -138,13 +156,22 @@ run(){
         }
     }
 
-    searchBottleWithID(id){
-        for (let index = 0; index < this.throwableObjects.length -1; index ++){
-            if(this.throwableObjects[index].id === id){
-                return index;
+    
+
+    searchBottleWithID(id) {
+        let foundIndex = -1; // Initialisiere den Index mit -1 (für "nicht gefunden")
+        
+        this.throwableObjects.forEach((object, index) => {
+            if (object.id === id) {
+                foundIndex = index; // Speichere den gefundenen Index
             }
+        });
+    
+        if (foundIndex === -1) {
+            console.log("Flasche nicht gefunden. ID:" + id);
         }
-        return -1;
+    
+        return foundIndex;
     }
 
     
@@ -230,10 +257,11 @@ run(){
 
     checkThrowables(){
         let currentTime = new Date().getTime();
-        if (this.keyboard.SPACE && (currentTime - this.lastThrow) > 300){
+        if (this.keyboard.SPACE && (currentTime - this.lastThrow) > 300 && this.character.bottles>0){
             let bottle;
+            console.log(this.throwableObjects);
 
-            if (this.character.bottles > 0){
+           
 
                 if(this.character.otherDirection){
                 
@@ -249,8 +277,9 @@ run(){
                 //console.log("wirft flasche");
                 this.throwBottle(bottle);
                 this.lastThrow = currentTime;
-            }
-            this.character.resetLongIdleTime();
+                this.character.resetLongIdleTime();
+            
+            
         }
     }
 
@@ -303,6 +332,7 @@ run(){
         this.addToMap(this.statusBarHealth);
         this.addToMap(this.statusBarCoin);
         this.addToMap(this.statusBarBottle);
+        this.addToMap(this.statusBarEndboss);
 
         if(this.character.playedDeadAnimation){
                    
@@ -348,7 +378,7 @@ run(){
         }
 
         mo.draw(this.ctx);
-        mo.drawBorder(this.ctx);
+        //mo.drawBorder(this.ctx);
         mo.drawCollisionBox(this.ctx);
         
 
