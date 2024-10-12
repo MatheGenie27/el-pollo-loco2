@@ -19,13 +19,21 @@ class World{
 
 
     inEndgame;
+    
 
     gameOver;
     won;
     notStartet = true;
+    hasWon = false;
 
     COLLECT_BOTTLE_SOUND = new Audio('audio/sfx/glass_clink_sound.mp3');
     COLLECT_COIN_SOUND = new Audio('audio/sfx/brigt_metallic_sound.mp3');
+    GAME_MUSIC = new Audio('audio/music/spanish_guitar_music_1.mp3');
+    
+    ENDBOSS_MUSIC = new Audio('audio/music/spanish_guitar_music_2.mp3');
+
+    VICTORY_MUSIC = new Audio('audio/music/joyful_spanish_victo2.mp3');
+    GAMEOVER_MUSIC = new Audio('audio/music/spanish_funeral_musi.mp3');
 
 
 
@@ -57,6 +65,9 @@ async start(){
     this.run();
     setTimeout ( ()=>{
         this.notStartet = false;
+        this.GAME_MUSIC.loop = true;
+        this.GAME_MUSIC.play();
+        
     },200)
     
     
@@ -75,18 +86,49 @@ run(){
         
         this.checkCollisions();
         this.checkThrowables();
+        this.checkIfWon();
+        this.character.checkInvulnerability();
+        this.checkEndgame();
+        this.checkSoundRange();
         
         //console.log("welt läuft und checked Kollsionen");
     }, 1000/60)
-
-
-    setInterval(()=> {
-        this.character.checkInvulnerability();
-        
-        
-        
-    }, 1000/60)
+    
 }
+
+checkSoundRange(){
+    this.level.enemies.forEach( (enemy) => {
+        if (this.checkDistance(enemy, this.character)) {
+            enemy.soundRange = true;
+        } else {
+            enemy.soundRange = false;
+        }
+    });
+}
+
+checkDistance(enemy, character){
+    let distance = enemy.x - character.x
+    return ((-150 < distance) && (distance < 600) );
+}
+
+checkEndgame(){
+    
+   let endboss = this.level.enemies.find(element => element instanceof Endboss);
+    
+    if(this.checkDistance(endboss, this.character) && !endboss.dead && !this.character.dead){
+        
+        this.inEndgame = true;
+        this.ENDBOSS_MUSIC.loop = true;
+        this.GAME_MUSIC.pause();
+        this.ENDBOSS_MUSIC.play();
+    } else if(this.checkDistance(endboss, this.character) && endboss.dead){
+        this.GAME_MUSIC.pause();
+        this.ENDBOSS_MUSIC.pause();
+    }
+}
+
+
+
 
     checkCollisions(){
         
@@ -97,6 +139,8 @@ run(){
         this.checkCollisionsCollectables();
 
         this.checkCollisionsThrowables();
+
+
 
 
         
@@ -144,6 +188,7 @@ run(){
                         throwable.hasHit = true;
                         enemy.hit();
                         this.statusBarEndboss.setPercentage(enemy.energy);
+                        
 
                     }
     
@@ -226,6 +271,7 @@ run(){
         
         this.totalCoins = this.countCollectable(Coin);  
         }
+        this.COLLECT_BOTTLE_SOUND.pause();
 
         this.COLLECT_COIN_SOUND.play();
         this.character.coins++;
@@ -283,6 +329,42 @@ run(){
         }
     }
 
+    checkIfWon(){
+        //console.log("Schon gewonnen?");
+        this.level.enemies.forEach((element) => {
+            if (element instanceof Endboss ){
+                if (element.dead === true){
+                    this.character.stopControl();
+                    this.character.won = true;
+                    setTimeout(() => {
+                        this.ENDBOSS_MUSIC.pause();
+                        this.GAME_MUSIC.pause();
+                        
+                        this.playVictoryMusic();
+                        this.hasWon = true;
+                        
+
+                    },1000)
+                }
+            }
+        })
+
+        if(this.character.dead){
+            this.ENDBOSS_MUSIC.pause();
+            this.GAME_MUSIC.pause();
+            setTimeout( () => {
+            
+            this.GAMEOVER_MUSIC.play();
+            }, 1000)
+    }
+    }
+
+    playVictoryMusic(){
+        if(!this.hasWon){
+            this.VICTORY_MUSIC.play();
+        }
+    }
+
     throwBottle(bottle){
         this.throwableObjects.push(bottle);
         this.character.bottles--;
@@ -332,13 +414,16 @@ run(){
         this.addToMap(this.statusBarHealth);
         this.addToMap(this.statusBarCoin);
         this.addToMap(this.statusBarBottle);
+        
+        if(this.inEndgame){
         this.addToMap(this.statusBarEndboss);
+        }
 
         if(this.character.playedDeadAnimation){
                    
                 this.addToMap(this.gameOver);
 
-            } else if (false){                  // hier muss noch die Bedigung dafür rein, dass ein gameOver erkannt wird
+            } else if (this.hasWon){                  // hier muss noch die Bedigung dafür rein, dass ein gameOver erkannt wird
                 this.addToMap(this.won);
             }
 
@@ -379,7 +464,7 @@ run(){
 
         mo.draw(this.ctx);
         //mo.drawBorder(this.ctx);
-        mo.drawCollisionBox(this.ctx);
+        //mo.drawCollisionBox(this.ctx);
         
 
 

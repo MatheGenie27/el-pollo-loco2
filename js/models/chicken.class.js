@@ -12,6 +12,11 @@ class Chicken extends MovableObject{
     coll_y = 354;
 
     dead = false;
+
+    lastCry;
+    nextCry = 1000;
+    soundRange = false;
+    
     
 
     IMAGES_WALKING=[
@@ -25,6 +30,7 @@ class Chicken extends MovableObject{
     ]
 
     DEAD_SOUND = new Audio('audio/sfx/squashing_sound.mp3');
+    CRY_SOUND = new Audio('audio/sfx/chicken_sound.mp3');
 
 
     constructor(){
@@ -36,7 +42,9 @@ class Chicken extends MovableObject{
         this.x = 500 + Math.random()*1500;
         this.speed = 0.15 + Math.random()*0.25;
         
+        this.lastCry = Date.now()
         
+
         this.animate();
     }
 
@@ -60,9 +68,30 @@ class Chicken extends MovableObject{
         setInterval(() => {
             if (!this.dead){
             this.playAnimation(this.IMAGES_WALKING);
+
+
+            if(((Date.now() - this.lastCry) > this.nextCry) && this.soundRange){
+                
+                this.CRY_SOUND.play();
+                console.log("ChickenSound");
+                
+                this.lastCry = Date.now();
+                this.nextCry = 2000 + Math.random()*3000;
+
+            }
+
+
+
             } else {
                 this.playAnimation(this.IMAGES_DEAD);
             }
+
+
+
+            
+
+
+
         }, 1000/9);
 
 

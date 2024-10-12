@@ -74,6 +74,14 @@ IMAGES_JUMPING = [
 
 ];
 
+IMAGES_FALLING = [
+    'img/2_character_pepe/3_jump/J-35.png',
+    'img/2_character_pepe/3_jump/J-36.png',
+    'img/2_character_pepe/3_jump/J-37.png',
+    'img/2_character_pepe/3_jump/J-38.png',
+    'img/2_character_pepe/3_jump/J-39.png'
+]
+
 IMAGES_DEAD = [
 
 'img/2_character_pepe/5_dead/D-51.png',
@@ -109,8 +117,10 @@ idle = false;
 longIdle =false;
 hurt = false;
 jumping = false;
+
 lastInput;
 longIdleTime = 0;
+won = false;
 
 
 
@@ -126,6 +136,7 @@ constructor(){
     super.loadImages(this.IMAGES_DEAD);
     super.loadImages(this.IMAGES_HURT);
     super.loadImages(this.IMAGES_JUMPING);
+    super.loadImages(this.IMAGES_FALLING);
     this.y = 480 - this.height - this.ground_y;
 
     this.animate();
@@ -223,7 +234,7 @@ animate(){
     setInterval(() => {
         this.DEAD_SOUND.pause();
         this.HURT_SOUND.pause();
-
+        if(!this.won){
         switch (true) {
             case this.dead:
                 if (!this.playedDeadAnimation){
@@ -232,7 +243,7 @@ animate(){
                 
                 setTimeout( () => {
                     this.playedDeadAnimation=true;
-                    this.DEAD_SOUND.play();
+                    //this.DEAD_SOUND.play();
                 },500)
                 
 
@@ -251,7 +262,7 @@ animate(){
                 this.resetLongIdleTime();
                 break;
             case this.falling:
-                this.playAnimation(this.IMAGES_JUMPING);
+                this.playAnimation(this.IMAGES_FALLING);
                 this.resetLongIdleTime();
                 break;    
             case this.run:
@@ -278,7 +289,12 @@ animate(){
                     
             
                     break;
+                
         }
+        } else {
+                    this.loadImage('../img/2_character_pepe/2_walk/W-21.png');
+                }
+        
 
        
 

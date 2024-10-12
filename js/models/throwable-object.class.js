@@ -88,6 +88,7 @@ class ThrowableObject extends MovableObject{
         this.moveCollisionBoxAway();
         this.speedY = 0;
         this.speedX = 0;
+        this.accelerationY = 0;
         this.splashed = true;
         
         this.THROW_SOUND.pause();

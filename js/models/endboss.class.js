@@ -19,7 +19,12 @@ class Endboss extends MovableObject {
     hurt = false;
     alert = false;
     attack = false;
+
+    zone_left = 2100;
+    zone_right = 2870;
     
+    otherDirection = false;
+    soundRange = false;
 
     IMAGES_WALKING=[
         '../img/4_enemie_boss_chicken/1_walk/G1.png',
@@ -85,6 +90,8 @@ class Endboss extends MovableObject {
         this.animate();
     }
 
+    AUDIO_CHICKENYELL = new Audio('audio/sfx/chicken_yells_becaus.mp3');
+
     hit(){
         let currentTime = Date.now();
         if(currentTime - this.lastHit >= 290){
@@ -111,13 +118,16 @@ class Endboss extends MovableObject {
 
     checkEnergy(){
         if (this.energy == 0){{
+            this.dead=true;
             this.kill();
+
         }}
     }
 
     kill(){
         this.dead = true;
         this.moveCollisionBoxAway();
+        this.AUDIO_CHICKENYELL.play();
         console.log("Enboss ist tot");
     }
 
@@ -129,14 +139,25 @@ class Endboss extends MovableObject {
     
 
     animate(){
+
         setInterval(() => {
+            if(!this.dead){
             this.playAnimation(this.IMAGES_WALKING);
+            } else {
+                this.playAnimation(this.IMAGES_DEAD);
+                this.loadImage(this.IMAGES_DEAD[2]);
+            }
         }, 1000/3);
 
 
         setInterval(()=>{
+            if(!this.dead) {
             this.moveLeft();
             this.updateCollisionBox();
+        }else {
+
+        }
+        
         }, 1000/60)
         
 

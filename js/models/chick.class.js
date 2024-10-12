@@ -3,7 +3,10 @@ class Chick extends MovableObject {
     y = 388;
     width= 35;
     height= 40;
-    speed = 0.7;
+    speed = 1.4;
+    speedY = 0;
+    accelerationY = 1;
+    ground_y = 388;
 
     coll_height = 30;
     coll_width = 30;
@@ -11,7 +14,11 @@ class Chick extends MovableObject {
     coll_y = 30;
 
     dead = false;
-    
+    lastJump = 0;
+    nextJump = 5000;
+    currentTime;
+
+    soundRange = false;
 
     IMAGES_WALKING=[
         '../img/3_enemies_chicken/chicken_small/1_walk/1_w.png',
@@ -24,6 +31,7 @@ class Chick extends MovableObject {
     ]
 
     DEAD_SOUND = new Audio('audio/sfx/squashing_sound.mp3');
+    JUMP_SOUND = new Audio('audio/sfx/chickling_sound.mp3');
 
 
     constructor(){
@@ -32,9 +40,12 @@ class Chick extends MovableObject {
         super.loadImages(this.IMAGES_WALKING);
         super.loadImages(this.IMAGES_DEAD);
 
-        this.x = 1500 + Math.random()*500;
-        this.speed = 0.7 + Math.random()*0.35;
+        this.x = 1500 + Math.random()*1500;
+        this.speed = 1.7 + Math.random()*1.5;
         this.animate();
+        this.applyGravity();
+        this.currentTime = Date.now();
+        this.lastJump = Date.now();
     }
 
     kill(){
@@ -64,8 +75,23 @@ class Chick extends MovableObject {
 
 
         setInterval(()=> {
+            this.currentTime = Date.now();
+
             if (!this.dead){
             this.moveLeft();
+            
+            if((this.currentTime - this.lastJump) > this.nextJump){
+                this.jump();
+                if(this.soundRange){
+                this.JUMP_SOUND.play();
+                }
+                console.log("CHICK SPRUNG");
+                this.lastJump = this.currentTime;
+                this.nextJump = 3000 + Math.random()*3000;
+
+            }
+              
+
             this.updateCollisionBox();
             } else {
                 this.moveCollisionBoxAway();
