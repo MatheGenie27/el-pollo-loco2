@@ -23,6 +23,8 @@ class Chick extends MovableObject {
         'img/3_enemies_chicken/chicken_small/2_dead/dead.png'
     ]
 
+    DEAD_SOUND = new Audio('audio/sfx/squashing_sound.mp3');
+
 
     constructor(){
         super();
@@ -37,6 +39,7 @@ class Chick extends MovableObject {
 
     kill(){
         this.dead = true;
+        this.DEAD_SOUND.play();
     }
 
     updateCollisionBox(){

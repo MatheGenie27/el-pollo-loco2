@@ -93,6 +93,10 @@ IMAGES_HURT = [
 ];
 
 WALKING_SOUND = new Audio('audio/sfx/footsteps_of_someone0.mp3');
+HURT_SOUND = new Audio('audio/sfx/Someone_moans_becaus.mp3');
+DEAD_SOUND = new Audio('audio/sfx/Someone_curses_on_sp.mp3');
+JUMPING_SOUND = new Audio('audio/sfx/someone_jumps_in_the.mp3');
+
 
 isInvulnerable = false;
 invulnerableStartTime = 0;
@@ -179,6 +183,7 @@ animate(){
     this.controlInterval = setInterval(()=> {
 
         this.WALKING_SOUND.pause();
+        
 
         if (this.world.keyboard.RIGHT && this.x <= this.world.level.level_end_x){
             this.moveRight();   
@@ -197,7 +202,10 @@ animate(){
 
         if(this.world.keyboard.UP && !this.isAboveGround()){
             this.jump();
+
             this.jumping=true;
+            this.JUMPING_SOUND.play();
+            
         }
 
 
@@ -213,13 +221,18 @@ animate(){
 
     //animation
     setInterval(() => {
+        this.DEAD_SOUND.pause();
+        this.HURT_SOUND.pause();
 
         switch (true) {
             case this.dead:
                 if (!this.playedDeadAnimation){
                 this.playAnimation(this.IMAGES_DEAD);
+                this.HURT_SOUND.play();
+                
                 setTimeout( () => {
                     this.playedDeadAnimation=true;
+                    this.DEAD_SOUND.play();
                 },500)
                 
 
@@ -230,6 +243,7 @@ animate(){
                 break;
             case this.hurt:
                 this.playAnimation(this.IMAGES_HURT);
+                this.HURT_SOUND.play();
                 this.resetLongIdleTime();
                 break;
             case this.jumping:

@@ -17,7 +17,11 @@ class World{
     maxBottles = 5;
 
     gameOver;
+    won;
     notStartet = true;
+
+    COLLECT_BOTTLE_SOUND = new Audio('audio/sfx/glass_clink_sound.mp3');
+    COLLECT_COIN_SOUND = new Audio('audio/sfx/brigt_metallic_sound.mp3');
 
 
 
@@ -27,6 +31,7 @@ constructor(canvas, keyboard){
     this.keyboard = keyboard;
     this.character = new Character();
     this.gameOver = new GameOver();
+    this.won = new Won();
     this.startScreen = new StartScreen();
     this.statusBarHealth = new StatusBarHealth();
     this.statusBarBottle = new StatusBarBottle();
@@ -195,6 +200,7 @@ run(){
         this.totalCoins = this.countCollectable(Coin);  
         }
 
+        this.COLLECT_COIN_SOUND.play();
         this.character.coins++;
         //console.log("coin added. total: "+this.character.coins);
         this.updateStatusBarCoins();
@@ -204,7 +210,7 @@ run(){
 
     addBottle(){
         
-        
+            this.COLLECT_BOTTLE_SOUND.play();
             this.character.bottles++;
             this.updateStatusBarBottle();
         
@@ -300,9 +306,11 @@ run(){
 
         if(this.character.playedDeadAnimation){
                    
-                    this.addToMap(this.gameOver);
+                this.addToMap(this.gameOver);
 
-                }
+            } else if (false){                  // hier muss noch die Bedigung dafür rein, dass ein gameOver erkannt wird
+                this.addToMap(this.won);
+            }
 
         
 

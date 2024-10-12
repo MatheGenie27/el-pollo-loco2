@@ -42,6 +42,10 @@ class ThrowableObject extends MovableObject{
     landed = false;
     splashed = false;
 
+    SPLASH_SOUND = new Audio('audio/sfx/fluid_splashin_onto_.mp3');
+    BREAK_SOUND= new Audio('audio/sfx/bottle_breaking.mp3');
+    THROW_SOUND = new Audio('audio/sfx/someone_throws_somet.mp3');
+    LANDING_SOUND = new Audio('audio/sfx/something_landing_in.mp3');
 
     constructor(x,y,speedX){
         super();
@@ -81,6 +85,12 @@ class ThrowableObject extends MovableObject{
         this.speedY = 0;
         this.speedX = 0;
         this.splashed = true;
+        this.THROW_SOUND.pause();
+        this.BREAK_SOUND.play();
+        setTimeout( () => {
+            this.SPLASH_SOUND.play();
+        },100)
+        
     }
 
     respond(){
@@ -89,6 +99,7 @@ class ThrowableObject extends MovableObject{
     
     throw(){
         this.speedY = -20;
+        this.THROW_SOUND.play();
         
          this.applyGravity(); 
         setInterval( () => {
@@ -97,9 +108,13 @@ class ThrowableObject extends MovableObject{
                        
 
             } else {
-                if(!this.landed){
+                if(!this.landed && !this.splashed){
                 this.loadImage(this.IMAGES_ONGROUND[Math.round(Math.random())]);
+                this.THROW_SOUND.pause();
+                this.LANDING_SOUND.play();
                 this.landed = true;
+                
+
                 }
             }
             this.updateCollisionBox();
