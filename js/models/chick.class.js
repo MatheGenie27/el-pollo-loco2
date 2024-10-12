@@ -21,9 +21,9 @@ class Chick extends MovableObject {
     soundRange = false;
 
     IMAGES_WALKING=[
-        '../img/3_enemies_chicken/chicken_small/1_walk/1_w.png',
-        '../img/3_enemies_chicken/chicken_small/1_walk/2_w.png',
-        '../img/3_enemies_chicken/chicken_small/1_walk/3_w.png'
+        './img/3_enemies_chicken/chicken_small/1_walk/1_w.png',
+        './img/3_enemies_chicken/chicken_small/1_walk/2_w.png',
+        './img/3_enemies_chicken/chicken_small/1_walk/3_w.png'
     ]
 
     IMAGES_DEAD=[
@@ -36,7 +36,7 @@ class Chick extends MovableObject {
 
     constructor(){
         super();
-        super.loadImage('../img/3_enemies_chicken/chicken_small/1_walk/1_w.png');
+        super.loadImage('./img/3_enemies_chicken/chicken_small/1_walk/1_w.png');
         super.loadImages(this.IMAGES_WALKING);
         super.loadImages(this.IMAGES_DEAD);
 

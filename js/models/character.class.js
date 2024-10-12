@@ -121,15 +121,16 @@ jumping = false;
 lastInput;
 longIdleTime = 0;
 won = false;
+lastImage = false;
 
-
+lastImage = 'img/2_character_pepe/2_walk/W-21.png';
 
 
 constructor(){
     
     super();
     
-    super.loadImage('../img/2_character_pepe/2_walk/W-21.png');
+    super.loadImage(this.lastImage);
     super.loadImages(this.IMAGES_WALKING);
     super.loadImages(this.IMAGES_IDLE);
     super.loadImages(this.IMAGES_LONGIDLE);
@@ -291,8 +292,12 @@ animate(){
                     break;
                 
         }
-        } else {
-                    this.loadImage('../img/2_character_pepe/2_walk/W-21.png');
+        } else {    
+                    if(!this.lastImage){
+                    this.loadImage(this.lastImage);
+                    this.lastImage = true;    
+                    }
+
                 }
         
 

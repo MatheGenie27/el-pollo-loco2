@@ -27,10 +27,10 @@ class Endboss extends MovableObject {
     soundRange = false;
 
     IMAGES_WALKING=[
-        '../img/4_enemie_boss_chicken/1_walk/G1.png',
-        '../img/4_enemie_boss_chicken/1_walk/G2.png',
-        '../img/4_enemie_boss_chicken/1_walk/G3.png',
-        '../img/4_enemie_boss_chicken/1_walk/G4.png'
+        './img/4_enemie_boss_chicken/1_walk/G1.png',
+        './img/4_enemie_boss_chicken/1_walk/G2.png',
+        './img/4_enemie_boss_chicken/1_walk/G3.png',
+        './img/4_enemie_boss_chicken/1_walk/G4.png'
         
     ]
 
@@ -71,7 +71,7 @@ class Endboss extends MovableObject {
 
     constructor(){
         super();
-        super.loadImage('../img/4_enemie_boss_chicken/1_walk/G1.png');
+        super.loadImage('./img/4_enemie_boss_chicken/1_walk/G1.png');
         super.loadImages(this.IMAGES_WALKING);
         super.loadImages(this.IMAGES_DEAD);
         super.loadImages(this.IMAGES_HURT);
