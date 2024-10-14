@@ -73,7 +73,7 @@ class Chicken extends MovableObject{
             if(((Date.now() - this.lastCry) > this.nextCry) && this.soundRange){
                 
                 this.CRY_SOUND.play();
-                console.log("ChickenSound");
+                //console.log("ChickenSound");
                 
                 this.lastCry = Date.now();
                 this.nextCry = 2000 + Math.random()*3000;

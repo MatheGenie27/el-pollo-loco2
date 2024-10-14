@@ -28,6 +28,8 @@ body{
     background-repeat: no-repeat;
 }
 
+
+
 #titleBox{
     min-width: 100%;
 
@@ -63,7 +65,7 @@ h1{
     z-index: 10;
 }
 
-#overlay-container{
+#overlayContainer{
     width: 720px;
     height: 480px;
     /* background-color: rgba(255, 255, 255, 0.8); */
@@ -75,6 +77,10 @@ h1{
 #top-row{
     min-height: 20%;
     min-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
 }
 
 #middle-row{
@@ -89,10 +95,17 @@ h1{
 #bottom-row{
     min-height:20%;
     min-width: 100%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.uiOptionButton{
+    height:fit-content;
 }
 
 .noDisplay{
-    display: none;
+    display: none !important;
 }
 
 @media only screen and (max-width:720px){

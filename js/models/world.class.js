@@ -20,11 +20,12 @@ class World{
 
     inEndgame;
     
-
+    afterGame = false;
     gameOver;
     won;
     notStartet = true;
     hasWon = false;
+    hastLost = false;
 
     COLLECT_BOTTLE_SOUND = new Audio('audio/sfx/glass_clink_sound.mp3');
     COLLECT_COIN_SOUND = new Audio('audio/sfx/brigt_metallic_sound.mp3');
@@ -64,14 +65,22 @@ async start(){
     this.level = level1;
     this.run();
     setTimeout ( ()=>{
-        this.notStartet = false;
-        this.GAME_MUSIC.loop = true;
-        this.GAME_MUSIC.play();
+        this.playGameMusic()
         
     },200)
     
     
     
+}
+
+playGameMusic(){
+    if(music){
+    this.notStartet = false;
+    this.GAME_MUSIC.loop = true;
+    this.GAME_MUSIC.play();
+    } else {
+        this.GAME_MUSIC.pause();
+    }
 }
 
 
@@ -342,6 +351,7 @@ checkEndgame(){
                         
                         this.playVictoryMusic();
                         this.hasWon = true;
+                        this.enterAfterGameMenu();
                         
 
                     },1000)
@@ -352,16 +362,37 @@ checkEndgame(){
         if(this.character.dead){
             this.ENDBOSS_MUSIC.pause();
             this.GAME_MUSIC.pause();
+            
             setTimeout( () => {
             
-            this.GAMEOVER_MUSIC.play();
+            this.playLostMusic();
+            
+            this.hastLost = true;
+            this.enterAfterGameMenu()
             }, 1000)
     }
+    }
+
+    
+
+    enterAfterGameMenu(){
+        if(!this.afterGame){
+            this.afterGame=true;
+            setTimeout(()=>{
+                showAfterGameUI();
+            },2000)
+        }
     }
 
     playVictoryMusic(){
         if(!this.hasWon){
             this.VICTORY_MUSIC.play();
+        }
+    }
+
+    playLostMusic(){
+        if(!this.hastLost){
+            this.GAMEOVER_MUSIC.play();
         }
     }
 

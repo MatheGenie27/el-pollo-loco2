@@ -244,7 +244,8 @@ animate(){
                 
                 setTimeout( () => {
                     this.playedDeadAnimation=true;
-                    //this.DEAD_SOUND.play();
+                    this.HURT_SOUND.pause();
+                    this.DEAD_SOUND.play();
                 },500)
                 
 

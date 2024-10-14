@@ -1,5 +1,6 @@
 
-let fullscreen = document.getElementById('fullscreen');
+
+
 
 
 function enterFullscreen(element) {
@@ -15,14 +16,30 @@ function enterFullscreen(element) {
   }
 
 
-  function exitFullscreen() {
-    if (document.exitFullscreen) {
-      document.exitFullscreen();
-    } else if (document.mozCancelFullScreen) { // Für Firefox
-      document.mozCancelFullScreen();
-    } else if (document.webkitExitFullscreen) { // Für Chrome, Safari und Opera
-      document.webkitExitFullscreen();
-    } else if (document.msExitFullscreen) { // Für Internet Explorer/Edge
-      document.msExitFullscreen();
+  function exitFullscreen(element) {
+    if (element.exitFullscreen) {
+      element.exitFullscreen();
+    } else if (element.mozCancelFullScreen) { // Für Firefox
+      element.mozCancelFullScreen();
+    } else if (element.webkitExitFullscreen) { // Für Chrome, Safari und Opera
+      element.webkitExitFullscreen();
+    } else if (element.msExitFullscreen) { // Für Internet Explorer/Edge
+      element.msExitFullscreen();
     }
-  } 
+}
+
+function ToggleFullscreen(element){
+  if (
+    document.fullscreenElement === element || // Standard-API
+    document.mozFullScreenElement === element || // Firefox
+    document.webkitFullscreenElement === element || // Chrome, Safari, Opera
+    document.msFullscreenElement === element // Internet Explorer/Edge
+  ) {
+    // Element ist im Vollbildmodus, also beenden
+    exitFullscreen(document);
+  } else {
+    // Element ist nicht im Vollbildmodus, also starten
+    enterFullscreen(element);
+  }
+}
+   

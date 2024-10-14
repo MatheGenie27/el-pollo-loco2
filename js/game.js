@@ -1,3 +1,6 @@
+let music = true;
+let sound = true;
+
 
 let canvas;
 let keyboard = new Keyboard;

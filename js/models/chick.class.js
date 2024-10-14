@@ -85,7 +85,7 @@ class Chick extends MovableObject {
                 if(this.soundRange){
                 this.JUMP_SOUND.play();
                 }
-                console.log("CHICK SPRUNG");
+                //console.log("CHICK SPRUNG");
                 this.lastJump = this.currentTime;
                 this.nextJump = 3000 + Math.random()*3000;
 
