@@ -27,6 +27,7 @@
     <script src="./js/models/coin.class.js"></script>
     <script src="./js/models/bottle.class.js"></script>
     <script src="./js/models/startScreen-object.class.js"></script>
+    <script src="./js/models/menuScreen-object.class.js"></script>
     <script src="./js/models/gameOver-object.class.js"></script>
     <script src="./js/models/won-object.class.js"> </script>
 
@@ -59,26 +60,29 @@
     <div id="canvasContainer">
     <canvas id="myCanvas" width="720" height="480"></canvas>
     </div>
+    
+    
+    <a id="impressumLink" href="impressum.html">Impressum</a> 
 
     <div id="overlay">
         <div id="overlayContainer">
             <div id="top-row">
-                <button id="soundButton" class="uiOptionButton" onclick="soundButtonClick()">sound</button>
-                <button id="musicButton" class="uiOptionButton" onclick="musicButtonClick()">music</button>
-                <button id="fullscreenButton" class="uiOptionButton" onclick="fullscreenButtonClick()">vollbild</button>
+                <button id="soundButton" class="uiOptionButton noDisplay" onclick="soundButtonClick()">sound</button>
+                <button id="musicButton" class="uiOptionButton noDisplay" onclick="musicButtonClick()">music</button>
+                <button id="fullscreenButton" class="uiOptionButton noDisplay" onclick="fullscreenButtonClick()">vollbild</button>
                 
 
             </div>
             <div id="middle-row">
-                <button id="infoButton" onclick="infoButtonClick()">Info</button>
-                <button id="startButton" onclick="startButtonClick()">Start</button>
+                <button id="infoButton" onclick="infoButtonClick()" class="noDisplay">Info</button>
+                <button id="startButton" onclick="startButtonClick()" class ="noDisplay">Start</button>
                 <button id="restartButton" onclick="restartButtonClick()" class="noDisplay">Restart</button>
                 <button id="exitButton" onclick="exitButtonClick()" class="noDisplay">exit</button>
             </div>
             
             <div id="bottom-row">
                 <button id="throwButton" class="noDisplay">throw</button>
-                <button id="throwButton" class="noDisplay">jump</button>
+                <button id="upButton" class="noDisplay">jump</button>
                 <button id="leftButton" class="noDisplay">left</button>
                 <button id="rightButton" class="noDisplay">right</button>
 

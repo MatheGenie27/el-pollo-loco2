@@ -27,6 +27,9 @@ class World{
     hasWon = false;
     hastLost = false;
 
+    menuScreen;
+    inMenu=false;
+
     COLLECT_BOTTLE_SOUND = new Audio('audio/sfx/glass_clink_sound.mp3');
     COLLECT_COIN_SOUND = new Audio('audio/sfx/brigt_metallic_sound.mp3');
     GAME_MUSIC = new Audio('audio/music/spanish_guitar_music_1.mp3');
@@ -46,6 +49,7 @@ constructor(canvas, keyboard){
     this.gameOver = new GameOver();
     this.won = new Won();
     this.startScreen = new StartScreen();
+    this.menuScreen = new MenuScreen();
     this.statusBarHealth = new StatusBarHealth();
     this.statusBarBottle = new StatusBarBottle();
     this.statusBarCoin = new StatusBarCoin();
@@ -53,7 +57,7 @@ constructor(canvas, keyboard){
     //this.throwableObjects.push(new ThrowableObject);
     this.setWorld();
     this.draw();
-    
+    this.startEnterMenu();
     
 }
 
@@ -71,6 +75,14 @@ async start(){
     
     
     
+}
+
+startEnterMenu(){
+    setTimeout( () => {
+        this.inMenu = true;
+        showStartScreenUI();
+        showTopRowUI();
+    },1500);
 }
 
 playGameMusic(){
@@ -416,7 +428,11 @@ checkEndgame(){
         this.ctx.clearRect(0,0, this.canvas.width, this.canvas.height);
 
         if (this.notStartet){
+            if(!this.inMenu){
             this.addToMap(this.startScreen);
+            } else {
+                this.addToMap(this.menuScreen);
+            }
             
         } else {
 

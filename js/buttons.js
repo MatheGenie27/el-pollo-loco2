@@ -5,6 +5,10 @@ let exitButton = document.getElementById("exitButton");
 let soundButton = document.getElementById("soundButton");
 let musicButton = document.getElementById("musicButton");
 let fullscreenButton = document.getElementById("fullscreenButton");
+let throwButton = document.getElementById("throwButton");
+let upButton = document.getElementById("upButton");
+let leftButton = document.getElementById("leftButton");
+let rightButton = document.getElementById("rightButton");
 
 function startButtonClick(){
     console.log("Start Klick");
@@ -15,6 +19,11 @@ function startButtonClick(){
 
 }
 
+function showTopRowUI(){
+    soundButton.classList.remove('noDisplay');
+    musicButton.classList.remove('noDisplay');
+    fullscreenButton.classList.remove('noDisplay');
+}
 
 function hideStartScreenUI(){
     startButton.classList.add('noDisplay');
@@ -39,11 +48,12 @@ function exitButtonClick(){
 }
 
 function soundButtonClick(){
+    console.log("soundButtonClick");
 
 }
 
 function musicButtonClick(){
-    console.log("musicButtonCLick");
+    console.log("musicButtonCick");
     if(music){
         music=false;
     } else {
@@ -58,6 +68,23 @@ function fullscreenButtonClick(){
 
 function infoButtonClick(){
 
+}
+
+
+function showBottomRow(){
+    console.log("bottomRow is da");
+    throwButton.classList.remove('noDisplay');
+    upButton.classList.remove('noDisplay');
+    leftButton.classList.remove('noDisplay');
+    rightButton.classList.remove('noDisplay');
+}
+
+function hideBottomRow(){
+    console.log("bottomRow is weg");
+    throwButton.classList.add('noDisplay');
+    upButton.classList.add('noDisplay');
+    leftButton.classList.add('noDisplay');
+    rightButton.classList.add('noDisplay');
 }
 
 
