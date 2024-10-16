@@ -14,6 +14,8 @@ html{
      
 }
 
+
+
 body{
     margin:0;
     min-height: 100vh;
@@ -34,8 +36,9 @@ body{
     min-width: 100%;
 
     position: absolute;
-    top: 10px;
+    top: 1rem;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
@@ -45,25 +48,63 @@ h1{
     font-style: normal;
 
     font-size: 5rem;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+#impressumLink{
+   
+    text-decoration: none;
+    color:black;
+    border: 1px solid black;
+    padding-left: 4px;
+    padding-right: 4px;
+    padding-top: 2px; 
+    padding-bottom: 2px;
+    
+
+    
+}
+
+#impressumLink:hover{
+    border: 2px solid black;
+    background-color: rgb(255, 136, 0);
+    padding-left: 1px;
+    padding-right: 1px;
+    padding-top: 1px;
+    padding-bottom: 1px; 
+}
+
+
+#canvasContainer {
+    position: relative; /* Wichtig: Relativer Bezugspunkt für den Overlay */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #myCanvas{
     background-color: black;
     display: block;
     border: 3px solid orange;
+    margin-bottom: 0;
     
    
 }
 
-#impressumLink{
-    z-index: 100;
-}
+
+
+
 
 #overlay{
     position: absolute;
-    top:0px;
-    min-width: 100%;
-    height:100vh;
+    top:0;
+    left:0;
+    width: 100%;
+    
+    height:100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -71,8 +112,13 @@ h1{
 }
 
 #overlayContainer{
-    width: 720px;
-    height: 480px;
+    
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
     /* background-color: rgba(255, 255, 255, 0.8); */
     
 
@@ -81,7 +127,8 @@ h1{
 
 #top-row{
     min-height: 20%;
-    min-width: 100%;
+    
+    width:100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -90,7 +137,8 @@ h1{
 
 #middle-row{
     min-height: 60%;
-    min-width: 100%;
+    
+    width:100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -99,7 +147,8 @@ h1{
 
 #bottom-row{
     min-height:20%;
-    min-width: 100%;
+    
+    width:100%;
     display:flex;
     justify-content: center;
     align-items: center;
@@ -114,16 +163,27 @@ h1{
 }
 
 #impressumContainer{
-    min-width: 100%;
+    
+    
+    max-width: 100%;
     min-height: 100dvh;
     display: flex;
-    align-items: center ;
-    justify-content: center;
 }
 
+
+
 .impressum{
+    
     max-width: 1044px;
     margin-bottom: 2rem;
+    
+    
+    padding-left: 1.5rem;
+    padding-right: 1rem;
+    
+    
+    
+    
 }
 
 @media only screen and (max-width:720px){
@@ -131,12 +191,46 @@ h1{
         width: 100%;
         border: none;
     }
+
+    #overlayContainer{
+        
+        width: 100%;
+        
+    }    
 }
 
-@media only screen and(max-height: 480px ){
+@media only screen and (max-width:480px){
+    h1{
+        font-size: 3rem;
+    }
+}
+
+@media only screen and (max-width:345px){
+    h1{
+        font-size: 2rem;
+    }
+}
+
+
+
+
+@media only screen and (max-height: 480px ){
+    
+    
     #myCanvas{
-            height: 100vh;
+            max-height: 100vh;
+            
             border: none;
+    }
+
+    #canvasContainer{
+        max-height: 100vh;
+    }
+
+    #overlayContainer{
+    
+        
+        height: 100vh;
     }
 
     

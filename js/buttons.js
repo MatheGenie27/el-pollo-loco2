@@ -67,7 +67,7 @@ function fullscreenButtonClick(){
 }
 
 function infoButtonClick(){
-
+    console.log("infoButtonClick");
 }
 
 
