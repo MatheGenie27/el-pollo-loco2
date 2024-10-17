@@ -37,8 +37,13 @@ class Coin extends CollectableObject {
         
         
         this.animate();
+        this.y_displacement = this.randomYDisplacement();
         Coin.allCoins.push(this.coll_x);
 
+    }
+
+    randomYDisplacement(){
+        return Math.random() * 30 + 40
     }
 
 

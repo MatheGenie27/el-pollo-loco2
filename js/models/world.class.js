@@ -26,6 +26,8 @@ class World{
     notStartet = true;
     hasWon = false;
     hastLost = false;
+    coinComplete = false;
+    endVoice = false;
 
     menuScreen;
     inMenu=false;
@@ -38,7 +40,9 @@ class World{
 
     VICTORY_MUSIC = new Audio('audio/music/joyful_spanish_victo2.mp3');
     GAMEOVER_MUSIC = new Audio('audio/music/spanish_funeral_musi.mp3');
-
+    
+    COMPLETE_COIN = new Audio('audio/voice/dinero.mp3');
+    LOST_VOICE = new Audio('audio/voice/lostVoice.mp3');
 
 
 constructor(canvas, keyboard){
@@ -50,27 +54,35 @@ constructor(canvas, keyboard){
     this.won = new Won();
     this.startScreen = new StartScreen();
     this.menuScreen = new MenuScreen();
-    this.statusBarHealth = new StatusBarHealth();
-    this.statusBarBottle = new StatusBarBottle();
-    this.statusBarCoin = new StatusBarCoin();
-    this.statusBarEndboss = new StatusBarEndboss();
-    //this.throwableObjects.push(new ThrowableObject);
+    this.statusBarHealth = new StatusBarHealth;
+    this.statusBarBottle = new StatusBarBottle;
+    this.statusBarCoin = new StatusBarCoin;
+    this.statusBarEndboss = new StatusBarEndboss;
+    
     this.setWorld();
     this.draw();
     this.startEnterMenu();
-    
+
+    this.GAMEOVER_MUSIC.volume = 0.4;
+    this.GAME_MUSIC.volume = 0.4;
+    this.VICTORY_MUSIC.volume = 0.4;
+
 }
 
 
 async start(){
-
+    this.VICTORY_MUSIC.pause();
+    this.GAMEOVER_MUSIC.pause();
+    let loading = document.getElementById('loadingImage');
+    loading.classList.remove('noDisplay'); 
     
     await initLevel();
     this.level = level1;
+    
     this.run();
     setTimeout ( ()=>{
         this.playGameMusic()
-        
+        loading.classList.add('noDisplay');
     },200)
     
     
@@ -78,9 +90,14 @@ async start(){
 }
 
 startEnterMenu(){
+    
+
+
     setTimeout( () => {
         this.inMenu = true;
         showStartScreenUI();
+        
+
         showTopRowUI();
     },1500);
 }
@@ -298,6 +315,12 @@ checkEndgame(){
         this.character.coins++;
         //console.log("coin added. total: "+this.character.coins);
         this.updateStatusBarCoins();
+
+        if(this.character.coins == this.totalCoins && !this.coinComplete){
+            this.coinComplete = true;
+            this.COMPLETE_COIN.play();
+
+        }
         //console.log(this.statusBarCoin.percentage +"Prozent");
 
     }
@@ -374,6 +397,11 @@ checkEndgame(){
         if(this.character.dead){
             this.ENDBOSS_MUSIC.pause();
             this.GAME_MUSIC.pause();
+
+            if(!this.endVoice){
+                this.endVoice = true;
+                this.LOST_VOICE.play();
+            }
             
             setTimeout( () => {
             

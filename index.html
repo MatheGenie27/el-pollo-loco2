@@ -10,7 +10,7 @@
 
     <script src="./js/fullscreen.js" defer></script>
     <script src="./js/buttons.js" defer> </script>
-
+    <script src="./js/support.js"></script>
 
     <script src="./js/models/keyboard.class.js"></script>
     
@@ -45,7 +45,7 @@
 
     <script src="./js/models/world.class.js"></script>
 
-    <script src="./js/game.js"></script>
+    <script src="./js/game.js" defer></script>
 
 
 
@@ -73,6 +73,7 @@
 
             </div>
             <div id="middle-row">
+                <img id="loadingImage" class="noDisplay" src="img/loading.gif">
                 <button id="infoButton" onclick="infoButtonClick()" class="noDisplay">Info</button>
                 <button id="startButton" onclick="startButtonClick()" class ="noDisplay">Start</button>
                 <button id="restartButton" onclick="restartButtonClick()" class="noDisplay">Restart</button>

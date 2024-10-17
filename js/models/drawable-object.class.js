@@ -9,14 +9,30 @@ class DrawableObject{
     world;
     otherDirection = false;
     currentImage = 0;
+    ready;
+
+    constructor(){
+        this.ready = false;
+    }
+
+
+
+    
 
 
     loadImage(path){
+
+        
         this.img = new Image();
         this.img.src=path;
+        
     }
 
-    loadImages(arr){
+
+
+    async loadImages(arr){
+
+        
         arr.forEach((path) => {
             let image = new Image();
             image.src= path;
@@ -24,6 +40,10 @@ class DrawableObject{
         });
         
     }
+
+   
+
+    
     
     draw(ctx){
     ctx.drawImage(this.img, this.x, this.y, this.width, this.height);

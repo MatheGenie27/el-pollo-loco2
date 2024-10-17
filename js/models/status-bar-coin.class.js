@@ -14,10 +14,13 @@ class StatusBarCoin extends StatusBar{
     constructor(){
         super();
         this.loadImages(this.IMAGES);
+        
         this.setPercentage(this.percentage);
         
         
         this.y = 50;
     }
 
+
+   
 }

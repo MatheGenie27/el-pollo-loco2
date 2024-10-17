@@ -38,6 +38,7 @@ function showStartScreenUI(){
 function restartButtonClick(){
     init();
     hideAfterGameUI();
+    hideStartScreenUI();
     world.start();
 }
 

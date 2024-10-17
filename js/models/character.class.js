@@ -123,6 +123,8 @@ longIdleTime = 0;
 won = false;
 lastImage = false;
 
+deadSound = false;
+
 lastImage = 'img/2_character_pepe/2_walk/W-21.png';
 
 
@@ -233,7 +235,7 @@ animate(){
 
     //animation
     setInterval(() => {
-        this.DEAD_SOUND.pause();
+        //this.DEAD_SOUND.pause();
         this.HURT_SOUND.pause();
         if(!this.won){
         switch (true) {
@@ -245,7 +247,7 @@ animate(){
                 setTimeout( () => {
                     this.playedDeadAnimation=true;
                     this.HURT_SOUND.pause();
-                    this.DEAD_SOUND.play();
+                    
                 },500)
                 
 
