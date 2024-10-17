@@ -83,6 +83,11 @@ async start(){
     setTimeout ( ()=>{
         this.playGameMusic()
         loading.classList.add('noDisplay');
+        if(isMobile()){
+            showBottomRow();
+        } else {
+            hideBottomRow();
+        }
     },200)
     
     
@@ -96,7 +101,7 @@ startEnterMenu(){
     setTimeout( () => {
         this.inMenu = true;
         showStartScreenUI();
-        
+       
 
         showTopRowUI();
     },1500);

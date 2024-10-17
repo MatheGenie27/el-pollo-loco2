@@ -8,14 +8,25 @@ let keyboard = new Keyboard;
 let world;
 
 function init(){
+
     canvas = document.getElementById('myCanvas');
+    hint = document.getElementById('hint');
+    if(isLandscape()){
+        canvas.classList.remove("noDisplay");
+        hint.classList.add("noDisplay");
+        
+    
     
     world = new World(canvas, keyboard);
 
 
-    console.log("My character is", world.character);
+    //console.log("My character is", world.character);
+    } else {    
+        canvas.classList.add("noDisplay");
+        hint.classList.remove("noDisplay");
+        
+    }
 }
-
 
 window.addEventListener('keydown', (e) => {
     switch(e.key) {
@@ -56,3 +67,4 @@ window.addEventListener('keyup', (e) => {
             break;
     }
 });
+

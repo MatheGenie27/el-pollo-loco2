@@ -60,15 +60,18 @@
     
 
     <div id="canvasContainer">
-    <canvas id="myCanvas" width="720" height="480"  ></canvas>
+    <canvas id="myCanvas" width="720" height="480" class="noDisplay" ></canvas>
+    <div id="hint" class="noDisplay"><h2>Bitte Handy drehen um zu spielen.</h2></div> 
+
+    
     
 
 <div id="overlay">
         <div id="overlayContainer">
             <div id="top-row">
-                <button id="soundButton" class="uiOptionButton noDisplay" onclick="soundButtonClick()">sound</button>
-                <button id="musicButton" class="uiOptionButton noDisplay" onclick="musicButtonClick()">music</button>
-                <button id="fullscreenButton" class="uiOptionButton noDisplay" onclick="fullscreenButtonClick()">vollbild</button>
+                <img id="soundButton" class="uiOptionButton noDisplay" onclick="soundButtonClick()" src="./Icons/sound.png"></img>
+                <img id="musicButton" class="uiOptionButton noDisplay" onclick="musicButtonClick()" src="./Icons/music.png"></img>
+                <img id="fullscreenButton" class="uiOptionButton noDisplay" onclick="fullscreenButtonClick()" src="./Icons/fullscreen.png"></img>
                 
 
             </div>
@@ -81,10 +84,14 @@
             </div>
             
             <div id="bottom-row">
-                <button id="throwButton" class="noDisplay">throw</button>
-                <button id="upButton" class="noDisplay">jump</button>
-                <button id="leftButton" class="noDisplay">left</button>
-                <button id="rightButton" class="noDisplay">right</button>
+                <div class="controlGroup leftCG" >
+                    <img id="throwButton" class="touchButton noDisplay" src="./Icons/space.png"></img>
+                    <img id="upButton" class="touchButton noDisplay" src="./Icons/up-arrow.png"></img>
+                </div>
+                <div class="controlGroup rightCG">
+                    <img id="leftButton" class="touchButton noDisplay" src="./Icons/left-arrow.png"></img>
+                    <img id="rightButton" class="touchButton noDisplay" src="./Icons/right-arrow.png"></img>
+                </div>
 
             </div>
         </div>

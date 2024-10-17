@@ -132,7 +132,7 @@ h1{
     display: flex;
     justify-content: center;
     align-items: center;
-    
+    gap: 1%;
 }
 
 #middle-row{
@@ -148,14 +148,43 @@ h1{
 #bottom-row{
     min-height:20%;
     
+    
     width:100%;
+    max-width: 100%;
     display:flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
+    gap: 15%;
 }
 
 .uiOptionButton{
-    height:fit-content;
+    max-height:50%;
+}
+
+.controlGroup{
+    display: flex;
+    max-height: 100%;
+    width: 50%;
+    align-items: center;
+    justify-content: center;
+    gap:5%;
+}
+
+.leftCG{
+    justify-content: end;
+}
+ 
+.rightCG{
+    justify-content: start;
+}
+
+.touchButton{
+    max-height: 60%;
+    max-width: 15%;
+    height:auto;
+    width: auto ;
+    display: block;
+    object-fit: contain;
 }
 
 .noDisplay{

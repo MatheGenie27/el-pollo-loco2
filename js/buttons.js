@@ -50,6 +50,13 @@ function exitButtonClick(){
 
 function soundButtonClick(){
     console.log("soundButtonClick");
+    if(sound){
+        sound=false;
+        soundButton.src="Icons/no-sound.png";
+    } else {
+        sound = true;
+        soundButton.src="Icons/sound.png";
+    }
 
 }
 
@@ -57,8 +64,10 @@ function musicButtonClick(){
     console.log("musicButtonCick");
     if(music){
         music=false;
+        musicButton.src="Icons/no-music.png";
     } else {
         music = true;
+        musicButton.src="Icons/music.png";
     }
 }
 
