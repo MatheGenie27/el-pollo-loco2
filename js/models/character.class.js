@@ -199,7 +199,7 @@ animate(){
         this.WALKING_SOUND.pause();
         
 
-        if (this.world.keyboard.RIGHT && this.x <= this.world.level.level_end_x){
+        if (this.world.keyboard.RIGHT && this.x <= 5*719){
             this.moveRight();   
             this.otherDirection=false;
             this.WALKING_SOUND.play();

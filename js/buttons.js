@@ -31,21 +31,29 @@ function hideStartScreenUI(){
 }
 
 function showStartScreenUI(){
+    console.log("Zeige StartScreen um :" +(new Date()))
     startButton.classList.remove('noDisplay');
     infoButton.classList.remove('noDisplay');
 }
 
 function restartButtonClick(){
+    console.log("anfang Restart");
+    world.musicHandler.stopPreviousMusic();
+    world = null;
     init();
+    world.restart=true;
     hideAfterGameUI();
+
     hideStartScreenUI();
     world.start();
+    console.log("ende Restart");
 }
 
 function exitButtonClick(){
+    world = null;
     init();
     hideAfterGameUI();
-    showStartScreenUI();
+    //showStartScreenUI();
 }
 
 function soundButtonClick(){
@@ -101,6 +109,7 @@ function hideBottomRow(){
 
 
 function showAfterGameUI(){
+    //console.log("");
     exitButton.classList.remove('noDisplay');
     restartButton.classList.remove('noDisplay');
 }

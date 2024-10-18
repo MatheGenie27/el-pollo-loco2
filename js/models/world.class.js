@@ -3,6 +3,7 @@ class World{
     ctx;
     keyboard;
     character;
+    musicHandler;
     
 
     camera_x = 0;
@@ -27,22 +28,12 @@ class World{
     hasWon = false;
     hastLost = false;
     coinComplete = false;
-    endVoice = false;
+    
 
     menuScreen;
     inMenu=false;
 
-    COLLECT_BOTTLE_SOUND = new Audio('audio/sfx/glass_clink_sound.mp3');
-    COLLECT_COIN_SOUND = new Audio('audio/sfx/brigt_metallic_sound.mp3');
-    GAME_MUSIC = new Audio('audio/music/spanish_guitar_music_1.mp3');
-    
-    ENDBOSS_MUSIC = new Audio('audio/music/spanish_guitar_music_2.mp3');
-
-    VICTORY_MUSIC = new Audio('audio/music/joyful_spanish_victo2.mp3');
-    GAMEOVER_MUSIC = new Audio('audio/music/spanish_funeral_musi.mp3');
-    
-    COMPLETE_COIN = new Audio('audio/voice/dinero.mp3');
-    LOST_VOICE = new Audio('audio/voice/lostVoice.mp3');
+    restart = false;
 
 
 constructor(canvas, keyboard){
@@ -54,6 +45,7 @@ constructor(canvas, keyboard){
     this.won = new Won();
     this.startScreen = new StartScreen();
     this.menuScreen = new MenuScreen();
+    this.musicHandler = new MusicHandler();
     this.statusBarHealth = new StatusBarHealth;
     this.statusBarBottle = new StatusBarBottle;
     this.statusBarCoin = new StatusBarCoin;
@@ -63,16 +55,15 @@ constructor(canvas, keyboard){
     this.draw();
     this.startEnterMenu();
 
-    this.GAMEOVER_MUSIC.volume = 0.4;
-    this.GAME_MUSIC.volume = 0.4;
-    this.VICTORY_MUSIC.volume = 0.4;
+    
 
 }
 
 
 async start(){
-    this.VICTORY_MUSIC.pause();
-    this.GAMEOVER_MUSIC.pause();
+
+
+    
     let loading = document.getElementById('loadingImage');
     loading.classList.remove('noDisplay'); 
     
@@ -81,7 +72,9 @@ async start(){
     
     this.run();
     setTimeout ( ()=>{
-        this.playGameMusic()
+        
+        this.musicHandler.playGameMusic()
+        this.notStartet = false;
         loading.classList.add('noDisplay');
         if(isMobile()){
             showBottomRow();
@@ -96,26 +89,22 @@ async start(){
 
 startEnterMenu(){
     
-
+    
 
     setTimeout( () => {
         this.inMenu = true;
+
+        if(!this.restart){
         showStartScreenUI();
-       
+        }
 
         showTopRowUI();
     },1500);
+
+
 }
 
-playGameMusic(){
-    if(music){
-    this.notStartet = false;
-    this.GAME_MUSIC.loop = true;
-    this.GAME_MUSIC.play();
-    } else {
-        this.GAME_MUSIC.pause();
-    }
-}
+
 
 
 setWorld(){
@@ -133,6 +122,7 @@ run(){
         this.character.checkInvulnerability();
         this.checkEndgame();
         this.checkSoundRange();
+        //this.musicHandler.checkGameForAudioSetting();
         
         //console.log("welt läuft und checked Kollsionen");
     }, 1000/60)
@@ -161,12 +151,10 @@ checkEndgame(){
     if(this.checkDistance(endboss, this.character) && !endboss.dead && !this.character.dead){
         
         this.inEndgame = true;
-        this.ENDBOSS_MUSIC.loop = true;
-        this.GAME_MUSIC.pause();
-        this.ENDBOSS_MUSIC.play();
+        this.musicHandler.playEndbossMusic();
+        
     } else if(this.checkDistance(endboss, this.character) && endboss.dead){
-        this.GAME_MUSIC.pause();
-        this.ENDBOSS_MUSIC.pause();
+        this.musicHandler.stopGameMusic();
     }
 }
 
@@ -314,25 +302,26 @@ checkEndgame(){
         
         this.totalCoins = this.countCollectable(Coin);  
         }
-        this.COLLECT_BOTTLE_SOUND.pause();
-
-        this.COLLECT_COIN_SOUND.play();
+        this.musicHandler.playCoinSound();
         this.character.coins++;
         //console.log("coin added. total: "+this.character.coins);
         this.updateStatusBarCoins();
-
-        if(this.character.coins == this.totalCoins && !this.coinComplete){
-            this.coinComplete = true;
-            this.COMPLETE_COIN.play();
-
-        }
+        this.checkCoinCompletion();
+        
         //console.log(this.statusBarCoin.percentage +"Prozent");
 
     }
 
+    checkCoinCompletion(){
+        if(this.character.coins == this.totalCoins && !this.coinComplete){
+            this.coinComplete = true;
+            this.musicHandler.playCoinsCompleted();
+        }
+    }
+
     addBottle(){
         
-            this.COLLECT_BOTTLE_SOUND.play();
+            this.musicHandler.playBottleSound();
             this.character.bottles++;
             this.updateStatusBarBottle();
         
@@ -385,12 +374,13 @@ checkEndgame(){
                 if (element.dead === true){
                     this.character.stopControl();
                     this.character.won = true;
+
                     setTimeout(() => {
-                        this.ENDBOSS_MUSIC.pause();
-                        this.GAME_MUSIC.pause();
                         
-                        this.playVictoryMusic();
-                        this.hasWon = true;
+                        
+                        this.musicHandler.playVictoryMusic();
+                        this.musicHandler.playVictoryVoice();
+                        
                         this.enterAfterGameMenu();
                         
 
@@ -400,17 +390,15 @@ checkEndgame(){
         })
 
         if(this.character.dead){
-            this.ENDBOSS_MUSIC.pause();
-            this.GAME_MUSIC.pause();
+            this.musicHandler.stopGameMusic();
+            this.musicHandler.playLostVoice();
+            
 
-            if(!this.endVoice){
-                this.endVoice = true;
-                this.LOST_VOICE.play();
-            }
+            
             
             setTimeout( () => {
-            
-            this.playLostMusic();
+                
+            this.musicHandler.playDefeatMusic();
             
             this.hastLost = true;
             this.enterAfterGameMenu()
@@ -429,17 +417,9 @@ checkEndgame(){
         }
     }
 
-    playVictoryMusic(){
-        if(!this.hasWon){
-            this.VICTORY_MUSIC.play();
-        }
-    }
+   
 
-    playLostMusic(){
-        if(!this.hastLost){
-            this.GAMEOVER_MUSIC.play();
-        }
-    }
+    
 
     throwBottle(bottle){
         this.throwableObjects.push(bottle);
