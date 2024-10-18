@@ -66,11 +66,14 @@ async start(){
     
     let loading = document.getElementById('loadingImage');
     loading.classList.remove('noDisplay'); 
-    
-    await initLevel();
+    console.log("gleich wird das level initiiert");
+    await initLevel(); // hier hängts beim mehrmaligen NEUSTART
+    console.log("level ist bereit");
     this.level = level1;
+    console.log("level zugewiesen");
     
     this.run();
+    console.log("jetzt gehts looooooos");
     setTimeout ( ()=>{
         
         this.musicHandler.playGameMusic()

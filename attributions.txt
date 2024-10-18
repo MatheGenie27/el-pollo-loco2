@@ -26,6 +26,8 @@
 <a href="https://www.flaticon.com/free-icons/video" title="video icons">Video icons created by Tanah Basah - Flaticon</a>
 
 
+<a href="https://www.flaticon.com/free-icons/logout" title="logout icons">Logout icons created by Fathema Khanom - Flaticon</a>
+
 
 
 

@@ -39,13 +39,20 @@ function showStartScreenUI(){
 function restartButtonClick(){
     console.log("anfang Restart");
     world.musicHandler.stopPreviousMusic();
+    console.log("musik gestoppt");
     world = null;
+    level1 = null;
+    console.log("welt genullt");
     init();
+    console.log("init aufgerufen");
     world.restart=true;
+    console.log("Welt mitgeteilt, dass sie restartet ist");
     hideAfterGameUI();
 
     hideStartScreenUI();
-    world.start();
+    console.log("UIs geregelt")
+    //setTimeout(world.start(), 200)
+    world.start(); // hier ist der Fehler beim dritten restart!?!?
     console.log("ende Restart");
 }
 

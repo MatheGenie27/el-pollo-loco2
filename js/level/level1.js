@@ -3,9 +3,14 @@ let level1;
 
 
 async function initLevel() {
-    
+    level1 = null;
     return new Promise ((resolve) => {
-    level1 = new Level(
+
+        console.log("STARTE LEVEL INIT IM PROMISE");
+
+        // und hier beginnt jetzt die KACKE, aber warum???
+        try{
+        level1 = new Level(
 
 
 
@@ -94,6 +99,11 @@ async function initLevel() {
         new Bottle()
     ]
 );
+        } catch{
+            console.log("level erzeugung gescheitert")
+        }
+
+console.log("ALLES ERZEUGT NUN RESOLVE");
 
 resolve();
 
