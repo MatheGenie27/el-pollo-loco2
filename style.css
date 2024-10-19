@@ -88,7 +88,7 @@ h1{
 
 #canvasContainer {
     position: relative; /* Wichtig: Relativer Bezugspunkt für den Overlay */
-    width: 100%;
+    
     height: 100%;
     display: flex;
     align-items: center;
@@ -142,7 +142,7 @@ h1{
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 1%;
+    gap: 3%;
 }
 
 #middle-row{
@@ -167,6 +167,18 @@ h1{
     align-items: flex-end;
     gap: 15%;
 }
+
+
+#controlExplanation{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: blanchedalmond;
+    height: 100%;
+    width: 100%
+}
+
 
 #pepeStart{
     width: 10%;
@@ -209,7 +221,7 @@ h1{
 
 .touchButton{
     max-height: 60%;
-    max-width: 15%;
+    max-width: 20%;
     height:auto;
     width: auto ;
     display: block;

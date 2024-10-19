@@ -167,7 +167,7 @@ activateInvulnerability() {
 
 // Methode zur Überprüfung, ob die Unverwundbarkeit noch aktiv ist
 checkInvulnerability() {
-    if (this.isInvulnerable && Date.now() - this.invulnerableStartTime > 300) {
+    if (this.isInvulnerable && Date.now() - this.invulnerableStartTime > 800) {
         this.isInvulnerable = false; // Deaktiviert die Unverwundbarkeit nach 300ms
     }
     //console.log(this.isInvulnerable);
@@ -214,13 +214,13 @@ animate(){
         this.WALKING_SOUND.pause();
         
 
-        if (this.world.keyboard.RIGHT && this.x <= 5*719){
+        if (this.world.keyboard.RIGHT && this.x <= 5*719 && !this.hurt){
             this.moveRight();   
             this.otherDirection=false;
             if(sound)this.WALKING_SOUND.play();
         }
 
-        if(this.world.keyboard.LEFT && this.x >= -200){
+        if(this.world.keyboard.LEFT && this.x >= -200 && !this.hurt){
             
             this.moveLeft();
             this.otherDirection=true;
@@ -229,7 +229,7 @@ animate(){
         }
 
 
-        if(this.world.keyboard.UP && !this.isAboveGround()){
+        if(this.world.keyboard.UP && !this.isAboveGround() && !this.hurt){
             this.jump();
 
             this.jumping=true;

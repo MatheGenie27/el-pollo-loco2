@@ -10,6 +10,7 @@ let upButton = document.getElementById("upButton");
 let leftButton = document.getElementById("leftButton");
 let rightButton = document.getElementById("rightButton");
 let pepeStart = document.getElementById("pepeStart");
+let controlExplanation = document.getElementById("controlExplanation");
 
 function startButtonClick(){
     
@@ -18,6 +19,14 @@ function startButtonClick(){
     
     world.start();
 
+}
+
+function showExplanation(){
+    controlExplanation.classList.remove('noDisplay');
+}
+
+function hideShowExplanation(){
+    controlExplanation.classList.add('noDisplay');
 }
 
 function hideUI(){
@@ -30,7 +39,7 @@ function hideUI(){
 function showTopRowUI(){
     soundButton.classList.remove('noDisplay');
     musicButton.classList.remove('noDisplay');
-    fullscreenButton.classList.remove('noDisplay');
+    if(!isMobile)fullscreenButton.classList.remove('noDisplay');
 }
 
 function hideTopRowUI(){
@@ -112,6 +121,8 @@ function fullscreenButtonClick(){
 
 function infoButtonClick(){
     console.log("infoButtonClick");
+    hideStartScreenUI();
+    showExplanation();
 }
 
 

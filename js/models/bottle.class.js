@@ -18,7 +18,8 @@ class Bottle extends CollectableObject {
     ]
 
 
-
+    intervalAnimate;
+    intervalControl;
 
 
 
@@ -34,6 +35,11 @@ class Bottle extends CollectableObject {
         this.initCollisionBox();
     }
 
+    stopCollectable(){
+        clearInterval(this.intervalAnimate);
+        clearInterval(this.intervalControl);
+    }
+
     initCollisionBox(){
         this.coll_x = this.x +20;
         this.coll_width = this.width -40;
@@ -43,12 +49,12 @@ class Bottle extends CollectableObject {
 
 
     animate(){
-        setInterval(() => {
+        this.intervalAnimate = setInterval(() => {
             this.playAnimation(this.IMAGES);
         }, 1000/9);
 
 
-        setInterval(()=> {
+        this.intervalControl = setInterval(()=> {
             
         }, 1000/60);
        

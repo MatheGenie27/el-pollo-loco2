@@ -84,6 +84,15 @@ stopGame(){
         enemy.stopEnemy();
     })
 
+    this.level.enemies = [];
+
+    this.level.collectables.forEach((collectable)=>{
+        collectable.stopCollectable();
+    })
+    Coin.clearStartPositionArray();
+
+    this.level.collectables = [];
+
 }
 
 stopEnterMenu(){

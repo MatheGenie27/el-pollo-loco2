@@ -22,7 +22,8 @@ class Coin extends CollectableObject {
     ]
 
 
-
+    intervalAnimate;
+    intervalControl;
 
 
 
@@ -42,8 +43,17 @@ class Coin extends CollectableObject {
 
     }
 
+    static clearStartPositionArray(){
+        Coin.allCoins = [];
+    }
+
     randomYDisplacement(){
         return Math.random() * 30 + 40
+    }
+
+    stopCollectable(){
+        clearInterval(this.intervalAnimate);
+        clearInterval(this.intervalControl);
     }
 
 
@@ -94,12 +104,12 @@ class Coin extends CollectableObject {
 
 
     animate(){
-        setInterval(() => {
+        this.intervalAnimate = setInterval(() => {
             this.playAnimation(this.IMAGES);
         }, 1000/4);
 
 
-        setInterval(()=> {
+        this.intervalControl = setInterval(()=> {
             this.move()
         }, 1000/60);
        
