@@ -14,6 +14,9 @@ class ThrowableObject extends MovableObject{
 
     static serialNumber= 1;
 
+    intervalContact;
+    intervalFly;
+
     
 
     IMAGES_THROW = [
@@ -72,6 +75,11 @@ class ThrowableObject extends MovableObject{
 
     }
 
+    stopThrowables(){
+        clearInterval(this.intervalContact);
+        clearInterval(this.intervalFly);
+    }
+
     generateID(){
         this.id = ThrowableObject.serialNumber;
         ThrowableObject.serialNumber++;
@@ -92,9 +100,9 @@ class ThrowableObject extends MovableObject{
         this.splashed = true;
         
         this.THROW_SOUND.pause();
-        this.BREAK_SOUND.play();
+        if(sound)this.BREAK_SOUND.play();
         setTimeout( () => {
-            this.SPLASH_SOUND.play();
+            if(sound)this.SPLASH_SOUND.play();
         },100)
         
     }
@@ -108,10 +116,10 @@ class ThrowableObject extends MovableObject{
     
     throw(){
         this.speedY = -20;
-        this.THROW_SOUND.play();
+        if(sound)this.THROW_SOUND.play();
         
          this.applyGravity(); 
-        setInterval( () => {
+        this.intervalFly = setInterval( () => {
             if (this.isAboveGround()){
             this.x += this.speedX;
                        
@@ -120,7 +128,7 @@ class ThrowableObject extends MovableObject{
                 if(!this.landed && !this.splashed){
                 this.loadImage(this.IMAGES_ONGROUND[Math.round(Math.random())]);
                 this.THROW_SOUND.pause();
-                this.LANDING_SOUND.play();
+                if(sound)this.LANDING_SOUND.play();
                 this.landed = true;
                 
 
@@ -130,7 +138,7 @@ class ThrowableObject extends MovableObject{
         }, 1000/60) 
 
 
-        setInterval( ()=> {
+        this.intervalContact = setInterval( ()=> {
             if (this.isAboveGround() && this.splashed === false){
                 this.playAnimation(this.IMAGES_THROW);
             } else if (this.splashed === true){

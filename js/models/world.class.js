@@ -67,11 +67,19 @@ constructor(canvas, keyboard){
 }
 
 stopGame(){
+    this.musicHandler.stopAllMusic();
     clearInterval(this.intervalRun);
     clearInterval(this.hasLostTimeout);
     clearInterval(this.afterGameTimeout);
     clearInterval(this.intervalDraw);
+    
+    this.musicHandler.stopMusicHandler();
     this.character.stopCharacter();
+
+    this.throwableObjects.forEach((throwable) => {
+       throwable.stopThrowables(); 
+    })
+
     this.level.enemies.forEach((enemy) => {
         enemy.stopEnemy();
     })
@@ -80,6 +88,10 @@ stopGame(){
 
 stopEnterMenu(){
     clearInterval(this.enterMenuTimeout);
+}
+
+stopIntervalRun(){
+    clearInterval(this.intervalRun);
 }
 
 
@@ -442,6 +454,9 @@ checkEndgame(){
 
     enterAfterGameMenu(){
         if(!this.afterGame){
+
+            this.stopIntervalRun();
+
             this.afterGame=true;
             this.afterGameTimeout = setTimeout(()=>{
                 showAfterGameUI();

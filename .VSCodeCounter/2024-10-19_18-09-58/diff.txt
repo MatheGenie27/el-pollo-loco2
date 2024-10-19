@@ -1,0 +1,39 @@
+Date : 2024-10-19 18:09:58
+Directory : c:\Users\bjoer\Desktop\Developer Akademie\el-Pollo-loco2\js
+Total : 12 files,  162 codes, -6 comments, 122 blanks, all 278 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| JavaScript |         12 |        162 |         -6 |        122 |        278 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++-------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                            | files      | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                               |         12 |        162 |         -6 |        122 |        278 |
+| . (Files)                                                                                       |          3 |          9 |          1 |         19 |         29 |
+| level                                                                                           |          1 |          5 |          2 |          3 |         10 |
+| models                                                                                          |          8 |        148 |         -9 |        100 |        239 |
++-------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                                        | language   | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| c:\Users\bjoer\Desktop\Developer Akademie\el-Pollo-loco2\js\buttons.js                          | JavaScript |         12 |          1 |         17 |         30 |
+| c:\Users\bjoer\Desktop\Developer Akademie\el-Pollo-loco2\js\game.js                             | JavaScript |          2 |          0 |          0 |          2 |
+| c:\Users\bjoer\Desktop\Developer Akademie\el-Pollo-loco2\js\level\level1.js                     | JavaScript |          5 |          2 |          3 |         10 |
+| c:\Users\bjoer\Desktop\Developer Akademie\el-Pollo-loco2\js\models\character.class.js           | JavaScript |         14 |          0 |          4 |         18 |
+| c:\Users\bjoer\Desktop\Developer Akademie\el-Pollo-loco2\js\models\chick.class.js               | JavaScript |          8 |          0 |          5 |         13 |
+| c:\Users\bjoer\Desktop\Developer Akademie\el-Pollo-loco2\js\models\chicken.class.js             | JavaScript |          8 |          0 |          1 |          9 |
+| c:\Users\bjoer\Desktop\Developer Akademie\el-Pollo-loco2\js\models\endboss.class.js             | JavaScript |          9 |          3 |          9 |         21 |
+| c:\Users\bjoer\Desktop\Developer Akademie\el-Pollo-loco2\js\models\movable-object.class.js      | JavaScript |         -1 |          0 |          1 |          0 |
+| c:\Users\bjoer\Desktop\Developer Akademie\el-Pollo-loco2\js\models\musicHandler-object.class.js | JavaScript |        129 |          1 |         38 |        168 |
+| c:\Users\bjoer\Desktop\Developer Akademie\el-Pollo-loco2\js\models\throwable-object.class.js    | JavaScript |         -3 |          0 |          1 |         -2 |
+| c:\Users\bjoer\Desktop\Developer Akademie\el-Pollo-loco2\js\models\world.class.js               | JavaScript |        -16 |        -13 |         41 |         12 |
+| c:\Users\bjoer\Desktop\Developer Akademie\el-Pollo-loco2\js\support.js                          | JavaScript |         -5 |          0 |          2 |         -3 |
+| Total                                                                                           |            |        162 |         -6 |        122 |        278 |
++-------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+

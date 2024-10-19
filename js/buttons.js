@@ -9,6 +9,7 @@ let throwButton = document.getElementById("throwButton");
 let upButton = document.getElementById("upButton");
 let leftButton = document.getElementById("leftButton");
 let rightButton = document.getElementById("rightButton");
+let pepeStart = document.getElementById("pepeStart");
 
 function startButtonClick(){
     
@@ -40,22 +41,25 @@ function hideTopRowUI(){
 
 function hideStartScreenUI(){
     startButton.classList.add('noDisplay');
+    pepeStart.classList.add('noDisplay');
     infoButton.classList.add('noDisplay');
 }
 
 function showStartScreenUI(){
     
     startButton.classList.remove('noDisplay');
+    pepeStart.classList.remove('noDisplay');
     infoButton.classList.remove('noDisplay');
 }
 
 function restartButtonClick(){
     
-    world.musicHandler.stopPreviousMusic();
-    world.stopGame();
-    world = null;
-    level1 = null;
+    //world.musicHandler.stopAllMusic();
     
+    world.stopGame();
+    
+    level1 = null;
+    world = null;
     init();
     
     world.restart=true;
@@ -64,12 +68,13 @@ function restartButtonClick(){
 
     hideStartScreenUI();
     
-    //setTimeout(world.start(), 200)
+    
     world.start(); 
     
 }
 
 function exitButtonClick(){
+    //world.musicHandler.stopAllMusic();
     world.stopGame();
     world = null;
     init();

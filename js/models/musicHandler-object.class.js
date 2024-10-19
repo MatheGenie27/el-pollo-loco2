@@ -2,8 +2,8 @@ class MusicHandler{
 
     COLLECT_BOTTLE_SOUND = new Audio('audio/sfx/glass_clink_sound.mp3');
     COLLECT_COIN_SOUND = new Audio('audio/sfx/brigt_metallic_sound.mp3');
-    GAME_MUSIC = new Audio('audio/music/spanish_guitar_music_1.mp3');
     
+    GAME_MUSIC = new Audio('audio/music/spanish_guitar_music_1.mp3');
     ENDBOSS_MUSIC = new Audio('audio/music/spanish_guitar_music_2.mp3');
 
     VICTORY_MUSIC = new Audio('audio/music/joyful_spanish_victo2.mp3');
@@ -29,10 +29,15 @@ class MusicHandler{
 
     musicVaribaleHasChangend=false;
 
+    checkInterval;
 
     constructor(){
         this.setDefaultMusicVolume();
         this.checkIfMusic();
+    }
+
+    stopMusicHandler(){
+        clearInterval(this.checkInterval);
     }
 
     setDefaultMusicVolume(){
@@ -50,7 +55,7 @@ class MusicHandler{
     }
 
     checkIfMusic(){
-        setInterval(()=>{
+       this.checkInterval = setInterval(()=>{
             if (music === false){
                 this.muteMusic();
             } else if (music=== true ){
@@ -61,8 +66,11 @@ class MusicHandler{
     }
 
     stopPreviousMusic(){
+        console.log("beende sieg oder niederlage Musik");
         this.VICTORY_MUSIC.pause();
+        this.VICTORY_MUSIC.currentTime = 0;
         this.GAMEOVER_MUSIC.pause();
+        this.GAMEOVER_MUSIC.currentTime = 0;
         this.isVictoryMusicPlay = false;
         this.isDefeatMusicPlay = false;
     }
@@ -75,21 +83,20 @@ class MusicHandler{
 
     stopGameMusic(){
         this.GAME_MUSIC.pause();
+        this.GAME_MUSIC.currentTime = 0;
         this.ENDBOSS_MUSIC.pause();
+        this.ENDBOSS_MUSIC.currentTime = 0;
         this.isGameMusicPlay = false;
         this.isEndbossMusicPlay = false;
     }
 
     playGameMusic(){
-        if(music){
+        
         
         this.GAME_MUSIC.loop = true;
         this.GAME_MUSIC.play();
         this.isGameMusicPlay = true;
-        } else {
-            this.GAME_MUSIC.pause();
-            this.isGameMusicPlay = false;
-        }
+        
     }
 
     playBottleSound(){
@@ -116,19 +123,17 @@ class MusicHandler{
         
         this.GAME_MUSIC.pause();
         this.isGameMusicPlay = false;
-        if(music && !this.isEndbossMusicPlay){
+        if( !this.isEndbossMusicPlay){
             
             this.ENDBOSS_MUSIC.loop = true;
             this.ENDBOSS_MUSIC.play();
             this.isEndbossMusicPlay = true;
             
-        } else {
-            
-        }
+        } 
     }
 
     playVictoryMusic(){
-        if(music && !this.isVictoryMusicPlay){
+        if(!this.isVictoryMusicPlay){
         this.stopGameMusic();
         this.isVictoryMusicPlay = true;
         this.VICTORY_MUSIC.play();
@@ -136,7 +141,7 @@ class MusicHandler{
     }
 
     playDefeatMusic(){
-        if(music && !this.isDefeatMusicPlay){
+        if( !this.isDefeatMusicPlay){
             this.stopGameMusic();
             this.isDefeatMusicPlay = true;
             this.GAMEOVER_MUSIC.play();
