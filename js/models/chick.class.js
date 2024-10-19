@@ -20,6 +20,9 @@ class Chick extends MovableObject {
 
     soundRange = false;
 
+    intervalControl;
+    intervalAnimate;
+
     IMAGES_WALKING=[
         './img/3_enemies_chicken/chicken_small/1_walk/1_w.png',
         './img/3_enemies_chicken/chicken_small/1_walk/2_w.png',
@@ -50,8 +53,18 @@ class Chick extends MovableObject {
 
     kill(){
         this.dead = true;
-        this.DEAD_SOUND.play();
+        
+        if(sound){
+            this.DEAD_SOUND.play();
+        }
     }
+
+    stopEnemy(){
+        clearInterval(this.intervalAnimate);
+        clearInterval(this.intervalControl);
+    }
+
+
 
     updateCollisionBox(){
         this.coll_x = this.x +2;
@@ -65,7 +78,7 @@ class Chick extends MovableObject {
 
 
     animate(){
-        setInterval(() => {
+        this.intervalAnimate = setInterval(() => {
             if (!this.dead){
             this.playAnimation(this.IMAGES_WALKING);
             } else {
@@ -74,7 +87,7 @@ class Chick extends MovableObject {
         }, 1000/11);
 
 
-        setInterval(()=> {
+        this.intervalControl = setInterval(()=> {
             this.currentTime = Date.now();
 
             if (!this.dead){
@@ -82,7 +95,7 @@ class Chick extends MovableObject {
             
             if((this.currentTime - this.lastJump) > this.nextJump){
                 this.jump();
-                if(this.soundRange){
+                if(this.soundRange && sound){
                 this.JUMP_SOUND.play();
                 }
                 //console.log("CHICK SPRUNG");

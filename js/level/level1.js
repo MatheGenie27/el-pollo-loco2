@@ -6,7 +6,7 @@ async function initLevel() {
     level1 = null;
     return new Promise ((resolve) => {
 
-        console.log("STARTE LEVEL INIT IM PROMISE");
+        //console.log("STARTE LEVEL INIT IM PROMISE");
 
         // und hier beginnt jetzt die KACKE, aber warum???
         try{
@@ -103,7 +103,7 @@ async function initLevel() {
             console.log("level erzeugung gescheitert")
         }
 
-console.log("ALLES ERZEUGT NUN RESOLVE");
+
 
 resolve();
 

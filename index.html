@@ -54,8 +54,10 @@
 <body onload="init()">
     <div id="titleBox">
         <h1>El pollo loco</h1>
-        <a id="impressumLink" href="impressum.html">Impressum</a> 
-
+        <div id="linkContainer">
+        <a id="impressumLink" class="navLink" href="impressum.html">Impressum</a> 
+        <a id="aboutLink" class="navLink" href="about.html">about</a>
+        </div>
     </div>
    
     
@@ -78,11 +80,11 @@
             </div>
             <div id="middle-row">
                 <img id="loadingImage" class="noDisplay" src="img/loading.gif">
-                <button id="infoButton" onclick="infoButtonClick()" class="noDisplay">Info</button>
-                <button id="startButton" onclick="startButtonClick()" class ="noDisplay">Start</button>
-                <button id="restartButton" onclick="restartButtonClick()" class="noDisplay">Restart</button>
-                <button id="exitButton" onclick="exitButtonClick()" class="noDisplay">exit</button>
-            </div>
+                <img id="infoButton" onclick="infoButtonClick()" class="noDisplay uiButton" src="./Icons/info.png"></img>
+                <img id="startButton" onclick="startButtonClick()" class ="noDisplay uiButton" src="./Icons/video.png"></img>
+                <img id="restartButton" onclick="restartButtonClick()" class="noDisplay uiButton" src="./Icons/refresh-arrow.png"></img>
+                <img id="exitButton" onclick="exitButtonClick()" class="noDisplay uiButton " src="./Icons/switch.png"></img>
+            </div>    
             
             <div id="bottom-row">
                 <div class="controlGroup leftCG" >

@@ -17,7 +17,8 @@ class Chicken extends MovableObject{
     nextCry = 1000;
     soundRange = false;
     
-    
+    intervalAnimate;
+    intervalControl;
 
     IMAGES_WALKING=[
         './img/3_enemies_chicken/chicken_normal/1_walk/1_w.png',
@@ -48,10 +49,18 @@ class Chicken extends MovableObject{
         this.animate();
     }
 
+    stopEnemy(){
+        clearInterval(this.intervalAnimate);
+        clearInterval(this.intervalControl);
+    }
+
+
+
     kill(){
         this.dead = true;
+        if(sound){
         this.DEAD_SOUND.play();
-       
+        }
     }
 
     updateCollisionBox(){
@@ -65,12 +74,12 @@ class Chicken extends MovableObject{
     }
 
     animate(){
-        setInterval(() => {
+        this.intervalAnimate = setInterval(() => {
             if (!this.dead){
             this.playAnimation(this.IMAGES_WALKING);
 
 
-            if(((Date.now() - this.lastCry) > this.nextCry) && this.soundRange){
+            if(((Date.now() - this.lastCry) > this.nextCry) && this.soundRange && sound){
                 
                 this.CRY_SOUND.play();
                 //console.log("ChickenSound");
@@ -95,7 +104,7 @@ class Chicken extends MovableObject{
         }, 1000/9);
 
 
-        setInterval(()=> {
+        this.intervalControl = setInterval(()=> {
             if (!this.dead){
             this.moveLeft();
             this.updateCollisionBox();

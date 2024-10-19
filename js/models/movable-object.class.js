@@ -117,7 +117,7 @@ class MovableObject extends DrawableObject{
 
         if(this instanceof Character){
             this.speedY = -20;
-            this.JUMPING_SOUND.play();
+            
         } else {
         this.speedY = -10;
         } 

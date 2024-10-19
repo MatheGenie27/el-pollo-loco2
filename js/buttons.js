@@ -11,12 +11,19 @@ let leftButton = document.getElementById("leftButton");
 let rightButton = document.getElementById("rightButton");
 
 function startButtonClick(){
-    console.log("Start Klick");
+    
     
     hideStartScreenUI();
     
     world.start();
 
+}
+
+function hideUI(){
+    hideTopRowUI();
+    hideStartScreenUI();
+    hideAfterGameUI();
+    hideBottomRow();
 }
 
 function showTopRowUI(){
@@ -25,38 +32,45 @@ function showTopRowUI(){
     fullscreenButton.classList.remove('noDisplay');
 }
 
+function hideTopRowUI(){
+    soundButton.classList.add('noDisplay');
+    musicButton.classList.add('noDisplay');
+    fullscreenButton.classList.add('noDisplay');
+}
+
 function hideStartScreenUI(){
     startButton.classList.add('noDisplay');
     infoButton.classList.add('noDisplay');
 }
 
 function showStartScreenUI(){
-    console.log("Zeige StartScreen um :" +(new Date()))
+    
     startButton.classList.remove('noDisplay');
     infoButton.classList.remove('noDisplay');
 }
 
 function restartButtonClick(){
-    console.log("anfang Restart");
+    
     world.musicHandler.stopPreviousMusic();
-    console.log("musik gestoppt");
+    world.stopGame();
     world = null;
     level1 = null;
-    console.log("welt genullt");
+    
     init();
-    console.log("init aufgerufen");
+    
     world.restart=true;
-    console.log("Welt mitgeteilt, dass sie restartet ist");
+    
     hideAfterGameUI();
 
     hideStartScreenUI();
-    console.log("UIs geregelt")
+    
     //setTimeout(world.start(), 200)
-    world.start(); // hier ist der Fehler beim dritten restart!?!?
-    console.log("ende Restart");
+    world.start(); 
+    
 }
 
 function exitButtonClick(){
+    world.stopGame();
     world = null;
     init();
     hideAfterGameUI();
@@ -64,7 +78,7 @@ function exitButtonClick(){
 }
 
 function soundButtonClick(){
-    console.log("soundButtonClick");
+    
     if(sound){
         sound=false;
         soundButton.src="Icons/no-sound.png";
@@ -76,7 +90,7 @@ function soundButtonClick(){
 }
 
 function musicButtonClick(){
-    console.log("musicButtonCick");
+    
     if(music){
         music=false;
         musicButton.src="Icons/no-music.png";
@@ -97,7 +111,7 @@ function infoButtonClick(){
 
 
 function showBottomRow(){
-    console.log("bottomRow is da");
+    
     throwButton.classList.remove('noDisplay');
     upButton.classList.remove('noDisplay');
     leftButton.classList.remove('noDisplay');
@@ -105,7 +119,7 @@ function showBottomRow(){
 }
 
 function hideBottomRow(){
-    console.log("bottomRow is weg");
+    
     throwButton.classList.add('noDisplay');
     upButton.classList.add('noDisplay');
     leftButton.classList.add('noDisplay');
@@ -116,13 +130,13 @@ function hideBottomRow(){
 
 
 function showAfterGameUI(){
-    //console.log("");
+    
     exitButton.classList.remove('noDisplay');
     restartButton.classList.remove('noDisplay');
 }
 
 function hideAfterGameUI(){
-    //console.log("Verstecke RESTART und EXIT");
+    
     exitButton.classList.add('noDisplay');
     restartButton.classList.add('noDisplay');
 }

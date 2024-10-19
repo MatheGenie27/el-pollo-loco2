@@ -35,12 +35,19 @@ class World{
 
     restart = false;
 
+    enterMenuTimeout;
+    hasLostTimeout;
+    afterGameTimeout;
+
+    intervalRun;
+    intervalDraw;
+
 
 constructor(canvas, keyboard){
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d');
     this.keyboard = keyboard;
-    this.character = new Character();
+    
     this.gameOver = new GameOver();
     this.won = new Won();
     this.startScreen = new StartScreen();
@@ -51,12 +58,28 @@ constructor(canvas, keyboard){
     this.statusBarCoin = new StatusBarCoin;
     this.statusBarEndboss = new StatusBarEndboss;
     
-    this.setWorld();
+   
     this.draw();
     this.startEnterMenu();
 
     
 
+}
+
+stopGame(){
+    clearInterval(this.intervalRun);
+    clearInterval(this.hasLostTimeout);
+    clearInterval(this.afterGameTimeout);
+    clearInterval(this.intervalDraw);
+    this.character.stopCharacter();
+    this.level.enemies.forEach((enemy) => {
+        enemy.stopEnemy();
+    })
+
+}
+
+stopEnterMenu(){
+    clearInterval(this.enterMenuTimeout);
 }
 
 
@@ -66,19 +89,22 @@ async start(){
     
     let loading = document.getElementById('loadingImage');
     loading.classList.remove('noDisplay'); 
-    console.log("gleich wird das level initiiert");
+    
+    this.character = new Character();
+    this.setWorld();
     await initLevel(); // hier hängts beim mehrmaligen NEUSTART
-    console.log("level ist bereit");
+    
     this.level = level1;
-    console.log("level zugewiesen");
+    
     
     this.run();
-    console.log("jetzt gehts looooooos");
+    
     setTimeout ( ()=>{
         
         this.musicHandler.playGameMusic()
         this.notStartet = false;
         loading.classList.add('noDisplay');
+        this.musicHandler.playStartVoice();
         if(isMobile()){
             showBottomRow();
         } else {
@@ -94,14 +120,16 @@ startEnterMenu(){
     
     
 
-    setTimeout( () => {
+    this.enterMenuTimeout = setTimeout( () => {
         this.inMenu = true;
 
+        
         if(!this.restart){
         showStartScreenUI();
         }
 
         showTopRowUI();
+        
     },1500);
 
 
@@ -117,7 +145,7 @@ setWorld(){
 
 run(){
 
-    setInterval(()=> {
+    this.intervalRun = setInterval(()=> {
         
         this.checkCollisions();
         this.checkThrowables();
@@ -125,9 +153,9 @@ run(){
         this.character.checkInvulnerability();
         this.checkEndgame();
         this.checkSoundRange();
-        //this.musicHandler.checkGameForAudioSetting();
         
-        //console.log("welt läuft und checked Kollsionen");
+        
+        
     }, 1000/60)
     
 }
@@ -196,7 +224,7 @@ checkEndgame(){
                          
                          
                         let id = throwable.id;
-                        console.log("FlaschenID " +id);
+                        
                         let index = this.searchBottleWithID(id);
                         
                         
@@ -259,18 +287,18 @@ checkEndgame(){
     checkCollisionsEnemies() {
         for (let element of this.level.enemies) {
 
-            //console.log("Charakter speedY "+this.character.speedY);
+            
 
             if (this.character.isColliding(element) && this.character.speedY > 0 && !(element instanceof Endboss)) {
                 this.character.activateInvulnerability();
-                //console.log("Character hit enemy from above without taking damage");
+                
                 element.kill();
                 return;
             } else if (this.character.isColliding(element)) {
                 if (!this.character.isInvulnerable){
                 this.character.hit();
                 this.statusBarHealth.setPercentage(this.character.energy);
-                //console.log('Collision with Character: ', element, this.character.energy);
+                
                 }
             }
         }
@@ -280,22 +308,22 @@ checkEndgame(){
         for (let i = this.level.collectables.length - 1; i >= 0; i--) {
             let element = this.level.collectables[i];
             if (this.character.isColliding(element)) {
-                //console.log("Collision with Character with Collectable: " + element);
+                
                 if (element instanceof Coin){
 
                     this.level.collectables.splice(i, 1);
                     this.addCoin();
-                    //console.log("COIN");
+                    
                 } else if (element instanceof Bottle){
                     
                     if (this.character.bottles < 5){
                     this.level.collectables.splice(i, 1);
                     this.addBottle();
                     }
-                    //console.log("BOTTLE");
+                    
                 }
                 
-                //console.log(this.level.collectables);
+               
             }
         }
     }
@@ -307,11 +335,11 @@ checkEndgame(){
         }
         this.musicHandler.playCoinSound();
         this.character.coins++;
-        //console.log("coin added. total: "+this.character.coins);
+        
         this.updateStatusBarCoins();
         this.checkCoinCompletion();
         
-        //console.log(this.statusBarCoin.percentage +"Prozent");
+       
 
     }
 
@@ -338,7 +366,7 @@ checkEndgame(){
                 count++;
             }
         }
-        //console.log("total " +count +type);
+        
         return count;
     }
 
@@ -346,7 +374,7 @@ checkEndgame(){
         let currentTime = new Date().getTime();
         if (this.keyboard.SPACE && (currentTime - this.lastThrow) > 300 && this.character.bottles>0){
             let bottle;
-            console.log(this.throwableObjects);
+            
 
            
 
@@ -360,8 +388,8 @@ checkEndgame(){
               }
 
 
-            
-                //console.log("wirft flasche");
+                
+                
                 this.throwBottle(bottle);
                 this.lastThrow = currentTime;
                 this.character.resetLongIdleTime();
@@ -371,12 +399,13 @@ checkEndgame(){
     }
 
     checkIfWon(){
-        //console.log("Schon gewonnen?");
+       
         this.level.enemies.forEach((element) => {
             if (element instanceof Endboss ){
                 if (element.dead === true){
                     this.character.stopControl();
                     this.character.won = true;
+                    this.hasWon = true;
 
                     setTimeout(() => {
                         
@@ -399,7 +428,7 @@ checkEndgame(){
 
             
             
-            setTimeout( () => {
+            this.hasLostTimeout = setTimeout( () => {
                 
             this.musicHandler.playDefeatMusic();
             
@@ -414,7 +443,7 @@ checkEndgame(){
     enterAfterGameMenu(){
         if(!this.afterGame){
             this.afterGame=true;
-            setTimeout(()=>{
+            this.afterGameTimeout = setTimeout(()=>{
                 showAfterGameUI();
             },2000)
         }
@@ -508,7 +537,7 @@ checkEndgame(){
 
         //function draw executes again and again
         self = this;
-        requestAnimationFrame(function() {
+        this.intervalDraw = requestAnimationFrame(function() {
             self.draw()
         });
     }

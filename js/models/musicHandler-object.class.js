@@ -11,6 +11,7 @@ class MusicHandler{
     
     COMPLETE_COIN = new Audio('audio/voice/dinero.mp3');
 
+    START_VOICE = new Audio('audio/voice/startVoice.mp3');
     LOST_VOICE = new Audio('audio/voice/lostVoice.mp3');
     VICTORY_VOICE = new Audio('audio/voice/victoryVoice.mp3');
 
@@ -26,26 +27,57 @@ class MusicHandler{
 
     hadEndVoice = false;
 
+    musicVaribaleHasChangend=false;
+
 
     constructor(){
-        this.GAMEOVER_MUSIC.volume = 0.4;
-        this.GAME_MUSIC.volume = 0.4;
-        this.VICTORY_MUSIC.volume = 0.4;
+        this.setDefaultMusicVolume();
+        this.checkIfMusic();
+    }
+
+    setDefaultMusicVolume(){
+        this.GAMEOVER_MUSIC.volume = 0.35;
+        this.GAME_MUSIC.volume = 0.35;
+        this.VICTORY_MUSIC.volume = 0.35;
+        this.ENDBOSS_MUSIC.volume = 0.35;
+    }
+
+    muteMusic(){
+        this.GAMEOVER_MUSIC.volume = 0;
+        this.GAME_MUSIC.volume = 0;
+        this.VICTORY_MUSIC.volume = 0;
+        this.ENDBOSS_MUSIC.volume =0;
+    }
+
+    checkIfMusic(){
+        setInterval(()=>{
+            if (music === false){
+                this.muteMusic();
+            } else if (music=== true ){
+                this.setDefaultMusicVolume();
+                
+            }
+        },1000/10)
     }
 
     stopPreviousMusic(){
         this.VICTORY_MUSIC.pause();
         this.GAMEOVER_MUSIC.pause();
+        this.isVictoryMusicPlay = false;
+        this.isDefeatMusicPlay = false;
     }
 
     stopAllMusic(){
         this.stopGameMusic();
         this.stopPreviousMusic();
+        
     }
 
     stopGameMusic(){
         this.GAME_MUSIC.pause();
         this.ENDBOSS_MUSIC.pause();
+        this.isGameMusicPlay = false;
+        this.isEndbossMusicPlay = false;
     }
 
     playGameMusic(){
@@ -53,8 +85,10 @@ class MusicHandler{
         
         this.GAME_MUSIC.loop = true;
         this.GAME_MUSIC.play();
+        this.isGameMusicPlay = true;
         } else {
             this.GAME_MUSIC.pause();
+            this.isGameMusicPlay = false;
         }
     }
 
@@ -81,6 +115,7 @@ class MusicHandler{
     playEndbossMusic(){
         
         this.GAME_MUSIC.pause();
+        this.isGameMusicPlay = false;
         if(music && !this.isEndbossMusicPlay){
             
             this.ENDBOSS_MUSIC.loop = true;
@@ -109,16 +144,23 @@ class MusicHandler{
     }
 
     playLostVoice(){
-        if(!this.hadEndVoice){
+        if(!this.hadEndVoice && sound){
             this.hadEndVoice = true;
             this.LOST_VOICE.play();
         }
     }
 
     playVictoryVoice(){
-        if(!this.hadEndVoice){
+        if(!this.hadEndVoice && sound){
             this.hadEndVoice = true;
             this.VICTORY_VOICE.play();
+        }
+    }
+
+    playStartVoice(){
+        if(!this.hadStartVoice && sound){
+            this.hadStartVoice = true;
+            this.START_VOICE.play();
         }
     }
 }

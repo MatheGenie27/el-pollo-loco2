@@ -104,6 +104,7 @@ WALKING_SOUND = new Audio('audio/sfx/footsteps_of_someone0.mp3');
 HURT_SOUND = new Audio('audio/sfx/Someone_moans_becaus.mp3');
 DEAD_SOUND = new Audio('audio/sfx/Someone_curses_on_sp.mp3');
 JUMPING_SOUND = new Audio('audio/sfx/someone_jumps_in_the.mp3');
+SNORING_SOUND = new Audio('audio/sfx/spanish_man_snores.mp3');
 
 
 isInvulnerable = false;
@@ -126,6 +127,9 @@ lastImage = false;
 deadSound = false;
 
 lastImage = 'img/2_character_pepe/2_walk/W-21.png';
+intervalAnimate;
+intervalFlag;
+controlInterval;
 
 
 constructor(){
@@ -144,6 +148,12 @@ constructor(){
 
     this.animate();
     this.applyGravity();
+}
+
+stopCharacter(){
+    this.stopControl();
+    clearInterval(this.intervalAnimate);
+    clearInterval(this.intervalFlag);
 }
 
 stopControl(){
@@ -175,6 +185,11 @@ resetFlag(){
 
 resetLongIdleTime(){
     this.longIdleTime = new Date().getTime();
+    this.stopLongIdleSound();
+}
+
+stopLongIdleSound(){
+    this.SNORING_SOUND.pause();
 }
 
 updateCollisionBox(){
@@ -202,14 +217,14 @@ animate(){
         if (this.world.keyboard.RIGHT && this.x <= 5*719){
             this.moveRight();   
             this.otherDirection=false;
-            this.WALKING_SOUND.play();
+            if(sound)this.WALKING_SOUND.play();
         }
 
         if(this.world.keyboard.LEFT && this.x >= -200){
             
             this.moveLeft();
             this.otherDirection=true;
-            this.WALKING_SOUND.play();
+            if(sound)this.WALKING_SOUND.play();
            
         }
 
@@ -218,7 +233,7 @@ animate(){
             this.jump();
 
             this.jumping=true;
-            this.JUMPING_SOUND.play();
+            
             
         }
 
@@ -234,7 +249,7 @@ animate(){
 
 
     //animation
-    setInterval(() => {
+    this.intervalAnimate = setInterval(() => {
         //this.DEAD_SOUND.pause();
         this.HURT_SOUND.pause();
         if(!this.won){
@@ -242,7 +257,8 @@ animate(){
             case this.dead:
                 if (!this.playedDeadAnimation){
                 this.playAnimation(this.IMAGES_DEAD);
-                this.HURT_SOUND.play();
+                
+                if(sound)this.HURT_SOUND.play();
                 
                 setTimeout( () => {
                     this.playedDeadAnimation=true;
@@ -258,11 +274,12 @@ animate(){
                 break;
             case this.hurt:
                 this.playAnimation(this.IMAGES_HURT);
-                this.HURT_SOUND.play();
+                if(sound)this.HURT_SOUND.play();
                 this.resetLongIdleTime();
                 break;
             case this.jumping:
                 this.playAnimation(this.IMAGES_JUMPING);
+                if(sound)this.JUMPING_SOUND.play();
                 this.resetLongIdleTime();
                 break;
             case this.falling:
@@ -280,8 +297,9 @@ animate(){
                     }
                     let currentTime = new Date().getTime();
                     
-                    if ((currentTime - this.longIdleTime) > 3000){
+                    if ((currentTime - this.longIdleTime) > 5000){
                         this.playAnimation(this.IMAGES_LONGIDLE);
+                        if(sound)this.SNORING_SOUND.play();
                     } else {
 
                         this.playAnimation(this.IMAGES_IDLE);
@@ -314,7 +332,7 @@ animate(){
     }, 1000/10);
 
     //updateFlag
-    setInterval( () => {
+    this.intervalFlag = setInterval( () => {
 
         this.resetFlag();
 

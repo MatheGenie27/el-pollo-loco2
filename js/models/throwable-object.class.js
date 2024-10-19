@@ -99,9 +99,7 @@ class ThrowableObject extends MovableObject{
         
     }
 
-    respond(){
-        console.log("Ich bin eine Flasche");
-    }
+    
 
     moveCollisionBoxAway(){
         this.coll_x = -5000;
