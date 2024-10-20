@@ -148,12 +148,34 @@ constructor(){
 
     this.animate();
     this.applyGravity();
+    this.checkIfSound();
+
+    this.SNORING_SOUND.volume = 0.5;
+    this.WALKING_SOUND.volume = 1;
 }
+
+
+checkIfSound(){
+    this.checkSoundInterval = setInterval(()=>{
+        if(sound === false){
+            this.abortLongSounds();
+        }
+    }, 1000/10)
+}
+
+abortLongSounds(){
+    this.HURT_SOUND.pause();
+    this.DEAD_SOUND.pause();
+    this.SNORING_SOUND.pause();
+    this.JUMPING_SOUND.pause();
+}
+
 
 stopCharacter(){
     this.stopControl();
     clearInterval(this.intervalAnimate);
     clearInterval(this.intervalFlag);
+    clearInterval(this.checkSoundInterval);
 }
 
 stopControl(){
@@ -217,14 +239,14 @@ animate(){
         if (this.world.keyboard.RIGHT && this.x <= 5*719 && !this.hurt){
             this.moveRight();   
             this.otherDirection=false;
-            if(sound)this.WALKING_SOUND.play();
+            if(sound && !this.isAboveGround())this.WALKING_SOUND.play();
         }
 
         if(this.world.keyboard.LEFT && this.x >= -200 && !this.hurt){
             
             this.moveLeft();
             this.otherDirection=true;
-            if(sound)this.WALKING_SOUND.play();
+            if(sound && !this.isAboveGround())this.WALKING_SOUND.play();
            
         }
 

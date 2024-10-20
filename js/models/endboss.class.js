@@ -93,7 +93,7 @@ class Endboss extends MovableObject {
         //this.x=500;
         //this.speed =0;
 
-
+        this.checkIfSound();
         this.animate();
     }
 
@@ -105,7 +105,22 @@ class Endboss extends MovableObject {
         clearInterval(this.intervalAnimate);
         clearInterval(this.intervalControl);
         clearInterval(this.intervalFlag);
+        clearInterval(this.checkSoundInterval);
     }
+
+
+    checkIfSound(){
+        this.checkSoundInterval = setInterval(()=>{
+            if(sound === false){
+                this.abortLongSounds();
+            }
+        }, 1000/10)
+    }
+    
+    abortLongSounds(){
+        
+    }
+
 
     hit(){
         let currentTime = Date.now();

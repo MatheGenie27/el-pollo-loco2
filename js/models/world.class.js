@@ -67,31 +67,36 @@ constructor(canvas, keyboard){
 }
 
 stopGame(){
+    cancelAnimationFrame(this.intervalDraw);
     this.musicHandler.stopAllMusic();
     clearInterval(this.intervalRun);
     clearInterval(this.hasLostTimeout);
     clearInterval(this.afterGameTimeout);
-    clearInterval(this.intervalDraw);
+    
     
     this.musicHandler.stopMusicHandler();
-    this.character.stopCharacter();
+    
+    if(this.character)this.character.stopCharacter();
 
     this.throwableObjects.forEach((throwable) => {
        throwable.stopThrowables(); 
     })
 
-    this.level.enemies.forEach((enemy) => {
+    if(this.level && this.level.enemies && this.level.enemies.length>0) {this.level.enemies.forEach((enemy) => {
         enemy.stopEnemy();
-    })
+    })}
 
-    this.level.enemies = [];
+    
+    if(this.level && this.level.enemies)this.level.enemies = null;
 
-    this.level.collectables.forEach((collectable)=>{
+    if(this.level&& this.level.collectables)this.level.collectables.forEach((collectable)=>{
         collectable.stopCollectable();
     })
     Coin.clearStartPositionArray();
 
-    this.level.collectables = [];
+    if(this.level && this.level.collectables)    this.level.collectables = null;
+
+    this.level = null;
 
 }
 

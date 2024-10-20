@@ -25,7 +25,7 @@ function showExplanation(){
     controlExplanation.classList.remove('noDisplay');
 }
 
-function hideShowExplanation(){
+function hideExplanation(){
     controlExplanation.classList.add('noDisplay');
 }
 
@@ -123,6 +123,11 @@ function infoButtonClick(){
     console.log("infoButtonClick");
     hideStartScreenUI();
     showExplanation();
+}
+
+function closeButtonClick(){
+   hideExplanation();
+   showStartScreenUI(); 
 }
 
 

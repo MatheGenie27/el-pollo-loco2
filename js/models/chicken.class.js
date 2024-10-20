@@ -93,6 +93,7 @@ class Chicken extends MovableObject{
 
             } else {
                 this.playAnimation(this.IMAGES_DEAD);
+                this.y = 360;
             }
 
 

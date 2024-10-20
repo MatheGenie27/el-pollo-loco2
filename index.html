@@ -46,6 +46,7 @@
 
     <script src="./js/models/world.class.js"></script>
 
+    <script src="./js/control.js" defer></script>
     <script src="./js/game.js" defer></script>
 
 
@@ -86,8 +87,29 @@
                 <img id="restartButton" onclick="restartButtonClick()" class="noDisplay uiButton" src="./Icons/refresh-arrow.png"></img>
                 <img id="exitButton" onclick="exitButtonClick()" class="noDisplay uiButton " src="./Icons/switch.png"></img>
                 <div id="controlExplanation" class="noDisplay">
-                    <p>Steuerung</p>
-                    <p></p>
+                    <div id="controlExplanationTextContainer">
+                        <div id="controlExplanationheaderRow">
+                            <h2 id="explanationHeadline">Steuerung</h2>
+                            <img id="closeExplanationButton" onclick="closeButtonClick()" src="./Icons/close.png"></img>
+                        </div>
+                    <div id="arrowKeysRow">
+                        <div id="arrowImageSection">
+                            <img id="" class="explanationButton " src="./Icons/left-arrow.png"></img>
+                            <img id="" class="explanationButton " src="./Icons/up-arrow.png"></img>
+                            <img id="" class="explanationButton " src="./Icons/right-arrow.png"></img>
+                            
+                        </div>
+                        <div id="arrowTextSection"> 
+                            <strong>Pfeiltasten</strong>: Bewegung (links/rechts) und Springen (oben)
+                        </div>
+                    </div>
+                    <div id="spaceKeyRow">
+                        <div id="spaceImageSection">
+                            <img id="" class="explanationButton " src="./Icons/space.png"></img>
+                        </div>
+                        <div id="spaceTextSection"><strong>Leertaste (Space)</strong>: Werfen</div>
+                    </div>
+                    </div>
                 </div>
             </div>    
             

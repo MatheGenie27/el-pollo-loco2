@@ -34,10 +34,20 @@ class MusicHandler{
     constructor(){
         this.setDefaultMusicVolume();
         this.checkIfMusic();
+        this.checkIfSound();
+        this.setDefaultVoiceVolume();
+        this.setDefaultMusicVolume();
+    }
+
+    setDefaultVoiceVolume(){
+        this.START_VOICE.volume=0.6;
+        this.LOST_VOICE.volume=0.6;
+        this.VICTORY_VOICE.volume=0.6;
     }
 
     stopMusicHandler(){
         clearInterval(this.checkInterval);
+        clearInterval(this.checkSoundInterval);
     }
 
     setDefaultMusicVolume(){
@@ -65,8 +75,23 @@ class MusicHandler{
         },1000/10)
     }
 
+    checkIfSound(){
+        this.checkSoundInterval = setInterval(()=>{
+            if(sound === false){
+                this.abortLongSounds();
+            }
+        }, 1000/10)
+    }
+
+    abortLongSounds(){
+        this.START_VOICE.pause();
+        this.LOST_VOICE.pause();
+        this.VICTORY_VOICE.pause();
+        this.COMPLETE_COIN.pause();
+    }
+
     stopPreviousMusic(){
-        console.log("beende sieg oder niederlage Musik");
+        
         this.VICTORY_MUSIC.pause();
         this.VICTORY_MUSIC.currentTime = 0;
         this.GAMEOVER_MUSIC.pause();
@@ -101,7 +126,7 @@ class MusicHandler{
 
     playBottleSound(){
         if(sound){
-        //this.COLLECT_BOTTLE_SOUND.pause();
+        this.COLLECT_BOTTLE_SOUND.pause();
         this.COLLECT_BOTTLE_SOUND.play();
         }
     }

@@ -29,10 +29,10 @@ function isMobile() {
 
 
 window.addEventListener("orientationchange", () => {
-    
+    if(world)world.stopGame();
     
     if(world)world.stopEnterMenu();
-    if(world)world.stopGame();
+    
     world=null;
     init();
 

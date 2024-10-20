@@ -16,11 +16,11 @@ async function initLevel() {
 
 
     [
-    new Chick(),
-    new Chick(),
-    new Chicken(),
-    new Chicken(),
-    new Chicken(),
+    //new Chick(),
+    //new Chick(),
+    //new Chicken(),
+    //new Chicken(),
+    //new Chicken(),
      new Endboss()
     ],
     [
