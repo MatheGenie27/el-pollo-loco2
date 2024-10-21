@@ -75,6 +75,8 @@ class Chicken extends MovableObject{
 
     animate(){
         this.intervalAnimate = setInterval(() => {
+            
+            
             if (!this.dead){
             this.playAnimation(this.IMAGES_WALKING);
 

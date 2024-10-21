@@ -1,6 +1,7 @@
 class MovableObject extends DrawableObject{
    
     speed;
+    originalSpeed;
    
     
     speedY;
@@ -118,8 +119,11 @@ class MovableObject extends DrawableObject{
         if(this instanceof Character){
             this.speedY = -20;
             
-        } else {
+        } else if(this instanceof Chick) {
         this.speedY = -10;
+        setTimeout(() => {
+            this.speed = this.originalSpeed*3;
+        },50);
         } 
         
     }

@@ -11,7 +11,7 @@ coll_width;
 coll_height;
 
 coins =0;
-bottles = 0;
+bottles = 5;
 
 
 speed = 2;
@@ -236,13 +236,13 @@ animate(){
         this.WALKING_SOUND.pause();
         
 
-        if (this.world.keyboard.RIGHT && this.x <= 5*719 && !this.hurt){
+        if (this.world.keyboard.RIGHT && this.x <= 6*719 ){
             this.moveRight();   
             this.otherDirection=false;
             if(sound && !this.isAboveGround())this.WALKING_SOUND.play();
         }
 
-        if(this.world.keyboard.LEFT && this.x >= -200 && !this.hurt){
+        if(this.world.keyboard.LEFT && this.x >= -200 ){
             
             this.moveLeft();
             this.otherDirection=true;

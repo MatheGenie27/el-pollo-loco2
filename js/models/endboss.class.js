@@ -21,10 +21,11 @@ class Endboss extends MovableObject {
     attack = false;
 
     zone_left = 2100;
-    zone_right = 2870;
+    
     
     otherDirection = false;
     soundRange = false;
+    deadSoundNotPlayed = true;
 
     intervalAnimate;
     intervalControl;
@@ -84,13 +85,14 @@ class Endboss extends MovableObject {
         super.loadImages(this.IMAGES_HURT);
         super.loadImages(this.IMAGES_ALERT);
         super.loadImages(this.IMAGES_ATTACK);
+        this.lastHit = Date.now();
         
 
 
-        this.x = 2500 + Math.random()*100;
+        //this.x = 6*719 - Math.random()*500;
         this.speed = 0.05 + Math.random()*0.25;
         
-        //this.x=500;
+        this.x=500;
         //this.speed =0;
 
         this.checkIfSound();
@@ -124,21 +126,32 @@ class Endboss extends MovableObject {
 
     hit(){
         let currentTime = Date.now();
+
         if(currentTime - this.lastHit >= 290){
             //console.log("Endboss Energie abziehen");
             if (this.energy >= 20){
               this.energy = this.energy - 20;
+              this.hurting();
             } else if (this.enery <= 0){
                 this.energy = 0;
                 
             }
+            
             this.lastHit = currentTime;
             //console.log("Enboss getroffen");
-            this.checkEnergy();
+            
         } else {
             console.log("hit abgewiesen, dazu wenig Zeit vergangen");
         }
 
+    }
+
+    hurting(){
+        this.hurt = true;
+        setTimeout(() => {
+            this.hurt = false;
+        },1000)
+         
     }
 
 
@@ -148,18 +161,16 @@ class Endboss extends MovableObject {
 
     checkEnergy(){
         if (this.energy == 0){{
-            this.dead=true;
+            
             this.kill();
 
         }}
     }
 
     kill(){
-        this.dead = true;
+        
         this.moveCollisionBoxAway();
-        if(sound){
-        this.AUDIO_CHICKENYELL.play();
-        }
+        
         //console.log("Enboss ist tot");
     }
 
@@ -168,33 +179,105 @@ class Endboss extends MovableObject {
         this.coll_y = 5000;
     }
 
+
+
+    resetFlag(){
+        this.dead = false;
+        this.run = false;
+        this.attack = false;
+        this.alert =false;
+        this.hurt = false;
+        this.jumping = false; 
+    }
     
 
     animate(){
 
         this.intervalAnimate = setInterval(() => {
-            if(!this.dead){
-            this.playAnimation(this.IMAGES_WALKING);
-            } else {
-                this.playAnimation(this.IMAGES_DEAD);
-                this.loadImage(this.IMAGES_DEAD[2]);
+
+            switch(true){
+
+                case this.run:
+                
+                    this.playAnimation(this.IMAGES_WALKING);
+                    break;
+                
+
+                case this.dead:
+                    this.playAnimation(this.IMAGES_DEAD);
+                    if(sound && this.deadSoundNotPlayed){
+                        this.AUDIO_CHICKENYELL.play();
+                        this.deadSoundNotPlayed = false;
+                        }
+                    this.loadImage(this.IMAGES_DEAD[2]);
+                    break;
+
+                case this.hurt:
+                    this.playAnimation(this.IMAGES_HURT);
+                    
+                    break;
+
+                case this.attack:
+                    this.playAnimation(this.IMAGES_ATTACK);
+                    break;
+                case this.alert:
+                    this.playAnimation(this.IMAGES_ALERT);
+                    break;
+
+                default:
+                    this.playAnimation(this.IMAGES_WALKING);
+                    break;
             }
-        }, 1000/3);
+        }, 1000/5);
+
+
+
 
 
         this.intervalControl = setInterval(()=>{
-            if(!this.dead) {
-            this.moveLeft();
+           
+            
             this.updateCollisionBox();
-        }else {
+        
 
-        }
+
+        
+
+        
         
         }, 1000/60)
 
-        this.intervalFlag = setInterval(()=>{
+        this.intervalFlag = setInterval( () => {
 
-        },1000/20)
+            //this.resetFlag();
+            this.checkEnergy();
+            
+    
+            if (false){
+                this.run = true;
+            }
+    
+            
+            if(false){
+                this.alert = true;
+            }
+
+            if(false){
+                this.attack = true;
+            }
+    
+            if (false){
+                this.hurt=true;
+            }
+    
+            if (this.isDead()){
+                this.dead = true;
+            }
+    
+           
+    
+    
+        }, 1000/10);
         
 
     }
