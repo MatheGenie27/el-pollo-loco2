@@ -16,11 +16,45 @@ async function initLevel() {
 
 
     [
-    //new Chick(),
-    //new Chick(),
-    //new Chicken(),
-    //new Chicken(),
-    //new Chicken(),
+    new Chick(),
+    new Chick(),
+    new Chick(),
+    new Chick(),
+    new Chick(),
+    new Chick(),
+    new Chick(),
+    new Chick(),
+    new Chick(),
+    new Chick(),
+    new Chick(),
+    new Chick(),
+    new Chick(),
+    new Chick(),
+    new Chick(),
+    new Chick(),
+    new Chick(),
+    new Chick(),
+    new Chick(),
+    new Chick(),
+    
+    new Chicken(),
+    new Chicken(),
+    new Chicken(),
+    new Chicken(),
+    new Chicken(),
+    new Chicken(),
+    new Chicken(),
+    new Chicken(),
+    new Chicken(),
+    new Chicken(),
+    new Chicken(),
+    new Chicken(),
+    new Chicken(),
+    new Chicken(),
+    new Chicken(),
+    new Chicken(),
+
+
      new Endboss()
     ],
     [
@@ -102,7 +136,12 @@ async function initLevel() {
         new Bottle(),
         new Bottle(),
         new Bottle(),
-        new Bottle()
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
     ]
 );
         } catch{

@@ -144,7 +144,6 @@ async start(){
 
 startEnterMenu(){
     
-    
 
     this.enterMenuTimeout = setTimeout( () => {
         this.inMenu = true;
@@ -195,6 +194,8 @@ checkSoundRange(){
         }
     });
 }
+
+
 
 checkDistance(enemy, character){
     let distance = enemy.x - character.x
@@ -321,6 +322,11 @@ checkEndgame(){
                 element.kill();
                 return;
             } else if (this.character.isColliding(element)) {
+
+                if(element instanceof Endboss){
+                    element.attacking();
+                }
+
                 if (!this.character.isInvulnerable){
                 this.character.hit();
                 this.statusBarHealth.setPercentage(this.character.energy);
@@ -523,9 +529,9 @@ checkEndgame(){
 
         
         this.addToMap(this.character);
-
-        this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.collectables);
+        this.addObjectsToMap(this.level.enemies);
+       
 
         
 

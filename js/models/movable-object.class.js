@@ -114,6 +114,10 @@ class MovableObject extends DrawableObject{
         
     }
 
+    stop(){
+        this.x = this.x;
+    }
+
     jump(){
 
         if(this instanceof Character){

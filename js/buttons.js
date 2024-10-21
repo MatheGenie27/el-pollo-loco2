@@ -39,7 +39,7 @@ function hideUI(){
 function showTopRowUI(){
     soundButton.classList.remove('noDisplay');
     musicButton.classList.remove('noDisplay');
-    if(!isMobile)fullscreenButton.classList.remove('noDisplay');
+    if(!isMobile())fullscreenButton.classList.remove('noDisplay');
 }
 
 function hideTopRowUI(){
@@ -77,7 +77,7 @@ function restartButtonClick(){
 
     hideStartScreenUI();
     
-    
+    showTopRowUI();
     world.start(); 
     
 }
@@ -120,7 +120,6 @@ function fullscreenButtonClick(){
 }
 
 function infoButtonClick(){
-    console.log("infoButtonClick");
     hideStartScreenUI();
     showExplanation();
 }

@@ -40,7 +40,7 @@ class Chicken extends MovableObject{
         super.loadImages(this.IMAGES_WALKING);
         super.loadImages(this.IMAGES_DEAD);
 
-        this.x = 500 + Math.random()*1500;
+        this.x = 10*719- Math.random()*9*719;
         this.speed = 0.15 + Math.random()*0.25;
         
         this.lastCry = Date.now()
@@ -113,6 +113,10 @@ class Chicken extends MovableObject{
             this.updateCollisionBox();
             } else {
                  this.moveCollisionBoxAway();
+            }
+
+            if(this.x <= -7190){
+                this.x = 6*719;
             }
 
         }, 1000/60);

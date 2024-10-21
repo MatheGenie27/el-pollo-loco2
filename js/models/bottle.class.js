@@ -28,7 +28,7 @@ class Bottle extends CollectableObject {
         super.loadImage('img/6_salsa_bottle/salsa_bottle.png');
         super.loadImages(this.IMAGES);
 
-        this.x = 200 + Math.random()*1800;
+        this.x = 200 + Math.random()*5*719;
         
         this.animate();
 

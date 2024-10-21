@@ -44,13 +44,14 @@ class Chick extends MovableObject {
         super.loadImages(this.IMAGES_WALKING);
         super.loadImages(this.IMAGES_DEAD);
 
-        this.x = 1500 + Math.random()*1500;
-        this.speed = 1.7 + Math.random()*1.5;
+        this.x = 10*719 - Math.random()*6*719;
+        this.speed = 3 + Math.random()*4;
         this.originalSpeed = this.speed;
         this.animate();
         this.applyGravity();
         this.currentTime = Date.now();
         this.lastJump = Date.now();
+        this.nextJump = Math.random()*10000;
     }
 
     kill(){
@@ -84,7 +85,7 @@ class Chick extends MovableObject {
 
         this.intervalAnimate = setInterval(() => {
             
-            console.log(this.speed);
+            //console.log(this.speed);
             
             if (!this.dead){
             this.playAnimation(this.IMAGES_WALKING);
@@ -99,6 +100,9 @@ class Chick extends MovableObject {
 
             if (!this.dead){
             this.moveLeft();
+            if(this.x <= -7190){
+                this.x = 6*719;
+            }
             
             if((this.currentTime - this.lastJump) > this.nextJump && !this.isAboveGround()){
                 this.jump();
@@ -109,7 +113,7 @@ class Chick extends MovableObject {
                 }
                 //console.log("CHICK SPRUNG");
                 this.lastJump = this.currentTime;
-                this.nextJump = 3000 + Math.random()*3000;
+                this.nextJump = 2000 + Math.random()*3000;
 
             }
 
