@@ -10,7 +10,7 @@ class Cloud extends MovableObject{
     constructor(){
         super().loadImage('./img/5_background/layers/4_clouds/1.png');
 
-        this.x = -100 + Math.random()*3000;
+        this.x = -719 + Math.random()*7*719;
         this.animate();
     }
 
@@ -27,8 +27,8 @@ class Cloud extends MovableObject{
     }
 
     appearAgain(){
-        if (this.x < -700){
-            this.x = 3000;
+        if (this.x < -800){
+            this.x = 7*719;
         }
     }
 

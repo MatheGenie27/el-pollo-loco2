@@ -48,13 +48,10 @@ class Coin extends CollectableObject {
     }
 
     randomYDisplacement(){
-        return Math.random() * 30 + 40
+        return Math.random() * 50 + 40
     }
 
-    stopCollectable(){
-        clearInterval(this.intervalAnimate);
-        clearInterval(this.intervalControl);
-    }
+    
 
 
     generateNonOverlappingX() {

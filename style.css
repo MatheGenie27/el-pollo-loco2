@@ -1,433 +1,387 @@
-
 /* rye-regular - latin */
 @font-face {
-    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-    font-family: 'Rye';
-    font-style: normal;
-    font-weight: 400;
-    src: url('./fonts/rye-v15-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-  }
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Rye";
+  font-style: normal;
+  font-weight: 400;
+  src: url("./fonts/rye-v15-latin-regular.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
 
-  /* roboto-regular - latin */
+/* roboto-regular - latin */
 @font-face {
-    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 400;
-    src: url('./fonts/roboto-v32-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-  }
-  
-
-
-
-
-  
-html{
-     box-sizing: border-box;
-     min-width: 100vw;
-     font-family: 'Roboto';
-     font-style: normal;
-     
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  src: url("./fonts/roboto-v32-latin-regular.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 
-
-
-body{
-    margin:0;
-    min-height: 100vh;
-    min-width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-image: url(./img/background.png);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+html {
+  box-sizing: border-box;
+  min-width: 100vw;
+  font-family: "Roboto";
+  font-style: normal;
 }
 
-
-
-#titleBox{
-    min-width: 100%;
-
-    position: absolute;
-    top: 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-image: url(./img/background.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-h1{
-    font-family: 'Rye';
-    font-style: normal;
+#titleBox {
+  min-width: 100%;
 
-    font-size: 5rem;
-    margin-bottom: 0;
-    margin-top: 0;
+  position: absolute;
+  top: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-#linkContainer{
-    
-    display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-    gap:5%;
-    
+h1 {
+  font-family: "Rye";
+  font-style: normal;
+
+  font-size: 5rem;
+  margin-bottom: 0;
+  margin-top: 0;
 }
 
-.navLink{
-    text-decoration: none;
-    color:black;
-    border: 1px solid black;
-    border-radius: 8px;
-    padding-left: 4px;
-    padding-right: 4px;
-    padding-top: 2px; 
-    padding-bottom: 2px;
-    margin-top:10px;
+#linkContainer {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 5%;
 }
 
-.navLink:hover{
-    transition: all ease-in-out 0.125s;
-    background-color: rgb(255, 136, 0);
-    padding-left: 4px;
-    padding-right: 4px;
-    padding-top: 2px;
-    padding-bottom: 2px;
+.navLink {
+  text-decoration: none;
+  color: black;
+  border: 1px solid black;
+  border-radius: 8px;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  margin-top: 10px;
 }
 
-
-
+.navLink:hover {
+  transition: all ease-in-out 0.125s;
+  background-color: rgb(255, 136, 0);
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
 
 #canvasContainer {
-    position: relative; /* Wichtig: Relativer Bezugspunkt für den Overlay */
-    
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  position: relative; /* Wichtig: Relativer Bezugspunkt für den Overlay */
+
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-#myCanvas{
-    background-color: black;
-    display: block;
-    border: 3px solid orange;
-    margin-bottom: 0;
-    
-   
+#myCanvas {
+  background-color: black;
+  display: block;
+  border: 3px solid orange;
+  margin-bottom: 0;
 }
 
+#overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
 
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
 
+#overlayContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  /* background-color: rgba(255, 255, 255, 0.8); */
+}
 
+#top-row {
+  min-height: 20%;
 
-#overlay{
-    position: absolute;
-    top:0;
-    left:0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3%;
+}
+
+#middle-row {
+  min-height: 60%;
+
+  width: 100%;
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  gap: 1%;
+}
+
+#bottom-row {
+  min-height: 20%;
+
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 15%;
+}
+
+#controlExplanation {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: blanchedalmond;
+  height: 100%;
+  width: 100%;
+}
+
+#controlExplanationTextContainer {
+  width: 90%;
+  gap: 30%;
+  height: 100%;
+}
+
+#controlCloseRow {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+
+#controlExplanationheaderRow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 8%;
+}
+
+h2 {
+  margin: 0;
+}
+
+#closeExplanationButton {
+  margin-top: 1%;
+  width: 6%;
+  height: fit-content;
+  border-radius: 100%;
+}
+
+#closeExplanationButton:hover {
+  transition: all ease-in-out 125ms;
+  background-color: rgb(255, 136, 0);
+  cursor: pointer;
+}
+
+#arrowKeysRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#arrowImageSection {
+  display: flex;
+  width: 50%;
+}
+
+.explanationButton {
+  width: 18%;
+  height: fit-content;
+}
+
+#arrowTextSection {
+  width: 50%;
+}
+
+#spaceKeyRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#spaceImageSection {
+  display: flex;
+  width: 50%;
+}
+
+#spaceTextSection {
+  width: 50%;
+}
+
+#pepeStart {
+  width: 10%;
+}
+
+.uiOptionButton {
+  max-height: 50%;
+}
+
+.uiOptionButton:hover {
+  cursor: pointer;
+}
+
+.uiButton {
+  max-height: 30%;
+
+  border-radius: 100%;
+}
+
+.uiButton:hover {
+  transition: all ease-in-out 125ms;
+  background-color: rgb(255, 136, 0);
+  cursor: pointer;
+}
+
+.controlGroup {
+  display: flex;
+  max-height: 100%;
+  width: 50%;
+  align-items: center;
+  justify-content: center;
+  gap: 5%;
+}
+
+.leftCG {
+  justify-content: end;
+}
+
+.rightCG {
+  justify-content: start;
+}
+
+.touchButton {
+  max-height: 60%;
+  max-width: 20%;
+  height: auto;
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.noDisplay {
+  display: none !important;
+}
+
+#impressumContainer {
+  max-width: 100%;
+  min-height: 100dvh;
+  display: flex;
+}
+
+#aboutContainer {
+  max-width: 100%;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.impressum {
+  max-width: 1044px;
+  margin-bottom: 2rem;
+
+  padding-left: 1.5rem;
+  padding-right: 1rem;
+}
+
+.backToIndex {
+  text-decoration: none;
+  color: black;
+}
+
+.refLink {
+  font-weight: bold;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+@media only screen and (max-width: 720px) {
+  #myCanvas {
     width: 100%;
-    
-    height:100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10;
-}
+    border: none;
+  }
 
-#overlayContainer{
-    
+  #overlayContainer {
     width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    /* background-color: rgba(255, 255, 255, 0.8); */
-    
+  }
 
-
+  h1 {
+    font-size: 4rem;
+  }
 }
 
-#top-row{
-    min-height: 20%;
-    
-    width:100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 3%;
-}
+@media only screen and (max-width: 480px) {
+  h1 {
+    font-size: 3rem;
+  }
 
-#middle-row{
-    min-height: 60%;
-    
-    width:100%;
-    display: flex;
-    align-items: end;
-    justify-content: center;
-    gap: 1%;
-}
+  #explanationHeadline {
+    font-size: 1rem;
+  }
 
-
-#bottom-row{
-    min-height:20%;
-    
-    
-    width:100%;
-    max-width: 100%;
-    display:flex;
-    justify-content: center;
-    align-items: flex-end;
-    gap: 15%;
-}
-
-
-#controlExplanation{
-    display:flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: blanchedalmond;
-    height: 100%;
-    width: 100%
-}
-
-#controlExplanationTextContainer{
-    width: 90%;
-    gap:30%;
-    height: 100%;
-}
-
-#controlExplanationheaderRow{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10%;
+  #controlExplanationheaderRow {
+    margin-bottom: 1%;
     padding-left: 10%;
-    
+  }
+
+  #arrowTextSection {
+    font-size: small;
+  }
+
+  #spaceTextSection {
+    font-size: small;
+  }
 }
 
-#closeExplanationButton{
-    width: 7%;
-    height:fit-content;
-    border-radius: 100%;;
+@media only screen and (max-width: 345px) {
+  h1 {
+    font-size: 2rem;
+  }
 }
 
-#closeExplanationButton:hover{
-    transition: all ease-in-out 125ms;
-    background-color: rgb(255, 136, 0);
-    cursor:pointer;
-}
+@media only screen and (max-height: 480px) {
+  #myCanvas {
+    max-height: 100vh;
 
-#arrowKeysRow{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+    border: none;
+  }
 
-#arrowImageSection{
-    display:flex;
-    width:50%;
+  #canvasContainer {
+    max-height: 100vh;
+  }
 
-}
-
-.explanationButton{
-    width: 18%;
-    height: fit-content;
-}
-
-#arrowTextSection{
-    width: 50%;
-}
-
-
-#spaceKeyRow{
-    display:flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-#spaceImageSection{
-    display: flex;
-    width:50%;
-}
-
-#spaceTextSection{
-    width:50%;
-}
-
-
-#pepeStart{
-    width: 10%;
-
-}
-
-
-.uiOptionButton{
-    max-height:50%;
-}
-
-.uiOptionButton:hover{
-    cursor: pointer;
-}
-
-.uiButton{
-    max-height: 30%;
-    
-    border-radius: 100%;
-}
-
-.uiButton:hover{
-    transition: all ease-in-out 125ms;
-    background-color: rgb(255, 136, 0);
-    cursor:pointer;
-
-}
-
-.controlGroup{
-    display: flex;
-    max-height: 100%;
-    width: 50%;
-    align-items: center;
-    justify-content: center;
-    gap:5%;
-}
-
-.leftCG{
-    justify-content: end;
-}
- 
-.rightCG{
-    justify-content: start;
-}
-
-.touchButton{
-    max-height: 60%;
-    max-width: 20%;
-    height:auto;
-    width: auto ;
-    display: block;
-    object-fit: contain;
-}
-
-.noDisplay{
-    display: none !important;
-}
-
-#impressumContainer{
-    
-    
-    max-width: 100%;
-    min-height: 100dvh;
-    display: flex;
-}
-
-#aboutContainer{
-    max-width: 100%;
-    min-height: 100dvh;
-    display: flex;
-    flex-direction: column;
-}
-
-
-
-.impressum{
-    
-    max-width: 1044px;
-    margin-bottom: 2rem;
-    
-    
-    padding-left: 1.5rem;
-    padding-right: 1rem;
-    
-    
-    
-    
-}
-
-
-
-.backToIndex{
-    text-decoration: none;
-    color: black;
-}
-
-.refLink{
-    font-weight: bold;
-
-}
-
-a{
-    text-decoration: none;
-    color: black;
-}
-
-
-@media only screen and (max-width:720px){
-    #myCanvas{
-        width: 100%;
-        border: none;
-    }
-
-    #overlayContainer{
-        
-        width: 100%;
-        
-    } 
-    
-    h1{
-        font-size: 4rem;;
-    }
-}
-
-@media only screen and (max-width:480px){
-    h1{
-        font-size: 3rem;
-    }
-
-    #explanationHeadline{
-        font-size: 1rem;
-    }
-
-    #controlExplanationheaderRow{
-        margin-bottom: 1%;
-        padding-left: 10%;
-        
-    }
-    
-}
-
-@media only screen and (max-width:345px){
-    h1{
-        font-size: 2rem;
-    }
-}
-
-
-
-
-@media only screen and (max-height: 480px ){
-    
-    
-    #myCanvas{
-            max-height: 100vh;
-            
-            border: none;
-    }
-
-    #canvasContainer{
-        max-height: 100vh;
-    }
-
-    #overlayContainer{
-    
-        
-        height: 100vh;
-    }
-
-    
-        
+  #overlayContainer {
+    height: 100vh;
+  }
 }
