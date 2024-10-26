@@ -4,6 +4,7 @@ class World {
   keyboard;
   character;
   musicHandler;
+  debug;
 
   camera_x = 0;
 
