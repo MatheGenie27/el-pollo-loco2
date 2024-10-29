@@ -14,7 +14,7 @@ let controlExplanation = document.getElementById("controlExplanation");
 
 function startButtonClick() {
   hideStartScreenUI();
-
+  
   world.start();
 }
 
@@ -60,18 +60,20 @@ function showStartScreenUI() {
 function restartButtonClick() {
   world.stopGame();
 
-  level1 = null;
+  
   world = null;
+  level1 = null;
+  level1 = new Level;
   init();
 
-  world.restart = true;
+  //world.gameflowHandler.setGameFlowAsRestarted();
 
   hideAfterGameUI();
 
   hideStartScreenUI();
 
   showTopRowUI();
-  world.start();
+  
 }
 
 function exitButtonClick() {

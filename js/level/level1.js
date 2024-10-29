@@ -1,212 +1,98 @@
-let level1;
+let level1 = new Level;
+cloudNumber = 5;
+coinNumber = 10;
+bottleNumber = 15;
+chickNumber = 20;
+chickenNumber = 10;
 
-async function initLevel() {
-  level1 = null;
+
+function initLevelStructure(){
+  this.initBackground();
+  this.initClouds();
+  this.initBottles();
+  this.initCoins();
+}
+
+
+function initBackground(){
+  
+  for(let i=-1; i < 7; i++){
+
+    if(i % 2 == 0){
+    level1.backgroundObjects.push(new BackgroundObject("img/5_background/layers/air.png", i *719));
+    level1.backgroundObjects.push(new BackgroundObject("img/5_background/layers/3_third_layer/2.png", i*719));
+    level1.backgroundObjects.push( new BackgroundObject("img/5_background/layers/2_second_layer/2.png", i*719));
+    level1.backgroundObjects.push(new BackgroundObject("img/5_background/layers/2_second_layer/2.png", i*719));
+    level1.backgroundObjects.push(new BackgroundObject("img/5_background/layers/1_first_layer/2.png", i * 719));
+
+    } else {
+
+    level1.backgroundObjects.push(new BackgroundObject("img/5_background/layers/air.png", i *719));
+    level1.backgroundObjects.push(new BackgroundObject("img/5_background/layers/3_third_layer/1.png", i*719));
+    level1.backgroundObjects.push( new BackgroundObject("img/5_background/layers/2_second_layer/1.png", i*719));
+    level1.backgroundObjects.push(new BackgroundObject("img/5_background/layers/2_second_layer/1.png", i*719));
+    level1.backgroundObjects.push(new BackgroundObject("img/5_background/layers/1_first_layer/1.png", i * 719));
+    }        
+  }
+}
+
+function initClouds(){
+  for (let i = 0; i<= cloudNumber; i++){
+    level1.clouds.push(new Cloud);
+  }
+}
+
+function initBottles(){
+  for (let i = 0; i<= bottleNumber; i++){
+    level1.collectables.push(new Bottle);
+  }
+}
+
+function initCoins(){
+  for (let i = 0; i<= coinNumber; i++){
+    level1.collectables.push(new Coin);
+  }
+}
+
+async function initEnemies() {
+  
   return new Promise((resolve) => {
-    //console.log("STARTE LEVEL INIT IM PROMISE");
+    
 
-    // und hier beginnt jetzt die KACKE, aber warum???
+    
     try {
-      level1 = new Level(
-        [
-          new Chick(),
-          new Chick(),
-          new Chick(),
-          new Chick(),
-          new Chick(),
-          new Chick(),
-          new Chick(),
-          new Chick(),
-          new Chick(),
-          new Chick(),
-          new Chick(),
-          new Chick(),
-          new Chick(),
-          new Chick(),
-          new Chick(),
-          new Chick(),
-          new Chick(),
-          new Chick(),
-          new Chick(),
-          new Chick(),
-
-          new Chicken(),
-          new Chicken(),
-          new Chicken(),
-          new Chicken(),
-          new Chicken(),
-          new Chicken(),
-          new Chicken(),
-          new Chicken(),
-          new Chicken(),
-          new Chicken(),
-          new Chicken(),
-          new Chicken(),
-          new Chicken(),
-          new Chicken(),
-          new Chicken(),
-          new Chicken(),
-
-          new Endboss(),
-        ],
-        [
-          new Cloud(),
-          new Cloud(),
-          new Cloud(),
-          new Cloud(),
-          new Cloud(),
-          new Cloud(),
-        ],
-        [
-          new BackgroundObject("img/5_background/layers/air.png", -719),
-          new BackgroundObject(
-            "img/5_background/layers/3_third_layer/2.png",
-            -719
-          ),
-          new BackgroundObject(
-            "img/5_background/layers/2_second_layer/2.png",
-            -719
-          ),
-          new BackgroundObject(
-            "img/5_background/layers/1_first_layer/2.png",
-            -719
-          ),
-
-          new BackgroundObject("img/5_background/layers/air.png", 0),
-          new BackgroundObject(
-            "img/5_background/layers/3_third_layer/1.png",
-            0
-          ),
-          new BackgroundObject(
-            "img/5_background/layers/2_second_layer/1.png",
-            0
-          ),
-          new BackgroundObject(
-            "img/5_background/layers/1_first_layer/1.png",
-            0
-          ),
-
-          new BackgroundObject("img/5_background/layers/air.png", 719),
-          new BackgroundObject(
-            "img/5_background/layers/3_third_layer/2.png",
-            719
-          ),
-          new BackgroundObject(
-            "img/5_background/layers/2_second_layer/2.png",
-            719
-          ),
-          new BackgroundObject(
-            "img/5_background/layers/1_first_layer/2.png",
-            719
-          ),
-
-          new BackgroundObject("img/5_background/layers/air.png", 1438),
-          new BackgroundObject(
-            "img/5_background/layers/3_third_layer/1.png",
-            1438
-          ),
-          new BackgroundObject(
-            "img/5_background/layers/2_second_layer/1.png",
-            1438
-          ),
-          new BackgroundObject(
-            "img/5_background/layers/1_first_layer/1.png",
-            1438
-          ),
-
-          new BackgroundObject("img/5_background/layers/air.png", 2157),
-          new BackgroundObject(
-            "img/5_background/layers/3_third_layer/2.png",
-            2157
-          ),
-          new BackgroundObject(
-            "img/5_background/layers/2_second_layer/2.png",
-            2157
-          ),
-          new BackgroundObject(
-            "img/5_background/layers/1_first_layer/2.png",
-            2157
-          ),
-
-          new BackgroundObject("img/5_background/layers/air.png", 4 * 719),
-          new BackgroundObject(
-            "img/5_background/layers/3_third_layer/1.png",
-            4 * 719
-          ),
-          new BackgroundObject(
-            "img/5_background/layers/2_second_layer/1.png",
-            4 * 719
-          ),
-          new BackgroundObject(
-            "img/5_background/layers/1_first_layer/1.png",
-            4 * 719
-          ),
-
-          new BackgroundObject("img/5_background/layers/air.png", 5 * 719),
-          new BackgroundObject(
-            "img/5_background/layers/3_third_layer/2.png",
-            5 * 719
-          ),
-          new BackgroundObject(
-            "img/5_background/layers/2_second_layer/2.png",
-            5 * 719
-          ),
-          new BackgroundObject(
-            "img/5_background/layers/1_first_layer/2.png",
-            5 * 719
-          ),
-
-          new BackgroundObject("img/5_background/layers/air.png", 6 * 719),
-          new BackgroundObject(
-            "img/5_background/layers/3_third_layer/1.png",
-            6 * 719
-          ),
-          new BackgroundObject(
-            "img/5_background/layers/2_second_layer/1.png",
-            6 * 719
-          ),
-          new BackgroundObject(
-            "img/5_background/layers/1_first_layer/1.png",
-            6 * 719
-          ),
-        ],
-
-        6 * 719,
-
-        [
-          new Coin(),
-          new Coin(),
-          new Coin(),
-          new Coin(),
-          new Coin(),
-          new Coin(),
-          new Coin(),
-          new Coin(),
-          new Coin(),
-          new Coin(),
-
-          new Bottle(),
-          new Bottle(),
-          new Bottle(),
-          new Bottle(),
-          new Bottle(),
-          new Bottle(),
-          new Bottle(),
-          new Bottle(),
-          new Bottle(),
-          new Bottle(),
-          new Bottle(),
-          new Bottle(),
-          new Bottle(),
-          new Bottle(),
-          new Bottle(),
-          new Bottle(),
-        ]
-      );
+      //initChicks();
+      //initChickens();
+      initEndboss();
+        
+               
+      
     } catch {
       console.err("level erzeugung gescheitert");
     }
 
     resolve();
   });
+
+
+  
+
+
+}
+
+function initChicks(){
+    for (let i = 0; i < chickNumber; i++){
+      level1.enemies.push(new Chick);
+    }
+
+}
+
+function initChickens(){
+  for (let i = 0; i < chickNumber; i++){
+    level1.enemies.push(new Chicken);
+  }
+}
+
+function initEndboss(){
+  level1.enemies.push(new Endboss)
 }

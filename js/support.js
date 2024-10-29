@@ -24,3 +24,9 @@ window.addEventListener("orientationchange", () => {
   world = null;
   init();
 });
+
+function debug(){
+  if(world){
+    world.debug=true;
+  }
+}

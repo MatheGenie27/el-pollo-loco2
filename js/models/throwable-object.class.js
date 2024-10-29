@@ -13,6 +13,7 @@ class ThrowableObject extends MovableObject {
 
   static serialNumber = 1;
 
+  
   intervalContact;
   intervalFly;
 
