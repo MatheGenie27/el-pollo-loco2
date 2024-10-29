@@ -1,95 +1,53 @@
 class GameflowHandler {
-  inEndGame;
-  afterGame;
-  gameOver;
-  won;
-  notStarted;
-  hasWon;
-  hasLost;
-
-  startScreen;
-  menuScreen;
-  inMenu;
   isRestart;
-
   musicHandler;
-
-  //GamePhasen:
-  startScreen;
-  startMenu;
-  inGame;
-  inEndGame;
-  afterGameMenu;
-  LostScreen;
-  WonScreen;
-
   gamePhase = null;
-
   enterMenuTimeout = null;
-  hasLostTimeout;
-  afterGameTimeout;
-
-  intervalRun;
-  intervalDraw;
-
   startMenuStartTime;
 
-
-  constructor(musicHandler){
+  constructor(musicHandler) {
     this.startMenuStartTime = Date.now();
-    this.gamePhase = 'startScreen';
+    this.gamePhase = "startScreen";
     this.musicHandler = musicHandler;
   }
 
-  getGamePhase(){
-    //console.log(this.gamePhase);
+  getGamePhase() {
     return this.gamePhase;
   }
 
-  setGameFlowAsRestarted(){
+  setGameFlowAsRestarted() {
     this.isRestart = true;
   }
 
-  startMenuProcess(){
-    if(!this.isRestart){  
-    this.enterMenuTimeout = setTimeout(()=> {
+  startMenuProcess() {
+    if (!this.isRestart) {
+      this.enterMenuTimeout = setTimeout(() => {
         this.delayedStartingScreen();
-    },1200);
-    }else{
-      //hier muss er direkt das spiel starten?!?
-    } 
+      }, 1200);
+    } else {
+      this.gamePhase = "inGame";
+    }
   }
 
-  delayedStartingScreen(){
-    if(!this.isRestart)showStartScreenUI();
-    showTopRowUI();
-    this.gamePhase = 'menuScreen';
+  delayedStartingScreen() {
+    if (!this.isRestart) {
+      showStartScreenUI();
+      showTopRowUI();
+      this.gamePhase = "menuScreen";
+    }
   }
 
-  enterGame(){
+  enterGame() {
     this.gamePhase = "inGame";
-    
-    
   }
 
-  enterEndGame(){
-    //console.log("ENDGAME");
+  enterEndGame() {
     this.gamePhase = "inEndGame";
     this.musicHandler.playEndbossMusic();
   }
 
-  enterAfterGameMenu(){
+  enterAfterGameMenu() {
     this.gamePhase = "afterGame";
     this.musicHandler.stopGameMusic();
   }
-
-
-  
-
-
-
-
-  
-
-
 }

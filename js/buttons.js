@@ -14,7 +14,7 @@ let controlExplanation = document.getElementById("controlExplanation");
 
 function startButtonClick() {
   hideStartScreenUI();
-  
+  fullscreenButton.classList.remove('noDisplay');
   world.start();
 }
 
@@ -36,7 +36,7 @@ function hideUI() {
 function showTopRowUI() {
   soundButton.classList.remove("noDisplay");
   musicButton.classList.remove("noDisplay");
-  //if(!isMobile())fullscreenButton.classList.remove('noDisplay');
+  
 }
 
 function hideTopRowUI() {
@@ -59,26 +59,21 @@ function showStartScreenUI() {
 
 function restartButtonClick() {
   world.stopGame();
-
-  
   world = null;
   level1 = null;
   level1 = new Level;
-  init();
-
-  //world.gameflowHandler.setGameFlowAsRestarted();
-
+  let restart = true;
+  init(restart);
   hideAfterGameUI();
-
-  hideStartScreenUI();
-
   showTopRowUI();
-  
+  startButtonClick();
 }
 
 function exitButtonClick() {
   world.stopGame();
   world = null;
+  level1 = null;
+  level1 = new Level;
   init();
   hideAfterGameUI();
 }
@@ -139,4 +134,5 @@ function showAfterGameUI() {
 function hideAfterGameUI() {
   exitButton.classList.add("noDisplay");
   restartButton.classList.add("noDisplay");
+  fullscreenButton.classList.add('noDisplay');
 }
