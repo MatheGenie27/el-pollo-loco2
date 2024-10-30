@@ -1,3 +1,7 @@
+/**
+ * this represents general movable objects in the game
+ */
+
 class MovableObject extends DrawableObject {
   speed;
   originalSpeed;
@@ -17,6 +21,9 @@ class MovableObject extends DrawableObject {
     super();
   }
 
+  /**
+   * if a movable Object is hit, it loses Energy
+   */
   hit() {
     if (this instanceof Character) {
       if (!this.isHurt()) {
@@ -27,6 +34,9 @@ class MovableObject extends DrawableObject {
     }
   }
 
+  /**
+   * subtracts Energy from an object
+   */
   loseEnergy() {
     this.energy -= 10;
     if (this.energy < 0) {
@@ -36,10 +46,18 @@ class MovableObject extends DrawableObject {
     }
   }
 
+  /**
+   * checks if an object is dead
+   * @returns {boolean}
+   */
   isDead() {
     return this.energy == 0;
   }
 
+  /**
+   * checks if an object is hurt
+   * @returns {boolean}
+   */
   isHurt() {
     let timepassed = new Date().getTime() - this.lastHit;
     timepassed = timepassed / 1000;
@@ -47,6 +65,11 @@ class MovableObject extends DrawableObject {
     return timepassed < 1;
   }
 
+  /**
+   * checks if executint object is colliding with the target object
+   * @param {Object} mo 
+   * @returns {boolean}
+   */
   isColliding(mo) {
     
     return (
@@ -57,6 +80,9 @@ class MovableObject extends DrawableObject {
     ); 
   }
 
+  /**
+   * mimics the force of gravity on an executing object
+   */
   applyGravity() {
     setInterval(() => {
       if (this.isAboveGround() || this.speedY < 0) {
@@ -68,22 +94,38 @@ class MovableObject extends DrawableObject {
     }, 1000 / 60);
   }
 
+  /**
+   * checks if the executing object is in the air
+   * @returns {boolean}
+   */
   isAboveGround() {
     return this.y < this.ground_y;
   }
 
+  /**
+   * moves the object right 
+   */
   moveRight() {
     this.x += this.speed;
   }
 
+  /**
+   * moves the object left
+   */
   moveLeft() {
     this.x -= this.speed;
   }
 
+  /**
+   * stops the object without maniplulating its speed-property
+   */
   stop() {
     this.x = this.x;
   }
 
+  /**
+   * handles the jumping of objects
+   */
   jump() {
     if (this instanceof Character) {
       this.speedY = -20;

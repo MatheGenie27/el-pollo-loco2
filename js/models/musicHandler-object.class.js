@@ -1,3 +1,7 @@
+/**
+ * this class handles the Music in the game and the sounds that are not bound to an individual object
+ */
+
 class MusicHandler {
   COLLECT_BOTTLE_SOUND = new Audio("audio/sfx/glass_clink_sound.mp3");
   COLLECT_COIN_SOUND = new Audio("audio/sfx/brigt_metallic_sound.mp3");
@@ -27,17 +31,26 @@ class MusicHandler {
     this.setDefaultMusicVolume();
   }
 
+  /**
+   * handles the Voice Default Volume
+   */
   setDefaultVoiceVolume() {
     this.START_VOICE.volume = 0.6;
     this.LOST_VOICE.volume = 0.6;
     this.VICTORY_VOICE.volume = 0.6;
   }
 
+  /**
+   * stops the Musichandler
+   */
   stopMusicHandler() {
     clearInterval(this.checkInterval);
     clearInterval(this.checkSoundInterval);
   }
 
+  /**
+   * handles the music default volume
+   */
   setDefaultMusicVolume() {
     this.GAMEOVER_MUSIC.volume = 0.35;
     this.GAME_MUSIC.volume = 0.35;
@@ -45,6 +58,9 @@ class MusicHandler {
     this.ENDBOSS_MUSIC.volume = 0.35;
   }
 
+  /**
+   * silences the music
+   */
   muteMusic() {
     this.GAMEOVER_MUSIC.volume = 0;
     this.GAME_MUSIC.volume = 0;
@@ -52,6 +68,9 @@ class MusicHandler {
     this.ENDBOSS_MUSIC.volume = 0;
   }
 
+  /**
+   * constantly checks if music should be played or not
+   */
   checkIfMusic() {
     this.checkInterval = setInterval(() => {
       if (music === false) {
@@ -62,6 +81,9 @@ class MusicHandler {
     }, 1000 / 10);
   }
 
+  /**
+   * constantly checks if sounds should be played or not
+   */
   checkIfSound() {
     this.checkSoundInterval = setInterval(() => {
       if (sound === false) {
@@ -70,6 +92,9 @@ class MusicHandler {
     }, 1000 / 10);
   }
 
+  /**
+   * aborts playing sound
+   */
   abortLongSounds() {
     this.START_VOICE.pause();
     this.LOST_VOICE.pause();
@@ -77,6 +102,9 @@ class MusicHandler {
     this.COMPLETE_COIN.pause();
   }
 
+  /**
+   * stops Music from an previous Game when restarting
+   */
   stopPreviousMusic() {
     this.VICTORY_MUSIC.pause();
     this.VICTORY_MUSIC.currentTime = 0;
@@ -86,11 +114,17 @@ class MusicHandler {
     this.isDefeatMusicPlay = false;
   }
 
+  /**
+   * stops all music
+   */
   stopAllMusic() {
     this.stopGameMusic();
     this.stopPreviousMusic();
   }
 
+  /**
+   * stops inGame and EndGame Music
+   */
   stopGameMusic() {
     this.GAME_MUSIC.pause();
     this.GAME_MUSIC.currentTime = 0;
@@ -100,30 +134,45 @@ class MusicHandler {
     this.isEndbossMusicPlay = false;
   }
 
+  /**
+   * plays gamemusic
+   */
   playGameMusic() {
     this.GAME_MUSIC.loop = true;
     this.GAME_MUSIC.play();
     this.isGameMusicPlay = true;
   }
 
+  /**
+   * plays sound of bottle being collected
+   */
   playBottleSound() {
     if (sound) {
       this.COLLECT_BOTTLE_SOUND.play();
     }
   }
 
+  /**
+   * plays sound of coin being collected
+   */
   playCoinSound() {
     if (sound) {
       this.COLLECT_COIN_SOUND.play();
     }
   }
 
+  /**
+   * plays Voice wen all Coins of the level have been collected
+   */
   playCoinsCompleted() {
     if (sound) {
       this.COMPLETE_COIN.play();
     }
   }
 
+  /**
+   * plays music when the endgame is reached
+   */
   playEndbossMusic() {
     this.GAME_MUSIC.pause();
     this.isGameMusicPlay = false;
@@ -134,6 +183,9 @@ class MusicHandler {
     }
   }
 
+  /**
+   * plays Music when Player wins
+   */
   playVictoryMusic() {
     if (!this.isVictoryMusicPlay) {
       this.stopGameMusic();
@@ -142,6 +194,9 @@ class MusicHandler {
     }
   }
 
+  /**
+   * plays Music when Player loses
+   */
   playDefeatMusic() {
     if (!this.isDefeatMusicPlay) {
       this.stopGameMusic();
@@ -150,6 +205,9 @@ class MusicHandler {
     }
   }
 
+  /**
+   * sounds voice when player loses
+   */
   playLostVoice() {
     if (!this.hadEndVoice && sound) {
       this.hadEndVoice = true;
@@ -157,6 +215,9 @@ class MusicHandler {
     }
   }
 
+  /**
+   * sounds voice when pleyer wins
+   */
   playVictoryVoice() {
     if (!this.hadEndVoice && sound) {
       this.hadEndVoice = true;
@@ -164,6 +225,9 @@ class MusicHandler {
     }
   }
 
+  /**
+   * sounds voice when game starts
+   */
   playStartVoice() {
     if (!this.hadStartVoice && sound) {
       this.hadStartVoice = true;

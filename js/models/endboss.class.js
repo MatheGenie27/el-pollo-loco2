@@ -1,3 +1,6 @@
+/**
+ * represents the endboss enemy
+ */
 class Endboss extends Enemy {
   x = 500;
   y = 250;
@@ -103,6 +106,9 @@ class Endboss extends Enemy {
     this.handleControl();
   }
 
+  /**
+   * stops Enemy from moving and controlling
+   */
   stopEnemy() {
     clearInterval(this.intervalAnimate);
     clearInterval(this.intervalControl);
@@ -110,6 +116,9 @@ class Endboss extends Enemy {
     clearInterval(this.checkSoundInterval);
   }
 
+  /**
+   * checks if sound is being disables and aborts all playing sounds if so
+   */
   checkIfSound() {
     this.checkSoundInterval = setInterval(() => {
       if (sound === false) {
@@ -118,10 +127,14 @@ class Endboss extends Enemy {
     }, 1000 / 10);
   }
 
+  /**
+   * ends all long sounds
+   */
   abortLongSounds() {
     this.AUDIO_CHICKENYELL.pause();
   }
 
+  //controls what happens when the endboss is hit
   hit() {
     let currentTime = Date.now();
 
@@ -132,6 +145,9 @@ class Endboss extends Enemy {
     }
   }
 
+  /**
+   * reduces Energy after being hit
+   */
   reduceEnergy() {
     if (this.energy >= 0) {
       this.energy = this.energy - 15;
@@ -140,14 +156,23 @@ class Endboss extends Enemy {
     }
   }
 
+  /**
+   * reports the information to the KI
+   */
   attacking() {
     this.brain.report("attack");
   }
 
+  /**
+   * updates Collisionbox in relation to the coordinates
+   */
   updateCollisionBox() {
     this.coll_x = this.x + 10;
   }
 
+  /**
+   * checks if the energylevel is high enough to continue living
+   */
   checkEnergy() {
     if (this.energy <= 0) {
       {
@@ -157,19 +182,32 @@ class Endboss extends Enemy {
     }
   }
 
+  /**
+   * handles behaviour if enemy is killed
+   */
   kill() {
     this.moveCollisionBoxAway();
   }
 
+  /**
+   * moves collisionbox far away to prevent collision with character after endboss died
+   */
   moveCollisionBoxAway() {
     this.coll_x = 5000;
     this.coll_y = 5000;
   }
 
+  /**
+   * get instructions from the endboss KI on what do to
+   * @returns {string}
+   */
   controlMovement() {
     return this.brain.getInstructions();
   }
 
+  /**
+   * resets the state flags
+   */
   resetFlags() {
     this.run = false;
     this.hurt = false;
@@ -177,18 +215,27 @@ class Endboss extends Enemy {
     this.alert = false;
   }
 
+  /**
+   * checks if enemy has run off the left side of the game and make it reappear on the right side of the game
+   */
   checkLevelBorder() {
     if (this.x <= -7190) {
-      this.x = 6 * 719;
+      this.x = 7 * 719;
     }
   }
 
+  /**
+   * handles the control of the enemy
+   */
   handleControl() {
     this.handleAnimation();
     this.handleBehavior();
     this.handleFlag();
   }
 
+  /**
+   * handles the animation regarding the state the enemy is in
+   */
   handleAnimation() {
     this.intervalAnimate = setInterval(() => {
       switch (true) {
@@ -221,27 +268,41 @@ class Endboss extends Enemy {
     }, 1000 / 5);
   }
 
-  actAlert(){
+  /**
+   * handles animation of state alert
+   */
+  actAlert() {
     this.playAnimation(this.IMAGES_ALERT);
 
-          if (sound & this.soundRange) this.AUDIO_ALERT.play();
+    if (sound & this.soundRange) this.AUDIO_ALERT.play();
   }
 
-  actAttacking(){
+  /**
+   * handles animation of state attack
+   */
+  actAttacking() {
     this.playAnimation(this.IMAGES_ATTACK);
-          if (sound && this.soundRange) this.AUDIO_ATTACK.play();
+    if (sound && this.soundRange) this.AUDIO_ATTACK.play();
   }
 
+  /**
+   * handles the animation of state running
+   */
   actRunning() {
     this.playAnimation(this.IMAGES_WALKING);
   }
 
-  actHurt(){
+  /**
+   * handles the animation of state hurt
+   */
+  actHurt() {
     this.playAnimation(this.IMAGES_HURT);
-          if (sound && this.soundRange) this.AUDIO_HURT.play();
+    if (sound && this.soundRange) this.AUDIO_HURT.play();
   }
 
-
+  /**
+   * handles the animation of state dead
+   */
   actDead() {
     if (!this.playedDeadAnimation) this.playAnimation(this.IMAGES_DEAD);
 
@@ -256,6 +317,9 @@ class Endboss extends Enemy {
     if (this.playedDeadAnimation) this.loadImage(this.IMAGES_DEAD[5]);
   }
 
+  /**
+   * handles the behaviour
+   */
   handleBehavior() {
     this.intervalControl = setInterval(() => {
       this.updateCollisionBox();
@@ -281,6 +345,9 @@ class Endboss extends Enemy {
     }, 1000 / 60);
   }
 
+  /**
+   * handles the flags for the state the enemy is in
+   */
   handleFlag() {
     this.intervalFlag = setInterval(() => {
       this.checkEnergy();

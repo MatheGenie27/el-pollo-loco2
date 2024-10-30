@@ -1,3 +1,6 @@
+/**
+ * describes the figure the player can control in the game.
+ */
 class Character extends MovableObject {
   x = 100;
   y = 175;
@@ -132,6 +135,9 @@ class Character extends MovableObject {
     this.WALKING_SOUND.volume = 1;
   }
 
+  /**
+   * constantly checks if sound is being deactivated in the game. and then aborts playing sounds if so.
+   */
   checkIfSound() {
     this.checkSoundInterval = setInterval(() => {
       if (sound === false) {
@@ -140,6 +146,9 @@ class Character extends MovableObject {
     }, 1000 / 10);
   }
 
+  /**
+   * aborts all sounds that could be playing
+   */
   abortLongSounds() {
     this.HURT_SOUND.pause();
     this.DEAD_SOUND.pause();
@@ -147,6 +156,9 @@ class Character extends MovableObject {
     this.JUMPING_SOUND.pause();
   }
 
+  /**
+   * stops the movement,control and intervals of the character
+   */
   stopCharacter() {
     this.stopControl();
     clearInterval(this.intervalAnimate);
@@ -154,21 +166,34 @@ class Character extends MovableObject {
     clearInterval(this.checkSoundInterval);
   }
 
+  /**
+   * stops the control interval
+   */
   stopControl() {
     clearInterval(this.controlInterval);
   }
 
+  /**
+   * activates the invulnerability of the character, is used after being hurt once, so the character does not
+   * suffer hits every 60 times per second due to the collision checking.
+   */
   activateInvulnerability() {
     this.isInvulnerable = true;
     this.invulnerableStartTime = Date.now();
   }
 
+  /**
+   * checks the state of the invulnerability and deactivates it, if the state already exists longer than 800ms.
+   */
   checkInvulnerability() {
     if (this.isInvulnerable && Date.now() - this.invulnerableStartTime > 800) {
       this.isInvulnerable = false;
     }
   }
 
+  /**
+   * resets all state flags
+   */
   resetFlag() {
     this.dead = false;
     this.run = false;
@@ -178,15 +203,23 @@ class Character extends MovableObject {
     this.jumping = false;
   }
 
+  /**
+   * resets the LongIdleTime. It is used after the character receives a new player input
+   */
   resetLongIdleTime() {
     this.longIdleTime = new Date().getTime();
     this.stopLongIdleSound();
   }
-
+  /**
+   * deactivates the longIdle-Sound.
+   */
   stopLongIdleSound() {
     this.SNORING_SOUND.pause();
   }
 
+  /**
+   * updates the coordinates of the collisionbox relative to the coordinates of the character
+   */
   updateCollisionBox() {
     this.coll_x = this.x + 15;
     this.coll_y = this.y + 100;
@@ -194,18 +227,27 @@ class Character extends MovableObject {
     this.coll_height = this.height - 110;
   }
 
+  /**
+   * deactivates the playerControl after the player died
+   */
   checkDead() {
     if (this.dead) {
       this.stopControl();
     }
   }
 
+  /**
+   * handles the elements of the character control and animation
+   */
   characterHandling() {
     this.processInput();
     this.animate();
     this.updateFlag();
   }
 
+  /**
+   * handles the Input the character receives
+   */
   processInput() {
     this.controlInterval = setInterval(() => {
       this.WALKING_SOUND.pause();
@@ -227,23 +269,35 @@ class Character extends MovableObject {
     }, 1000 / 60);
   }
 
+  /**
+   * handles the input of going right
+   */
   inputRight() {
     this.moveRight();
     this.otherDirection = false;
     if (sound && !this.isAboveGround()) this.WALKING_SOUND.play();
   }
 
+  /**
+   * handles the input of going left
+   */
   inputLeft() {
     this.moveLeft();
     this.otherDirection = true;
     if (sound && !this.isAboveGround()) this.WALKING_SOUND.play();
   }
 
+  /**
+   * handles the input of jumping
+   */
   inputJump() {
     this.jump();
     this.jumping = true;
   }
 
+  /**
+   * handles animation regarding to the state the character is in
+   */
   animate() {
     this.intervalAnimate = setInterval(() => {
       this.HURT_SOUND.pause();
@@ -274,6 +328,9 @@ class Character extends MovableObject {
     }, 1000 / 10);
   }
 
+  /**
+   * used after the character died, this continuisly shows the last Image of the dead-Animation.
+   */
   showLastImage() {
     if (!this.lastImage) {
       super.loadImage(this.lastImage);
@@ -281,6 +338,9 @@ class Character extends MovableObject {
     }
   }
 
+  /**
+   * handles to show the correct idleAnimation
+   */
   animateIdle() {
     if (!this.longIdleTime) {
       this.resetLongIdleTime();
@@ -295,28 +355,43 @@ class Character extends MovableObject {
     }
   }
 
+  /**
+   * handles the walking-Animation
+   */
   animateRun() {
     this.playAnimation(this.IMAGES_WALKING);
     this.resetLongIdleTime();
   }
 
+  /**
+   * handles the falling-animation
+   */
   animateFall() {
     this.playAnimation(this.IMAGES_FALLING);
     this.resetLongIdleTime();
   }
 
+  /**
+   * handles the jumping-animation
+   */
   animateJump() {
     this.playAnimation(this.IMAGES_JUMPING);
     if (sound) this.JUMPING_SOUND.play();
     this.resetLongIdleTime();
   }
 
+  /**
+   * handles the hurt-animation
+   */
   animateHurt() {
     this.playAnimation(this.IMAGES_HURT);
     if (sound) this.HURT_SOUND.play();
     this.resetLongIdleTime();
   }
 
+  /**
+   * handles the dying animation
+   */
   animateDead() {
     if (!this.playedDeadAnimation) {
       this.playAnimation(this.IMAGES_DEAD);
@@ -330,6 +405,9 @@ class Character extends MovableObject {
     }
   }
 
+  /**
+   * handles the flagUpdating
+   */
   updateFlag() {
     this.intervalFlag = setInterval(() => {
       this.resetFlag();

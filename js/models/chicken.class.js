@@ -1,3 +1,6 @@
+/**
+ * describes the enemy Chicken in this game.
+ */
 class Chicken extends Enemy {
   x = 500;
   y = 350;
@@ -41,6 +44,9 @@ class Chicken extends Enemy {
     this.animate();
   }
 
+  /**
+   * kills ths enemy
+   */
   kill() {
     this.dead = true;
     if (sound) {
@@ -48,20 +54,32 @@ class Chicken extends Enemy {
     }
   }
 
+  /**
+   * updates the collisionBox for this enemy
+   */
   updateCollisionBox() {
     this.coll_x = this.x;
   }
 
+  /**
+   * moves the collisionbox far away to prevent collsions whith character after the enemy has died
+   */
   moveCollisionBoxAway() {
     this.coll_x = 5000;
     this.coll_y = 5000;
   }
 
+  /**
+   * controls and animates the enemy
+   */
   animate() {
     this.animation();
     this.control();
   }
 
+  /**
+   * handles the animations for this enemy
+   */
   animation() {
     this.intervalAnimate = setInterval(() => {
       if (!this.dead) {
@@ -72,27 +90,43 @@ class Chicken extends Enemy {
     }, 1000 / 9);
   }
 
+  /**
+   * handles the animation and position of the enemy after the enemy died
+   */
   actDead() {
     this.playAnimation(this.IMAGES_DEAD);
     this.y = 360;
   }
 
+  /**
+   * handles the animation and sound of the enemy when alive
+   */
   actAlive() {
     this.playAnimation(this.IMAGES_WALKING);
 
     this.cry();
   }
 
+  /**
+   * handles the cry-behaviour of the enemy
+   */
   cry() {
     if (this.checkLastCry()) {
       this.actualCry();
     }
   }
 
+  /**
+   * checks if the last cry was long enough ago for the next cry
+   * @returns boolean
+   */
   checkLastCry() {
     return Date.now() - this.lastCry > this.nextCry && this.soundRange && sound;
   }
 
+  /**
+   * handles the cry of this enemy
+   */
   actualCry() {
     this.CRY_SOUND.play();
 
@@ -100,6 +134,9 @@ class Chicken extends Enemy {
     this.nextCry = 2000 + Math.random() * 3000;
   }
 
+  /**
+   * controls the movement of the Enemy
+   */
   control() {
     this.intervalControl = setInterval(() => {
       if (!this.dead) {
@@ -110,12 +147,18 @@ class Chicken extends Enemy {
     }, 1000 / 60);
   }
 
+  /**
+   * checks if the enemy has run off the left side of the game and make it reappear on the right side
+   */
   checkBorder() {
     if (this.x <= -719) {
       this.x = 6 * 719;
     }
   }
 
+  /**
+   * controls the behaviour of movement of the enemy when alive
+   */
   behaveAlive() {
     this.moveLeft();
     this.updateCollisionBox();

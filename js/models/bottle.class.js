@@ -1,3 +1,8 @@
+/**
+ * class describes Bottles as collectable Objects in the game.
+ * @constructor: generates a random x coordinate for the bottle to appear ingame. 
+ * 
+ */
 class Bottle extends CollectableObject {
   x = 200;
   y = 375;
@@ -23,7 +28,9 @@ class Bottle extends CollectableObject {
     this.initCollisionBox();
   }
 
-  
+  /**
+   * initiates a collisionBox around the object
+   */
   initCollisionBox() {
     this.coll_x = this.x + 20;
     this.coll_width = this.width - 40;
@@ -31,6 +38,10 @@ class Bottle extends CollectableObject {
     this.coll_height = this.height - 16;
   }
 
+  /**
+   * animates the object, though there is currently only one picture.
+   * But if an visual effect should be added to the bottle, this would be the place.
+   */
   animate() {
     this.intervalAnimate = setInterval(() => {
       this.playAnimation(this.IMAGES);

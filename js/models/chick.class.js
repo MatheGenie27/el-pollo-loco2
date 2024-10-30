@@ -1,3 +1,6 @@
+/**
+ * this class represents the enemy known as chick.
+ */
 class Chick extends Enemy {
   x = 500;
   y = 388;
@@ -50,28 +53,42 @@ class Chick extends Enemy {
     this.nextJump = Math.random() * 10000;
   }
 
+  /**
+   * kills this enemy
+   */
   kill() {
     this.dead = true;
     if (sound) this.DEAD_SOUND.play();
   }
 
   
-
+  /**
+   * updates the Collisionboc
+   */
   updateCollisionBox() {
     this.coll_x = this.x + 2;
     this.coll_y = this.y + 5;
   }
 
+  /**
+   * moves the collisionbox way out of reach, so that the character does not collide with dead enemies.
+   */
   moveCollisionBoxAway() {
     this.coll_x = 5000;
     this.coll_y = 5000;
   }
 
+  /**
+   * brings the enemy to life
+   */
   animate() {
     this.animation();
     this.control();
   }
 
+  /**
+   * handles the animation for this enemy
+   */
   animation() {
     this.intervalAnimate = setInterval(() => {
       if (!this.dead) {
@@ -82,6 +99,9 @@ class Chick extends Enemy {
     }, 1000 / 11);
   }
 
+  /**
+   * controls the behaviour of this enemy
+   */
   control() {
     this.intervalControl = setInterval(() => {
       
@@ -93,6 +113,9 @@ class Chick extends Enemy {
     }, 1000 / 60);
   }
 
+  /**
+   * defines the detailed behaviour of the enemy
+   */
   actAlive(){
     this.moveLeft();
     this.checkBorder();
@@ -101,19 +124,28 @@ class Chick extends Enemy {
     this.updateCollisionBox();
   }
 
+  /**
+   * resets the speed to normal after the chick touches ground after jumping
+   */
   maintainSpeed(){
     if (!this.isAboveGround()) {
         this.speed = this.originalSpeed;
       }
   }
 
+  /**
+   * checks if the lastJump was long enough ago to jump again
+   * @returns boolean
+   */
   checkJump(){
     this.currentTime = Date.now();
-
     return this.currentTime - this.lastJump > this.nextJump &&
     !this.isAboveGround();
   }
 
+  /**
+   * controls the jump behaviour, especially sets a random time when to perform the next jump
+   */
   actualJump(){
     this.jump();
     if (this.soundRange && sound) this.JUMP_SOUND.play();
@@ -122,6 +154,9 @@ class Chick extends Enemy {
     this.nextJump = 2000 + Math.random() * 3000;
   }
 
+  /**
+   * checks if the enemy has run out of the left side of the game and make it return on the right side
+   */
   checkBorder(){
     if (this.x <= -719) this.x = 7 * 719;
   }

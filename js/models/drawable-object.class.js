@@ -1,3 +1,6 @@
+/**
+ * desribes drawable objects in general
+ */
 class DrawableObject {
   x;
   y;
@@ -14,11 +17,19 @@ class DrawableObject {
     this.ready = false;
   }
 
+  /**
+   * loads one image from a path
+   * @param {string} path 
+   */
   loadImage(path) {
     this.img = new Image();
     this.img.src = path;
   }
 
+  /**
+   * loads multiples Images from Paths provided in an array
+   * @param {Array} arr 
+   */
   async loadImages(arr) {
     arr.forEach((path) => {
       let image = new Image();
@@ -27,10 +38,18 @@ class DrawableObject {
     });
   }
 
+  /**
+   * draws an image with coordinates properties
+   * @param {Object} ctx 
+   */
   draw(ctx) {
     ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
   }
 
+  /**
+   * draws the border around the image of an object
+   * @param {Object} ctx 
+   */
   drawBorder(ctx) {
     if (
       this instanceof Chicken ||
@@ -49,6 +68,10 @@ class DrawableObject {
     }
   }
 
+  /**
+   * draws the collisionbox of an object
+   * @param {Object} ctx 
+   */
   drawCollisionBox(ctx) {
     if (
       this instanceof Character ||
@@ -67,6 +90,10 @@ class DrawableObject {
     }
   }
 
+  /**
+   * plays the animation, consisting of paths to images, preloaded, provided in an array
+   * @param {Array} images 
+   */
   playAnimation(images) {
     let i = this.currentImage % images.length;
     let path = images[i];

@@ -1,3 +1,6 @@
+/**
+ * this class represents the GameOverScreen
+ */
 class GameOver extends DrawableObject {
 
     x= 0;

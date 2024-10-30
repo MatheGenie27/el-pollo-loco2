@@ -1,3 +1,6 @@
+/**
+ * describes collectables in general
+ */
 class CollectableObject extends DrawableObject {
     
     intervalAnimate;
@@ -7,6 +10,9 @@ class CollectableObject extends DrawableObject {
         super()
     }
 
+    /**
+     * stops collectables
+     */
     stopCollectable(){
         clearInterval(this.intervalAnimate);
         clearInterval(this.intervalControl);

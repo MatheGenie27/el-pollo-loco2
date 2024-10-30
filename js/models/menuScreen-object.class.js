@@ -1,3 +1,7 @@
+
+/**
+ * this represents the MenuScreen
+ */
 class MenuScreen extends DrawableObject {
   x = 0;
   y = 0;

@@ -1,12 +1,17 @@
-class Enemy extends MovableObject{
+/**
+ * represents an enemy in general
+ */
 
-constructor(){
+class Enemy extends MovableObject {
+  constructor() {
     super();
-}
+  }
 
-stopEnemy() {
+  /**
+   * stops enemy intervals
+   */
+  stopEnemy() {
     clearInterval(this.intervalAnimate);
     clearInterval(this.intervalControl);
   }
-
 }

@@ -1,3 +1,7 @@
+/**
+ * this class represents a level
+ */
+
 class Level {
   enemies = [];
   clouds = [];
