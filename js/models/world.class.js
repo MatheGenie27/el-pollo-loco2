@@ -1,3 +1,7 @@
+
+/**
+ * represents the world the game takes place in
+ */
 class World {
   canvas;
   ctx;
@@ -53,17 +57,27 @@ class World {
     this.startGameFlow();
   }
 
+  /**
+   * sets world as restarted when it is
+   * @param {boolean} restart 
+   */
   checkRestart(restart) {
     if (restart) {
       this.setWorldAsRestart();
     }
   }
 
+  /**
+   * starting the gameFlow
+   */
   startGameFlow() {
     this.gameFlowHandler.startMenuProcess();
     initLevelStructure();
   }
 
+  /**
+   * stopping the game
+   */
   stopGame() {
     this.clearMusicHandler();
     this.clearIntervals();
@@ -75,18 +89,30 @@ class World {
     this.clearLevel();
   }
 
+  /**
+   * clearing the level
+   */
   clearLevel() {
     this.level = null;
   }
 
+  /**
+   * clearing the static array where all coin positions are stored
+   */
   clearCoinPositionArray() {
     Coin.clearStartPositionArray();
   }
 
+  /**
+   * clears the array of collectables
+   */
   clearCollectablesArray() {
     if (this.level && this.level.collectables) this.level.collectables = null;
   }
 
+  /**
+   * stops every collectable
+   */
   stopCollectables() {
     if (this.level && this.level.collectables)
       this.level.collectables.forEach((collectable) => {
@@ -94,10 +120,16 @@ class World {
       });
   }
 
+  /**
+   * clears the enemy array of the level
+   */
   clearEnemiesArray() {
     if (this.level && this.level.enemies) this.level.enemies = null;
   }
 
+  /**
+   * clears the intervals of the running world
+   */
   clearIntervals() {
     cancelAnimationFrame(this.intervalDraw);
     clearInterval(this.intervalRun);
@@ -105,17 +137,26 @@ class World {
     clearInterval(this.afterGameTimeout);
   }
 
+  /**
+   * clears the musicHandler
+   */
   clearMusicHandler() {
     this.musicHandler.stopAllMusic();
     this.musicHandler.stopMusicHandler();
   }
 
+  /**
+   * stops all moving Objects
+   */
   stopMovingObjects() {
     this.stopCharacterIntervals();
     this.stopThrowablesIntervals();
     this.stopEnemyIntervals();
   }
 
+  /**
+   * stops intervals of all enemies
+   */
   stopEnemyIntervals() {
     if (this.level && this.level.enemies && this.level.enemies.length > 0) {
       this.level.enemies.forEach((enemy) => {
@@ -124,28 +165,44 @@ class World {
     }
   }
 
+  /**
+   * stops intervals of all throwables
+   */
   stopThrowablesIntervals() {
     this.throwableObjects.forEach((throwable) => {
       throwable.stopThrowables();
     });
   }
 
+  /**
+   * stops intervals of the character
+   */
   stopCharacterIntervals() {
     if (this.character) this.character.stopCharacter();
   }
 
+  /** sets world as restart */
   setWorldAsRestart() {
     this.gameFlowHandler.setGameFlowAsRestarted();
   }
 
+  /**
+   * clearing the timeout of the enter menu
+   */
   stopEnterMenu() {
     clearInterval(this.enterMenuTimeout);
   }
 
+  /**
+   * clearing the run interval of the world
+   */
   stopIntervalRun() {
     clearInterval(this.intervalRun);
   }
 
+  /**
+   * preparing to start the world
+   */
   async start() {
     let loading = document.getElementById("loadingImage");
     loading.classList.remove("noDisplay");
@@ -157,6 +214,10 @@ class World {
     }, 200);
   }
 
+  /**
+   * starting the game and finishing loading
+   * @param {Object} loading 
+   */
   actualStart(loading) {
     this.musicHandler.playGameMusic();
     this.musicHandler.playStartVoice();
@@ -166,6 +227,9 @@ class World {
     this.checkMobileUI();
   }
 
+  /**
+   * showing the mobile input when the display is mobile
+   */
   checkMobileUI() {
     if (isMobile()) {
       showBottomRow();
@@ -174,10 +238,16 @@ class World {
     }
   }
 
+/**
+ * giving the character a reference to this world
+ */
   setWorld() {
     this.character.world = this;
   }
 
+  /**
+   * start all processes
+   */
   run() {
     this.intervalRun = setInterval(() => {
       this.objectHandler.checkCollisions();
@@ -189,6 +259,9 @@ class World {
     }, 1000 / 60);
   }
 
+  /**
+   * checks if the character is in distance to the endboss to start the endgame
+   */
   checkEndgame() {
     let endboss = this.level.enemies.find(
       (element) => element instanceof Endboss
@@ -203,6 +276,10 @@ class World {
     }
   }
 
+  /**
+   * checks if the endboss is dead
+   * @returns {boolean}
+   */
   checkIfEndbossDead() {
     let endboss = this.level.enemies.find(
       (element) => element instanceof Endboss
@@ -210,12 +287,19 @@ class World {
     return endboss.dead;
   }
 
+  /**
+   * checks if the character has played its dead animation
+   * @returns {boolean}
+   */
   checkIfChracterPlayedDeadAnimation() {
     if (this.character.playedDeadAnimation) {
       return true;
     }
   }
 
+  /**
+   * checks the outcome of the game
+   */
   checkOutcome() {
     if (this.checkIfEndbossDead()) {
       this.playerWins();
@@ -226,6 +310,9 @@ class World {
     }
   }
 
+  /**
+   * handles the win of the player
+   */
   playerWins() {
     this.musicHandler.stopGameMusic();
     this.character.stopControl();
@@ -238,6 +325,9 @@ class World {
     }, 1000);
   }
 
+  /**
+   * handles the defeat of the player
+   */
   playerLoses() {
     this.musicHandler.stopGameMusic();
     this.musicHandler.playLostVoice();
@@ -248,6 +338,9 @@ class World {
     }, 1000);
   }
 
+  /**
+   * entering the afterGame Menu after the player has lost or won
+   */
   enterAfterGameMenu() {
     if (!this.afterGame) {
       this.stopIntervalRun();
@@ -258,10 +351,10 @@ class World {
     }
   }
 
-  afterPlayerDeadAnimation() {
-    return this.character.playedDeadAnimation;
-  }
-
+  
+  /**
+   * drawing everything on the canvas
+   */
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     if (this.gameFlowHandler.getGamePhase() == "startScreen") {
@@ -289,7 +382,7 @@ class World {
       if (this.gameFlowHandler.getGamePhase() == "inEndGame") {
         this.addToMap(this.statusBarEndboss);
       }
-      if (this.afterPlayerDeadAnimation()) {
+      if (this.checkIfChracterPlayedDeadAnimation()) {
         this.addToMap(this.gameOver);
       } else if (this.hasWon) {
         this.addToMap(this.won);
@@ -304,13 +397,21 @@ class World {
       self.draw();
     });
   }
-
+  
+  /**
+   * adding arrays of objects to draw on the canvas
+   * @param {Object} objects 
+   */
   addObjectsToMap(objects) {
     objects.forEach((o) => {
       this.addToMap(o);
     });
   }
 
+  /**
+   * adding a single object to draw on the canvas
+   * @param {Object} mo 
+   */
   addToMap(mo) {
     if (mo.otherDirection) {
       this.flipImage(mo);
@@ -323,6 +424,10 @@ class World {
     }
   }
 
+  /**
+   * flip a image to draw
+   * @param {Object} mo 
+   */
   flipImage(mo) {
     this.ctx.save();
     this.ctx.translate(mo.width, 0);
@@ -333,6 +438,10 @@ class World {
     }
   }
 
+  /**
+   * flip a image back to draw
+   * @param {Object} mo 
+   */
   flipImageBack(mo) {
     mo.x = mo.x * -1;
     if (mo instanceof Character) {
