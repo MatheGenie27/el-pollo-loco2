@@ -55,6 +55,14 @@ class Chicken extends Enemy {
   }
 
   /**
+   * stops enemy intervals
+   */
+  stopEnemy() {
+    clearInterval(this.intervalAnimate);
+    clearInterval(this.intervalControl);
+  }
+
+  /**
    * updates the collisionBox for this enemy
    */
   updateCollisionBox() {

@@ -61,7 +61,15 @@ class Chick extends Enemy {
     if (sound) this.DEAD_SOUND.play();
   }
 
-  
+  /**
+   * stops enemy intervals
+   */
+  stopEnemy() {
+    clearInterval(this.intervalAnimate);
+    clearInterval(this.intervalControl);
+  }
+
+
   /**
    * updates the Collisionboc
    */

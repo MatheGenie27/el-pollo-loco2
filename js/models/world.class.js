@@ -1,4 +1,3 @@
-
 /**
  * represents the world the game takes place in
  */
@@ -59,7 +58,7 @@ class World {
 
   /**
    * sets world as restarted when it is
-   * @param {boolean} restart 
+   * @param {boolean} restart
    */
   checkRestart(restart) {
     if (restart) {
@@ -81,7 +80,7 @@ class World {
   stopGame() {
     this.clearMusicHandler();
     this.clearIntervals();
-    this.stopMovingObjects;
+    this.stopMovingObjects();
     this.clearEnemiesArray();
     this.stopCollectables();
     this.clearCoinPositionArray();
@@ -216,7 +215,7 @@ class World {
 
   /**
    * starting the game and finishing loading
-   * @param {Object} loading 
+   * @param {Object} loading
    */
   actualStart(loading) {
     this.musicHandler.playGameMusic();
@@ -238,9 +237,9 @@ class World {
     }
   }
 
-/**
- * giving the character a reference to this world
- */
+  /**
+   * giving the character a reference to this world
+   */
   setWorld() {
     this.character.world = this;
   }
@@ -347,11 +346,11 @@ class World {
       this.afterGame = true;
       this.afterGameTimeout = setTimeout(() => {
         showAfterGameUI();
+        this.stopEnemyIntervals();
       }, 2000);
     }
   }
 
-  
   /**
    * drawing everything on the canvas
    */
@@ -397,10 +396,10 @@ class World {
       self.draw();
     });
   }
-  
+
   /**
    * adding arrays of objects to draw on the canvas
-   * @param {Object} objects 
+   * @param {Object} objects
    */
   addObjectsToMap(objects) {
     objects.forEach((o) => {
@@ -410,7 +409,7 @@ class World {
 
   /**
    * adding a single object to draw on the canvas
-   * @param {Object} mo 
+   * @param {Object} mo
    */
   addToMap(mo) {
     if (mo.otherDirection) {
@@ -426,7 +425,7 @@ class World {
 
   /**
    * flip a image to draw
-   * @param {Object} mo 
+   * @param {Object} mo
    */
   flipImage(mo) {
     this.ctx.save();
@@ -440,7 +439,7 @@ class World {
 
   /**
    * flip a image back to draw
-   * @param {Object} mo 
+   * @param {Object} mo
    */
   flipImageBack(mo) {
     mo.x = mo.x * -1;
