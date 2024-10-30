@@ -1,3 +1,6 @@
+/**
+ * represents the Victory Screen
+ */
 class Won extends DrawableObject {
 
     x= 0;

@@ -1,3 +1,8 @@
+
+/**
+ * adds a listener for keydown events for control input
+ */
+
 window.addEventListener("keydown", (e) => {
   switch (e.key) {
     case "ArrowUp":
@@ -18,6 +23,9 @@ window.addEventListener("keydown", (e) => {
   }
 });
 
+/**
+ * adds a listener for keyup events for control ionput
+ */
 window.addEventListener("keyup", (e) => {
   switch (e.key) {
     case "ArrowUp":
@@ -37,6 +45,9 @@ window.addEventListener("keyup", (e) => {
       break;
   }
 });
+
+
+// adding listeners for touch events for mobile controls
 
 leftButton.addEventListener("touchstart", () => {
   keyboard.LEFT = true;

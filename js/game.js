@@ -6,6 +6,10 @@ let keyboard = new Keyboard();
 
 let world;
 
+/**
+ * initiates world when correct orientation is given
+ * @param {boolean} restart 
+ */
 function init(restart) {
   canvas = document.getElementById("myCanvas");
   hint = document.getElementById("hint");
@@ -13,11 +17,28 @@ function init(restart) {
   hideUI();
 
   if (orientation.startsWith("landscape")) {
-    canvas.classList.remove("noDisplay");
+      startGame(restart);
+  } else if (orientation.startsWith("portrait")) {
+      showOrientationHint();
+  }
+}
+
+/**
+ * shows canvas and starts game
+ * @param {boolean} restart 
+ */
+function startGame(restart){
+
+  canvas.classList.remove("noDisplay");
     hint.classList.add("noDisplay");
     world = new World(canvas, keyboard, restart);
-  } else if (orientation.startsWith("portrait")) {
+  
+}
+
+/**
+ * hides canvas and shows orientation hint
+ */
+function showOrientationHint(){
     canvas.classList.add("noDisplay");
     hint.classList.remove("noDisplay");
-  }
 }

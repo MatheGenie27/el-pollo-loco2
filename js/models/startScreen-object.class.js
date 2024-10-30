@@ -1,3 +1,6 @@
+/**
+ * represents the startingScreen 
+ */
 class StartScreen extends DrawableObject {
   x = 0;
   y = 0;

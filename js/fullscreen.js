@@ -1,3 +1,8 @@
+
+/**
+ * enter fullsceen mode for an given HTML Element
+ * @param {HTMLElement} element 
+ */
 function enterFullscreen(element) {
   if (element.requestFullscreen) {
     element.requestFullscreen();
@@ -10,6 +15,10 @@ function enterFullscreen(element) {
   }
 }
 
+/**
+ * exits fullscreen mode for an given HTML Element
+ * @param {HTMLElement} element 
+ */
 function exitFullscreen(element) {
   if (element.exitFullscreen) {
     element.exitFullscreen();
@@ -22,6 +31,10 @@ function exitFullscreen(element) {
   }
 }
 
+/**
+ * toggles given Element between fullscreen and not fullscreen
+ * @param {HTMLElement} element 
+ */
 function ToggleFullscreen(element) {
   if (
     document.fullscreenElement === element ||

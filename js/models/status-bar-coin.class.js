@@ -1,3 +1,6 @@
+/**
+ * represents the statusbar for coins
+ */
 class StatusBarCoin extends StatusBar {
   IMAGES = [
     "img/7_statusbars/1_statusbar/1_statusbar_coin/green/0.png",

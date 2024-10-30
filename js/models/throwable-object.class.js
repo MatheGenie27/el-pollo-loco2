@@ -1,3 +1,6 @@
+/**
+ * represents the throwable Object (bottle) in the game
+ */
 class ThrowableObject extends MovableObject {
   speedY;
   speedX = 10;
@@ -65,21 +68,33 @@ class ThrowableObject extends MovableObject {
     this.throw(x, y);
   }
 
+  /**
+   * stops all intervals of the object
+   */
   stopThrowables() {
     clearInterval(this.intervalContact);
     clearInterval(this.intervalFly);
   }
 
+  /**
+   * generates an individual ID for each object
+   */
   generateID() {
     this.id = ThrowableObject.serialNumber;
     ThrowableObject.serialNumber++;
   }
 
+  /**
+   * updates the collision box
+   */
   updateCollisionBox() {
     this.coll_x = this.x + 16;
     this.coll_y = this.y + 14;
   }
 
+  /**
+   * handles the actual splashing of the throwable
+   */
   splash() {
     this.moveCollisionBoxAway();
     this.speedY = 0;
@@ -94,11 +109,17 @@ class ThrowableObject extends MovableObject {
     }, 100);
   }
 
+  /**
+   * moves the collisionbox far away to prevent collision with enemis after it splashed or landed
+   */
   moveCollisionBoxAway() {
     this.coll_x = -5000;
     this.coll_y = -5000;
   }
 
+  /**
+   * handles the behaviour of the existing throwable
+   */
   throw() {
     this.speedY = -20;
     if (sound) this.THROW_SOUND.play();
@@ -109,6 +130,9 @@ class ThrowableObject extends MovableObject {
     this.contact();
   }
 
+  /**
+   * handles the flying of the throwable
+   */
   fly() {
     this.intervalFly = setInterval(() => {
       if (this.isAboveGround()) {
@@ -121,6 +145,9 @@ class ThrowableObject extends MovableObject {
     }, 1000 / 60);
   }
 
+  /**
+   * handles the throwanle being landed
+   */
   landingStage(){
     this.loadImage(this.IMAGES_ONGROUND[Math.round(Math.random())]);
     this.THROW_SOUND.pause();
@@ -129,7 +156,9 @@ class ThrowableObject extends MovableObject {
   }
 
   
-
+  /**
+   * handles the flying and the splash animation of the bottle
+   */
   contact() {
     this.intervalContact = setInterval(() => {
       if (this.isAboveGround() && this.splashed === false) {

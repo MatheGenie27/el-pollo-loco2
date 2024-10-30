@@ -1,3 +1,6 @@
+/**
+ * represents the statusbar for the health of the endboss
+ */
 class StatusBarEndboss extends StatusBar {
   x = 720 - this.width - 20;
 

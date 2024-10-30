@@ -1,3 +1,6 @@
+/**
+ * represents the statusbar for the health of the character
+ */
 class StatusBarHealth extends StatusBar {
   IMAGES = [
     "img/7_statusbars/1_statusbar/2_statusbar_health/green/0.png",
