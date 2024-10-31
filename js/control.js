@@ -46,43 +46,46 @@ window.addEventListener("keyup", (e) => {
   }
 });
 
-/**
- * prevents the context menu from appearing when touching the screen on mobile
- */
-document.addEventListener('contextmenu', function(event) {
-  event.preventDefault();
-});
+
 
 // adding listeners for touch events for mobile controls
 
-leftButton.addEventListener("touchstart", () => {
+leftButton.addEventListener("touchstart", (event) => {
+  event.preventDefault();
   keyboard.LEFT = true;
-});
+}, { passive: false });
 
-rightButton.addEventListener("touchstart", () => {
+rightButton.addEventListener("touchstart", (event) => {
+  event.preventDefault();
   keyboard.RIGHT = true;
-});
+}, { passive: false });
 
-upButton.addEventListener("touchstart", () => {
+upButton.addEventListener("touchstart", (event) => {
+  event.preventDefault();
   keyboard.UP = true;
-});
+}, { passive: false });
 
-throwButton.addEventListener("touchstart", () => {
+throwButton.addEventListener("touchstart", (event) => {
+  event.preventDefault();
   keyboard.SPACE = true;
-});
+}, { passive: false });
 
-leftButton.addEventListener("touchend", () => {
+leftButton.addEventListener("touchend", (event) => {
+  event.preventDefault();
   keyboard.LEFT = false;
-});
+}, { passive: false });
 
-rightButton.addEventListener("touchend", () => {
+rightButton.addEventListener("touchend", (event) => {
+  event.preventDefault();
   keyboard.RIGHT = false;
-});
+}, { passive: false });
 
-upButton.addEventListener("touchend", () => {
+upButton.addEventListener("touchend", (event) => {
+  event.preventDefault();
   keyboard.UP = false;
-});
+}, { passive: false });
 
-throwButton.addEventListener("touchend", () => {
+throwButton.addEventListener("touchend", (event) => {
+  event.preventDefault();
   keyboard.SPACE = false;
-});
+}, { passive: false });

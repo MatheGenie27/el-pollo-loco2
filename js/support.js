@@ -33,7 +33,9 @@ window.addEventListener("orientationchange", () => {
   if (world) world.stopGame();
   if (world) world.stopEnterMenu();
   world = null;
-  init();
+  level1 = null;
+  level1 = new Level;
+  init(false);
 });
 
 /**
