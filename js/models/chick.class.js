@@ -11,19 +11,15 @@ class Chick extends Enemy {
   speedY = 0;
   accelerationY = 1;
   ground_y = 388;
-
   coll_height = 30;
   coll_width = 30;
   coll_x = 50;
   coll_y = 30;
-
   dead = false;
   lastJump = 0;
   nextJump = 5000;
   currentTime;
-
   soundRange = false;
-
   intervalControl;
   intervalAnimate;
 
@@ -44,7 +40,7 @@ class Chick extends Enemy {
     super.loadImages(this.IMAGES_WALKING);
     super.loadImages(this.IMAGES_DEAD);
     this.x = 10 * 719 - Math.random() * 9 * 719;
-    this.speed = 2 + Math.random() * 5;
+    this.speed = 1 + Math.random() * 2;
     this.originalSpeed = this.speed;
     this.animate();
     this.applyGravity();

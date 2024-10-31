@@ -50,9 +50,10 @@ class World {
     this.statusBarEndboss = new StatusBarEndboss();
     this.gameFlowHandler = new GameflowHandler(this.musicHandler);
     this.objectHandler = new ObjectHandler(this);
+    this.drawHandler = new DrawHandler(this);
     this.checkRestart(restart);
     this.level = level1;
-    this.draw();
+    this.drawHandler.draw();
     this.startGameFlow();
   }
 
@@ -351,101 +352,5 @@ class World {
     }
   }
 
-  /**
-   * drawing everything on the canvas
-   */
-  draw() {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    if (this.gameFlowHandler.getGamePhase() == "startScreen") {
-      this.addToMap(this.startScreen);
-    }
-    if (this.gameFlowHandler.getGamePhase() == "menuScreen") {
-      this.addToMap(this.menuScreen);
-    }
-    if (
-      this.gameFlowHandler.getGamePhase() == "inGame" ||
-      this.gameFlowHandler.getGamePhase() == "inEndGame"
-    ) {
-      this.ctx.translate(this.camera_x, 0); //forward
-      this.addObjectsToMap(this.level.backgroundObjects);
-      this.addObjectsToMap(this.level.clouds);
-      this.addObjectsToMap(this.throwableObjects);
-      this.addToMap(this.character);
-      this.addObjectsToMap(this.level.collectables);
-      this.addObjectsToMap(this.level.enemies);
-      this.ctx.translate(-this.camera_x, 0); //back
-      // ----------  Space for fixed Objects -------
-      this.addToMap(this.statusBarHealth);
-      this.addToMap(this.statusBarCoin);
-      this.addToMap(this.statusBarBottle);
-      if (this.gameFlowHandler.getGamePhase() == "inEndGame") {
-        this.addToMap(this.statusBarEndboss);
-      }
-      if (this.checkIfChracterPlayedDeadAnimation()) {
-        this.addToMap(this.gameOver);
-      } else if (this.hasWon) {
-        this.addToMap(this.won);
-      }
-      this.ctx.translate(this.camera_x, 0); //forward
-      this.ctx.translate(-this.camera_x, 0); //backward
-    }
-
-    //function draw executes again and again
-    self = this;
-    this.intervalDraw = requestAnimationFrame(function () {
-      self.draw();
-    });
-  }
-
-  /**
-   * adding arrays of objects to draw on the canvas
-   * @param {Object} objects
-   */
-  addObjectsToMap(objects) {
-    objects.forEach((o) => {
-      this.addToMap(o);
-    });
-  }
-
-  /**
-   * adding a single object to draw on the canvas
-   * @param {Object} mo
-   */
-  addToMap(mo) {
-    if (mo.otherDirection) {
-      this.flipImage(mo);
-    }
-    mo.draw(this.ctx);
-    if (this.debug) mo.drawBorder(this.ctx);
-    if (this.debug) mo.drawCollisionBox(this.ctx);
-    if (mo.otherDirection) {
-      this.flipImageBack(mo);
-    }
-  }
-
-  /**
-   * flip a image to draw
-   * @param {Object} mo
-   */
-  flipImage(mo) {
-    this.ctx.save();
-    this.ctx.translate(mo.width, 0);
-    this.ctx.scale(-1, 1);
-    mo.x = mo.x * -1;
-    if (mo instanceof Character) {
-      mo.coll_x = (mo.coll_x - 30) * -1;
-    }
-  }
-
-  /**
-   * flip a image back to draw
-   * @param {Object} mo
-   */
-  flipImageBack(mo) {
-    mo.x = mo.x * -1;
-    if (mo instanceof Character) {
-      mo.coll_x = mo.coll_x * -1;
-    }
-    this.ctx.restore();
-  }
+  
 }

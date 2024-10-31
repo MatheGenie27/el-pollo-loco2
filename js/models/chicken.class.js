@@ -7,18 +7,14 @@ class Chicken extends Enemy {
   width = 50;
   height = 80;
   speed = 0.3;
-
   coll_height = 67;
   coll_width = 50;
   coll_x;
   coll_y = 354;
-
   dead = false;
-
   lastCry;
   nextCry = 1000;
   soundRange = false;
-
   intervalAnimate;
   intervalControl;
 

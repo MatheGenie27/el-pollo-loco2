@@ -67,17 +67,16 @@ class MovableObject extends DrawableObject {
 
   /**
    * checks if executint object is colliding with the target object
-   * @param {Object} mo 
+   * @param {Object} mo
    * @returns {boolean}
    */
   isColliding(mo) {
-    
     return (
-      this.coll_x < mo.coll_x + mo.coll_width && 
-      this.coll_x + this.coll_width > mo.coll_x && 
-      this.coll_y < mo.coll_y + mo.coll_height && 
+      this.coll_x < mo.coll_x + mo.coll_width &&
+      this.coll_x + this.coll_width > mo.coll_x &&
+      this.coll_y < mo.coll_y + mo.coll_height &&
       this.coll_y + this.coll_height > mo.coll_y
-    ); 
+    );
   }
 
   /**
@@ -103,7 +102,7 @@ class MovableObject extends DrawableObject {
   }
 
   /**
-   * moves the object right 
+   * moves the object right
    */
   moveRight() {
     this.x += this.speed;
@@ -132,7 +131,7 @@ class MovableObject extends DrawableObject {
     } else if (this instanceof Chick) {
       this.speedY = -10;
       setTimeout(() => {
-        this.speed = this.originalSpeed * 3;
+        this.speed = this.originalSpeed * 5;
       }, 50);
     }
   }

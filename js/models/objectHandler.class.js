@@ -30,9 +30,9 @@ class ObjectHandler {
   }
 
   /**
-   * returns true if an enemy is at an distance to the character which means its visible on screen 
-   * @param {Object} enemy 
-   * @param {Pbject} character 
+   * returns true if an enemy is at an distance to the character which means its visible on screen
+   * @param {Object} enemy
+   * @param {Pbject} character
    * @returns {booolean}
    */
   checkDistance(enemy, character) {
@@ -61,7 +61,7 @@ class ObjectHandler {
 
   /**
    * handles the act of splashing which occurs when a throwable hits an enemy.
-   * @param {Object} throwable 
+   * @param {Object} throwable
    */
   throwableSplashing(throwable) {
     if (throwable.landed === false && throwable.splashed === false) {
@@ -73,11 +73,11 @@ class ObjectHandler {
       }, 500);
     }
   }
-/**
- * handles the hitting, when a throwable hits an enemy
- * @param {Object} throwable 
- * @param {Object} enemy 
- */
+  /**
+   * handles the hitting, when a throwable hits an enemy
+   * @param {Object} throwable
+   * @param {Object} enemy
+   */
   throwableHittingEnemy(throwable, enemy) {
     if (enemy instanceof Chicken || enemy instanceof Chick) {
       if (throwable.landed === false) {
@@ -96,7 +96,7 @@ class ObjectHandler {
 
   /**
    * each throwable has an individual id. this methods searches for the id in the array of all throwables and returns its index
-   * @param {int} id 
+   * @param {int} id
    * @returns {int} -1 for not found and 0...* for the acutal ID when found.
    */
   searchBottleWithID(id) {
@@ -115,7 +115,7 @@ class ObjectHandler {
 
   /**
    * handles the collision between a character and en enemy.
-   * @returns 
+   * @returns
    */
   checkCollisionsEnemies() {
     for (let element of this.world.level.enemies) {
@@ -135,8 +135,8 @@ class ObjectHandler {
   }
 
   /**
-   * handles the process when the character kills an enemy. 
-   * @param {Object} enemy 
+   * handles the process when the character kills an enemy.
+   * @param {Object} enemy
    */
   characterKillsEnemy(enemy) {
     this.world.character.activateInvulnerability();
@@ -145,7 +145,7 @@ class ObjectHandler {
 
   /**
    * handles to set the Enemy to attack mode, when the enemy is the endboss
-   * @param {Object} element 
+   * @param {Object} element
    */
   endBossAttackMode(element) {
     if (element instanceof Endboss) element.attacking();
@@ -157,7 +157,7 @@ class ObjectHandler {
   characterIsBeingHit() {
     if (!this.world.character.isInvulnerable) {
       this.world.character.hit();
-      this.world.statusBarHealth.setPercentage(this.world.character.energy);  
+      this.world.statusBarHealth.setPercentage(this.world.character.energy);
     }
   }
 
@@ -176,8 +176,8 @@ class ObjectHandler {
 
   /**
    * handles the coin after collision with the character, removes it from the world and to the characters inventory
-   * @param {Object} element 
-   * @param {int} i 
+   * @param {Object} element
+   * @param {int} i
    */
   collideCoin(element, i) {
     if (element instanceof Coin) {
@@ -189,8 +189,8 @@ class ObjectHandler {
   /**
    * handles the bottle after collision with the chracter, removes it from the world and to the chracters inventory,
    * when he has the space for it
-   * @param {Object} element 
-   * @param {int} i 
+   * @param {Object} element
+   * @param {int} i
    */
   collideBottle(element, i) {
     if (element instanceof Bottle) {
@@ -238,7 +238,7 @@ class ObjectHandler {
 
   /**
    * counts all elelements of the specified type in the collectables-Array
-   * @param {Object} type 
+   * @param {Object} type
    * @returns {int}
    */
   countCollectable(type) {
@@ -269,31 +269,50 @@ class ObjectHandler {
       this.world.character.resetLongIdleTime();
     }
   }
-/**
- * checks the side the character is facing and then returning a throwable-Object with the appropaite properties of coordinates
- * @returns {Object}
- */
+  /**
+   * checks the side the character is facing and then returning a throwable-Object with the appropaite properties of coordinates
+   * @returns {Object}
+   */
   checkThrowSide() {
     let bottle;
+
     if (this.world.character.otherDirection) {
-      bottle = new ThrowableObject(
-        this.world.character.x + 10,
-        this.world.character.y + 120,
-        -10
-      );
+      bottle = this.leftSideBottle();
     } else {
-      bottle = new ThrowableObject(
-        this.world.character.x + 40,
-        this.world.character.y + 120,
-        10
-      );
+      bottle = this.rightSideBottle();
     }
     return bottle;
   }
 
   /**
+   * makes bottle appear on left side of character
+   * @returns {object}
+   */
+  leftSideBottle() {
+    let bottle = new ThrowableObject(
+      this.world.character.x + 10,
+      this.world.character.y + 120,
+      -10
+    );
+    return bottle;
+  }
+
+  /**
+   * makes bottle appear on right side of character
+   * @returns {object}
+   */
+  rightSideBottle() {
+    let bottle = new ThrowableObject(
+      this.world.character.x + 40,
+      this.world.character.y + 120,
+      10
+    );
+    return bottle;
+  }
+
+  /**
    * throwing a bottle, moving it from the inventory of the character into the world
-   * @param {Object} bottle 
+   * @param {Object} bottle
    */
   throwBottle(bottle) {
     this.world.throwableObjects.push(bottle);

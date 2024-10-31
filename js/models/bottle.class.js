@@ -23,7 +23,7 @@ class Bottle extends CollectableObject {
     super();
     super.loadImage("img/6_salsa_bottle/salsa_bottle.png");
     super.loadImages(this.IMAGES);
-    this.x = 200 + Math.random() * 5 * 719;
+    this.x = 200 + (Math.random() * 4 * 719 - 200);
     this.animate();
     this.initCollisionBox();
   }

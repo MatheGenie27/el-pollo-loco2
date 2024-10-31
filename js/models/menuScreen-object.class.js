@@ -1,4 +1,3 @@
-
 /**
  * this represents the MenuScreen
  */
@@ -10,7 +9,6 @@ class MenuScreen extends DrawableObject {
 
   constructor() {
     super();
-
     this.loadImage("img/5_background/first_half_background.png");
   }
 }

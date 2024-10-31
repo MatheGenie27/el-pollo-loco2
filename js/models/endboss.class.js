@@ -101,15 +101,12 @@ class Endboss extends Enemy {
     super.loadImages(this.IMAGES_ATTACK);
     this.lastHit = Date.now();
     this.lastSprint = Date.now();
-
     this.x = 7 * 719;
     this.speed = 0.5 + Math.random() * 0.5;
     this.normalSpeed = this.speed;
-    this.sprintSpeed = 3 * this.normalSpeed + Math.random()*3;
-
+    this.sprintSpeed = 4 * this.normalSpeed + Math.random() * 3;
     //this.x=300;
     //this.speed =0;
-
     this.checkIfSound();
     this.handleControl();
   }
@@ -229,7 +226,7 @@ class Endboss extends Enemy {
   checkLevelBorder() {
     if (this.x <= -900) {
       this.x = 9 * 719;
-      }
+    }
   }
 
   /**
@@ -336,7 +333,6 @@ class Endboss extends Enemy {
       switch (true) {
         case this.run:
           this.runningBehaviour();
-
           break;
 
         case this.hurt:
@@ -350,25 +346,22 @@ class Endboss extends Enemy {
     }, 1000 / 60);
   }
 
-
+  /**
+   * controls running and sprinting
+   */
   runningBehaviour() {
-    // Prüfen, ob der nächste Sprint starten soll
     if (Date.now() - this.lastSprint > this.nextSprint) {
-        this.speed = this.sprintSpeed; // Sprintgeschwindigkeit aktivieren
-        this.sprintDuration = Math.random() * 1000 + 1000; // Zufällige Sprintdauer zwischen 1 und 2 Sekunden
-        this.lastSprint = Date.now(); // Zeitpunkt des Sprints aktualisieren
-        this.nextSprint = Math.random() * 3000 + 3000; // Nächsten Sprint-Zeitpunkt festlegen (zwischen 3 und 6 Sekunden)
+      this.speed = this.sprintSpeed;
+      this.sprintDuration = Math.random() * 2000 + 1000;
+      this.lastSprint = Date.now();
+      this.nextSprint = Math.random() * 3000 + 3000;
     }
 
-    // Prüfen, ob die Sprintdauer abgelaufen ist
     if (Date.now() - this.lastSprint > this.sprintDuration) {
-        this.speed = this.normalSpeed; // Geschwindigkeit zurücksetzen
+      this.speed = this.normalSpeed;
     }
-
-    this.moveLeft(); // Bewegung nach links
+    this.moveLeft();
   }
-  
-
 
   /**
    * handles the flags for the state the enemy is in
@@ -377,26 +370,11 @@ class Endboss extends Enemy {
     this.intervalFlag = setInterval(() => {
       this.checkEnergy();
       this.resetFlags();
-
-      if (this.controlMovement() == "run") {
-        this.run = true;
-      }
-
-      if (this.controlMovement() == "alert") {
-        this.alert = true;
-      }
-
-      if (this.controlMovement() == "attack") {
-        this.attack = true;
-      }
-
-      if (this.controlMovement() == "hurt") {
-        this.hurt = true;
-      }
-
-      if (this.controlMovement() == "dead") {
-        this.dead = true;
-      }
+      if (this.controlMovement() == "run") this.run = true;
+      if (this.controlMovement() == "alert")this.alert = true;
+      if (this.controlMovement() == "attack")this.attack = true;
+      if (this.controlMovement() == "hurt")this.hurt = true;
+      if (this.controlMovement() == "dead")this.dead = true;
     }, 1000 / 20);
   }
 }

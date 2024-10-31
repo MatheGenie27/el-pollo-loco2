@@ -111,7 +111,6 @@ class EndbossAI {
       case "hit":
         this.status = "hurt";
         this.hurtTime = Date.now();
-
         break;
 
       case "attack":

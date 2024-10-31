@@ -62,11 +62,9 @@ class Coin extends CollectableObject {
   generateNonOverlappingX() {
     let newX;
     let isOverlapping;
-
     do {
       isOverlapping = false;
       newX = 150 + Math.random() * (1950 / 1);
-
       for (let i = 0; i < Coin.allCoins.length; i++) {
         if (Math.abs(newX + 50 - Coin.allCoins[i]) < 50) {
           isOverlapping = true;
@@ -74,7 +72,6 @@ class Coin extends CollectableObject {
         }
       }
     } while (isOverlapping);
-
     return newX;
   }
 
@@ -96,7 +93,6 @@ class Coin extends CollectableObject {
     }
     let currentTime = new Date().getTime();
     let passedTime = currentTime - this.starttime;
-
     this.y =
       Math.sin(passedTime * this.frequency) * this.amplitude +
       this.y_displacement;
