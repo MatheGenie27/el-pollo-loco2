@@ -157,7 +157,7 @@ class ObjectHandler {
   characterIsBeingHit() {
     if (!this.world.character.isInvulnerable) {
       this.world.character.hit();
-      this.world.statusBarHealth.setPercentage(this.world.character.energy);
+      this.world.statusBarHealth.setPercentage(this.world.character.energy);  
     }
   }
 

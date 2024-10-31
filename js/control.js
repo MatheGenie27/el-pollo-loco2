@@ -46,6 +46,12 @@ window.addEventListener("keyup", (e) => {
   }
 });
 
+/**
+ * prevents the context menu from appearing when touching the screen on mobile
+ */
+document.addEventListener('contextmenu', function(event) {
+  event.preventDefault();
+});
 
 // adding listeners for touch events for mobile controls
 

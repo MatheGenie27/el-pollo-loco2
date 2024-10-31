@@ -1,7 +1,7 @@
 let level1 = new Level();
 cloudNumber = 5;
 coinNumber = 10;
-bottleNumber = 15;
+bottleNumber = 10;
 chickNumber = 20;
 chickenNumber = 10;
 
@@ -13,7 +13,7 @@ function initLevelStructure() {
 }
 
 function initBackground() {
-  for (let i = -1; i < 7; i++) {
+  for (let i = -1; i < 8; i++) {
     if (i % 2 == 0) {
       level1.backgroundObjects.push(
         new BackgroundObject("img/5_background/layers/air.png", i * 719)
@@ -99,7 +99,7 @@ async function initEnemies() {
       initChickens();
       initEndboss();
     } catch {
-      console.err("Creatiin of Enemies failed");
+      console.error("Creation of Enemies failed");
     }
     resolve();
   });
@@ -118,5 +118,9 @@ function initChickens() {
 }
 
 function initEndboss() {
+  try{
   level1.enemies.push(new Endboss());
+  } catch{
+    console.error("Enboss nicht erzeugt");
+  }
 }

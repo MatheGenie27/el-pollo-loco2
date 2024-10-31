@@ -3,15 +3,17 @@
  */
 class Endboss extends Enemy {
   x = 500;
-  y = 250;
-  width = 150;
-  height = 200;
+  y = 75;
+  width = 300;
+  height = 400;
   speed = 0.1;
+  normalSpeed;
+  sprintSpeed;
 
-  coll_height = 150;
-  coll_width = 133;
-  coll_x = 500;
-  coll_y = 285;
+  coll_height = 300;
+  coll_width = 225;
+  coll_x = 340;
+  coll_y = 145;
 
   energy = 100;
   lastHit = 0;
@@ -21,7 +23,10 @@ class Endboss extends Enemy {
   alert = false;
   attack = false;
   run = false;
-
+  sprint = false;
+  lastSprint;
+  nextSprint = 5000;
+  sprintDuration;
   zone_left = 2100;
 
   brain;
@@ -95,11 +100,14 @@ class Endboss extends Enemy {
     super.loadImages(this.IMAGES_ALERT);
     super.loadImages(this.IMAGES_ATTACK);
     this.lastHit = Date.now();
+    this.lastSprint = Date.now();
 
     this.x = 7 * 719;
-    this.speed = 0.25 + Math.random() * 0.25;
+    this.speed = 0.5 + Math.random() * 0.5;
+    this.normalSpeed = this.speed;
+    this.sprintSpeed = 3 * this.normalSpeed + Math.random()*3;
 
-    //this.x=500;
+    //this.x=300;
     //this.speed =0;
 
     this.checkIfSound();
@@ -167,7 +175,7 @@ class Endboss extends Enemy {
    * updates Collisionbox in relation to the coordinates
    */
   updateCollisionBox() {
-    this.coll_x = this.x + 10;
+    this.coll_x = this.x + 40;
   }
 
   /**
@@ -219,9 +227,9 @@ class Endboss extends Enemy {
    * checks if enemy has run off the left side of the game and make it reappear on the right side of the game
    */
   checkLevelBorder() {
-    if (this.x <= -7190) {
-      this.x = 7 * 719;
-    }
+    if (this.x <= -900) {
+      this.x = 9 * 719;
+      }
   }
 
   /**
@@ -327,10 +335,7 @@ class Endboss extends Enemy {
 
       switch (true) {
         case this.run:
-          this.moveLeft();
-          if (this.x <= -719) {
-            this.x = 6 * 719;
-          }
+          this.runningBehaviour();
 
           break;
 
@@ -344,6 +349,26 @@ class Endboss extends Enemy {
       }
     }, 1000 / 60);
   }
+
+
+  runningBehaviour() {
+    // Prüfen, ob der nächste Sprint starten soll
+    if (Date.now() - this.lastSprint > this.nextSprint) {
+        this.speed = this.sprintSpeed; // Sprintgeschwindigkeit aktivieren
+        this.sprintDuration = Math.random() * 1000 + 1000; // Zufällige Sprintdauer zwischen 1 und 2 Sekunden
+        this.lastSprint = Date.now(); // Zeitpunkt des Sprints aktualisieren
+        this.nextSprint = Math.random() * 3000 + 3000; // Nächsten Sprint-Zeitpunkt festlegen (zwischen 3 und 6 Sekunden)
+    }
+
+    // Prüfen, ob die Sprintdauer abgelaufen ist
+    if (Date.now() - this.lastSprint > this.sprintDuration) {
+        this.speed = this.normalSpeed; // Geschwindigkeit zurücksetzen
+    }
+
+    this.moveLeft(); // Bewegung nach links
+  }
+  
+
 
   /**
    * handles the flags for the state the enemy is in

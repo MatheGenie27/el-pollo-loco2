@@ -133,6 +133,8 @@ class Character extends MovableObject {
 
     this.SNORING_SOUND.volume = 0.5;
     this.WALKING_SOUND.volume = 1;
+
+    
   }
 
   /**
@@ -291,9 +293,13 @@ class Character extends MovableObject {
    * handles the input of jumping
    */
   inputJump() {
-    this.jump();
-    this.jumping = true;
-  }
+    const now = Date.now(); 
+    if (!this.lastJump || now - this.lastJump >= 1100) { 
+        this.jump(); 
+        this.jumping = true;
+        this.lastJump = now; 
+    }
+}
 
   /**
    * handles animation regarding to the state the character is in

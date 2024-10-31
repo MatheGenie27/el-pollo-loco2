@@ -159,8 +159,8 @@ class Chicken extends Enemy {
    * checks if the enemy has run off the left side of the game and make it reappear on the right side
    */
   checkBorder() {
-    if (this.x <= -719) {
-      this.x = 6 * 719;
+    if (this.x <= -900) {
+      this.x = 9 * 719;
     }
   }
 
