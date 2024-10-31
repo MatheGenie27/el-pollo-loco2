@@ -174,8 +174,9 @@ class MusicHandler {
    * plays music when the endgame is reached
    */
   playEndbossMusic() {
+    if(this.isGameMusicPlay){
     this.GAME_MUSIC.pause();
-    this.isGameMusicPlay = false;
+    this.isGameMusicPlay = false;}
     if (!this.isEndbossMusicPlay) {
       this.ENDBOSS_MUSIC.loop = true;
       this.ENDBOSS_MUSIC.play();

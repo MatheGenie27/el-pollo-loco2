@@ -314,7 +314,7 @@ class Endboss extends Enemy {
     setTimeout(() => {
       this.playedDeadAnimation = true;
     }, 800);
-    if (sound && this.deadSoundNotPlayed) {
+    if (sound && this.soundRange &&this.deadSoundNotPlayed) {
       this.AUDIO_CHICKENYELL.play();
       this.deadSoundNotPlayed = false;
     }
